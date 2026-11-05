@@ -7,74 +7,106 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 :root {
-  --bg: #f1f5f9;
+  --bg: #f3f6fa;
+  --bg-elev: #eaf0f6;
   --card: #ffffff;
   --ink: #0f172a;
   --mute: #475569;
   --line: #cbd5e1;
-  --cu: #b45309;
-  --cu-soft: #fef3c7;
-  --ttl: #1e3a5f;
-  --head: #1e293b;
+  --cu: #c25e1a;
+  --cu-bright: #e07a2e;
+  --cu-soft: rgba(194, 94, 26, 0.12);
+  --cu-border: rgba(194, 94, 26, 0.35);
+  --ttl: #162c46;
+  --head: rgba(15, 23, 36, 0.94);
   --headink: #f8fafc;
   --hl: #f59e0b;
-  --btn: #1e3a5f;
+  --btn: #162c46;
   --btnink: #ffffff;
   --warn: #b91c1c;
   --warn-bg: #fef2f2;
-  --ok: #15803d;
-  --ok-bg: #f0fdf4;
+  --warn-border: #fca5a5;
+  --ok: #047857;
+  --ok-bg: #ecfdf5;
+  --ok-border: #6ee7b7;
+  --info: #1d4ed8;
+  --info-bg: #eff6ff;
+  --info-border: #93c5fd;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0b111b;
-    --card: #151f2e;
+    --bg: #0b1017;
+    --bg-elev: #111924;
+    --card: #16202d;
     --ink: #e2e8f0;
     --mute: #94a3b8;
-    --line: #283548;
-    --cu: #f59e0b;
-    --cu-soft: #2e2312;
+    --line: #263547;
+    --cu: #f0944d;
+    --cu-bright: #f7ad72;
+    --cu-soft: rgba(240, 148, 77, 0.14);
+    --cu-border: rgba(240, 148, 77, 0.4);
     --ttl: #f8fafc;
-    --head: #070b12;
+    --head: rgba(9, 13, 20, 0.92);
     --headink: #f1f5f9;
     --hl: #f59e0b;
-    --btn: #f59e0b;
-    --btnink: #0f172a;
+    --btn: #e08238;
+    --btnink: #0b1017;
     --warn: #fca5a5;
-    --warn-bg: #35161b;
-    --ok: #86efac;
-    --ok-bg: #112a1e;
+    --warn-bg: rgba(185, 28, 28, 0.18);
+    --warn-border: rgba(248, 113, 113, 0.4);
+    --ok: #6ee7b7;
+    --ok-bg: rgba(4, 120, 87, 0.2);
+    --ok-border: rgba(52, 211, 153, 0.4);
+    --info: #93c5fd;
+    --info-bg: rgba(29, 78, 216, 0.2);
+    --info-border: rgba(96, 165, 250, 0.4);
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0b111b;
-  --card: #151f2e;
+  --bg: #0b1017;
+  --bg-elev: #111924;
+  --card: #16202d;
   --ink: #e2e8f0;
   --mute: #94a3b8;
-  --line: #283548;
-  --cu: #f59e0b;
-  --cu-soft: #2e2312;
+  --line: #263547;
+  --cu: #f0944d;
+  --cu-bright: #f7ad72;
+  --cu-soft: rgba(240, 148, 77, 0.14);
+  --cu-border: rgba(240, 148, 77, 0.4);
   --ttl: #f8fafc;
-  --head: #070b12;
+  --head: rgba(9, 13, 20, 0.92);
   --headink: #f1f5f9;
   --hl: #f59e0b;
-  --btn: #f59e0b;
-  --btnink: #0f172a;
+  --btn: #e08238;
+  --btnink: #0b1017;
   --warn: #fca5a5;
-  --warn-bg: #35161b;
-  --ok: #86efac;
-  --ok-bg: #112a1e;
+  --warn-bg: rgba(185, 28, 28, 0.18);
+  --warn-border: rgba(248, 113, 113, 0.4);
+  --ok: #6ee7b7;
+  --ok-bg: rgba(4, 120, 87, 0.2);
+  --ok-border: rgba(52, 211, 153, 0.4);
+  --info: #93c5fd;
+  --info-bg: rgba(29, 78, 216, 0.2);
+  --info-border: rgba(96, 165, 250, 0.4);
 }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 * { box-sizing: border-box; }
 body {
   margin: 0;
   background: var(--bg);
+  background-image: radial-gradient(circle at 50% 0%, var(--cu-soft), transparent 55%);
+  background-attachment: fixed;
   color: var(--ink);
-  font: 15.5px/1.45 "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 15px/1.48 "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
 }
 body::before {
   content: "";
@@ -82,156 +114,244 @@ body::before {
   inset: 0 0 auto;
   height: env(safe-area-inset-top, 0px);
   background: var(--head);
-  z-index: 20;
+  z-index: 30;
 }
 header {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
-  z-index: 19;
+  z-index: 29;
   background: var(--head);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   color: var(--headink);
-  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   padding: 12px 16px 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.22);
 }
 .hbar {
-  max-width: 980px;
-  margin: 0 auto;
+  max-width: 1280px;
+  margin: 0 auto 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 6px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #d97736, #9a3e0c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(217, 119, 54, 0.4);
+  flex-shrink: 0;
 }
 h1 {
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 1.12rem;
+  font-weight: 800;
   margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.brand-sub {
+  font-size: 0.74rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+.h-actions {
   display: flex;
   align-items: center;
   gap: 8px;
-  letter-spacing: -0.01em;
+}
+.db-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+.db-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
 }
 .theme-btn {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.1);
   color: var(--headink);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 9px;
+  padding: 6px 11px;
+  font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.15s;
 }
+.theme-btn:hover { background: rgba(255,255,255,0.18); }
+
 nav {
-  max-width: 980px;
+  max-width: 1280px;
   margin: 0 auto;
   display: flex;
-  gap: 2px;
+  gap: 4px;
   overflow-x: auto;
   scrollbar-width: none;
 }
 nav::-webkit-scrollbar { display: none; }
 nav button {
   flex: 1 0 auto;
-  padding: 10px 10px;
+  padding: 10px 12px;
   border: 0;
   border-bottom: 3px solid transparent;
   background: none;
   color: var(--headink);
   opacity: 0.65;
   font: inherit;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: opacity 0.15s, border-color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: opacity 0.15s, border-color 0.15s, color 0.15s;
 }
-nav button:hover { opacity: 0.9; }
+nav button:hover { opacity: 0.95; }
 nav button[aria-selected="true"] {
   opacity: 1;
   border-color: var(--hl);
   color: var(--hl);
 }
+
 main {
-  max-width: 980px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 16px;
 }
 section { display: none; }
 section.on { display: block; }
+
+/* Grille 2 colonnes sur grand écran pour l'onglet Calculer */
+.calc-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: start;
+}
+@media (min-width: 980px) {
+  .calc-layout {
+    grid-template-columns: 500px 1fr;
+  }
+}
+
 .c {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
   padding: 18px;
   margin-bottom: 16px;
 }
+.sub-box {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 12px;
+}
+.sub-box-title {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cu);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 h2 {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.02rem;
+  font-weight: 800;
   margin: 0 0 10px;
   color: var(--ttl);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  flex-wrap: wrap;
 }
 h3 {
-  font-size: 0.88rem;
-  font-weight: 700;
-  margin: 14px 0 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin: 16px 0 6px;
   color: var(--mute);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
 }
+
 .g {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 @media (min-width: 720px) {
-  .g-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-  .g-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
+  .g-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .g-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 }
 @media (max-width: 719px) {
-  .g-3, .g-4 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
+  .g-3, .g-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 }
+
 .f {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--mute);
 }
 .w { grid-column: 1 / -1; }
+
 input, select, textarea {
   width: 100%;
   margin-top: 4px;
   padding: 10px 11px;
   font: inherit;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.94rem;
+  font-weight: 600;
   color: var(--ink);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input[inputmode="numeric"], input[inputmode="decimal"], #pitch, #rpitch, #spitch, #essai, #apP {
+  font-family: var(--mono);
 }
 input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-visible {
-  outline: 2.5px solid var(--cu);
-  outline-offset: 1px;
+  outline: none;
+  border-color: var(--cu);
+  box-shadow: 0 0 0 3px var(--cu-soft);
 }
+
 .b {
   width: 100%;
   padding: 12px 14px;
@@ -243,18 +363,122 @@ input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-
   border: 0;
   border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.08s, opacity 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: transform 0.08s, filter 0.15s;
 }
+.b:hover { filter: brightness(1.06); }
 .b:active { transform: scale(0.99); }
 .b.s {
-  background: transparent;
+  background: var(--card);
   color: var(--ink);
   border: 1.5px solid var(--line);
 }
+.b.s:hover { border-color: var(--cu); }
 .b.cu {
-  background: var(--cu);
-  color: #fff;
+  background: linear-gradient(135deg, #d97736, #b45309);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(180, 83, 9, 0.3);
 }
+
+/* Barre de préréglages rapides */
+.preset-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+  scrollbar-width: none;
+}
+.preset-bar::-webkit-scrollbar { display: none; }
+.preset-chip {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  background: var(--bg-elev);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.preset-chip:hover {
+  border-color: var(--cu);
+  background: var(--cu-soft);
+}
+
+/* Cartes KPI dans les résultats */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 12px 0;
+}
+@media (min-width: 640px) {
+  .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.kpi-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 12px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card.hi {
+  border-color: var(--cu-border);
+  background: var(--cu-soft);
+}
+.kpi-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--mute);
+  margin-bottom: 3px;
+}
+.kpi-val {
+  font-family: var(--mono);
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.kpi-card.hi .kpi-val { color: var(--cu); }
+.kpi-sub {
+  font-size: 0.74rem;
+  color: var(--mute);
+  margin-top: 3px;
+}
+
+/* Bannière de montage des crans */
+.crans-banner {
+  background: var(--bg-elev);
+  border: 1.5px solid var(--cu-border);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 12px 0;
+}
+.cran-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 9px;
+  margin: 2px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #d97736, #b45309);
+  color: #ffffff;
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(180, 83, 9, 0.3);
+}
+
 .r {
   display: flex;
   justify-content: space-between;
@@ -262,67 +486,105 @@ input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-
   gap: 10px;
   padding: 7px 0;
   border-bottom: 1px solid var(--line);
+  font-size: 0.92rem;
 }
 .r:last-child { border-bottom: 0; }
 .r b {
   color: var(--cu);
   text-align: right;
   font-weight: 700;
+  font-family: var(--mono);
 }
+
 .err {
   color: var(--warn);
   background: var(--warn-bg);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 0;
-  margin-top: 8px;
-  font-size: 0.9rem;
+  margin-top: 10px;
+  font-size: 0.88rem;
   font-weight: 600;
 }
 .err:not(:empty) {
-  padding: 10px 12px;
-  border: 1px solid var(--warn);
+  padding: 11px 14px;
+  border: 1px solid var(--warn-border);
 }
-.mute { color: var(--mute); font-size: 0.84rem; }
+.mute { color: var(--mute); font-size: 0.83rem; }
 .warn {
   color: var(--warn);
   background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
   border-left: 4px solid var(--warn);
   padding: 10px 12px;
-  border-radius: 6px;
-  font-size: 0.86rem;
+  border-radius: 8px;
+  font-size: 0.84rem;
   margin-top: 10px;
 }
 .ok-box {
   color: var(--ok);
   background: var(--ok-bg);
+  border: 1px solid var(--ok-border);
   border-left: 4px solid var(--ok);
   padding: 10px 12px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 0.86rem;
   margin-top: 8px;
 }
-.ph { margin: 7px 0; font-size: 0.94rem; }
+.info-box {
+  color: var(--info);
+  background: var(--info-bg);
+  border: 1px solid var(--info-border);
+  border-left: 4px solid var(--info);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+.ph { margin: 7px 0; font-size: 0.93rem; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  background: var(--cu-soft);
+  color: var(--cu);
+  border: 1px solid var(--cu-border);
+}
+.badge.ok { background: var(--ok-bg); color: var(--ok); border-color: var(--ok-border); }
+.badge.info { background: var(--info-bg); color: var(--info); border-color: var(--info-border); }
+.badge.warn { background: var(--warn-bg); color: var(--warn); border-color: var(--warn-border); }
+
 .job {
   display: flex;
   gap: 10px;
   align-items: center;
-  padding: 10px 0;
+  padding: 12px 0;
   border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
 }
 .job:last-child { border-bottom: 0; }
-.job div { flex: 1; min-width: 0; }
+.job div { flex: 1; min-width: 200px; }
 .job button {
   padding: 8px 12px;
   border: 1px solid var(--line);
-  background: var(--bg);
+  background: var(--bg-elev);
   color: var(--ink);
   border-radius: 8px;
   font: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.83rem;
+  font-weight: 700;
   cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
 }
-.job button:hover { border-color: var(--cu); }
+.job button:hover {
+  border-color: var(--cu);
+  background: var(--cu-soft);
+}
+
 #toast {
   position: fixed;
   left: 50%;
@@ -332,35 +594,37 @@ input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-
   color: var(--bg);
   padding: 11px 18px;
   border-radius: 10px;
-  font-weight: 600;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
   display: none;
-  z-index: 80;
+  z-index: 90;
   max-width: 92vw;
   text-align: center;
 }
+
 .th {
   width: 52px;
   height: 52px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--cu);
   flex: none;
-  background: var(--bg);
+  background: var(--bg-elev);
 }
 .th img { width: 100%; height: 100%; object-fit: cover; }
 .job.d { cursor: pointer; }
+
 #viewer {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 55;
+  z-index: 65;
   background: var(--bg);
   flex-direction: column;
   padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
@@ -380,15 +644,16 @@ input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-
   border: 1px solid rgba(255,255,255,0.3);
   background: none;
   color: var(--headink);
-  border-radius: 6px;
+  border-radius: 7px;
   font: inherit;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
+  font-weight: 600;
   cursor: pointer;
 }
 #vc { flex: 1; overflow: auto; display: flex; flex-direction: column; align-items: center; padding: 12px; }
 #vc img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
 #vc iframe { width: 100%; flex: 1; border: 0; min-height: 70vh; }
-#vc a { padding: 10px; color: var(--cu); font-weight: 600; }
+#vc a { padding: 10px; color: var(--cu); font-weight: 700; }
 #vm {
   background: var(--card);
   border-bottom: 1px solid var(--line);
@@ -396,39 +661,47 @@ input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-
   max-height: 55vh;
   overflow: auto;
 }
-#vm summary { font-weight: 600; cursor: pointer; padding: 4px 0; }
+#vm summary { font-weight: 700; cursor: pointer; padding: 4px 0; }
+
 .cr {
   display: flex;
   gap: 6px;
   align-items: center;
-  padding: 6px 0;
+  padding: 7px 0;
   border-bottom: 1px solid var(--line);
 }
-.cr span { flex: 1; }
+.cr span { flex: 1; font-weight: 600; }
 .cr button {
   padding: 6px 10px;
   border: 1px solid var(--line);
-  background: none;
+  background: var(--bg-elev);
   color: var(--ink);
   border-radius: 6px;
   font: inherit;
+  font-size: 0.82rem;
   cursor: pointer;
 }
+
 .pk { display: flex; gap: 6px; margin-top: 4px; }
 .pk input { margin-top: 0; flex: 1; }
 .pk button {
-  width: 46px;
-  border: 1px solid var(--line);
-  background: var(--bg);
+  width: 44px;
+  border: 1.5px solid var(--cu-border);
+  background: var(--cu-soft);
   color: var(--cu);
-  border-radius: 8px;
-  font-size: 1.15rem;
-  font-weight: 700;
+  border-radius: 9px;
+  font-size: 1.1rem;
+  font-weight: 800;
   cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, transform 0.08s;
 }
-#pk { display: none; position: fixed; inset: 0; z-index: 60; }
+.pk button:hover { background: var(--cu); color: #fff; }
+.pk button:active { transform: scale(0.96); }
+
+#pk { display: none; position: fixed; inset: 0; z-index: 70; }
 #pk.open { display: block; }
-.pkb { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+.pkb { position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); }
 .pks {
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -437,16 +710,20 @@ input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-
   max-height: 94%;
   overflow: auto;
   background: var(--card);
-  border-radius: 18px 18px 0 0;
+  border-top: 2px solid var(--cu);
+  border-radius: 20px 20px 0 0;
   padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.35);
 }
-.pkw { position: relative; display: flex; gap: 8px; height: 176px; margin: 10px 0; }
+.pkw { position: relative; display: flex; gap: 8px; height: 176px; margin: 10px 0; background: var(--bg-elev); border-radius: 12px; }
 .pkband {
   position: absolute;
-  left: 0; right: 0; top: 66px;
+  left: 8px; right: 8px; top: 66px;
   height: 44px;
   border-top: 2px solid var(--cu);
   border-bottom: 2px solid var(--cu);
+  background: var(--cu-soft);
+  border-radius: 6px;
   pointer-events: none;
 }
 .col {
@@ -457,39 +734,50 @@ input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-
   text-align: center;
   scrollbar-width: none;
   overscroll-behavior: contain;
+  position: relative;
+  z-index: 2;
 }
 .col::-webkit-scrollbar { display: none; }
-.col div { height: 44px; line-height: 44px; scroll-snap-align: center; font-size: 1.3rem; font-weight: 600; }
+.col div {
+  height: 44px;
+  line-height: 44px;
+  scroll-snap-align: center;
+  font-family: var(--mono);
+  font-size: 1.28rem;
+  font-weight: 700;
+}
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
 .chip {
   display: inline-flex;
   border: 1px solid var(--line);
   border-radius: 16px;
   overflow: hidden;
-  background: var(--bg);
+  background: var(--bg-elev);
 }
 .chip button {
   border: 0;
   background: none;
   color: var(--ink);
   padding: 6px 10px;
-  font: inherit;
-  font-size: 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  font-weight: 700;
   cursor: pointer;
 }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
 label.b { display: block; text-align: center; cursor: pointer; }
+
 details.adv {
   margin-top: 12px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 10px 12px;
-  background: var(--bg);
+  background: var(--bg-elev);
 }
 details.adv > summary {
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   color: var(--ttl);
   cursor: pointer;
   user-select: none;
@@ -506,209 +794,483 @@ details.adv > summary::after {
   transition: transform 0.2s;
 }
 details.adv[open] > summary::after { transform: rotate(180deg); }
-.badge {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  background: var(--cu-soft);
-  color: var(--cu);
-}
+
 .svg-wrap {
   width: 100%;
   overflow-x: auto;
-  background: var(--bg);
+  background: var(--bg-elev);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 12px;
+  padding: 12px;
   margin-top: 10px;
 }
 .tab-sub {
-  display: inline-flex;
+  display: flex;
   gap: 6px;
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
 .tab-sub button {
-  padding: 6px 12px;
-  border-radius: 8px;
+  padding: 7px 12px;
+  border-radius: 9px;
   border: 1px solid var(--line);
-  background: var(--bg);
+  background: var(--bg-elev);
   color: var(--ink);
-  font-size: 0.84rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   cursor: pointer;
+  transition: all 0.15s;
 }
 .tab-sub button.act {
-  background: var(--cu);
+  background: linear-gradient(135deg, #d97736, #b45309);
   color: #fff;
-  border-color: var(--cu);
+  border-color: #b45309;
 }
+
 .tbl {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.84rem;
+  font-size: 0.83rem;
 }
 .tbl th, .tbl td {
-  padding: 7px 8px;
+  padding: 8px 9px;
   border-bottom: 1px solid var(--line);
   text-align: left;
+  font-family: var(--mono);
 }
 .tbl th {
+  font-family: inherit;
   color: var(--mute);
   font-weight: 700;
-  background: var(--bg);
+  background: var(--bg-elev);
+  position: sticky;
+  top: 0;
 }
+
+/* Puces de sélection rapide (Quick-Tap Chips) sous Encoches & Pôles */
+.qchips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+}
+.qchip {
+  flex: 1 0 auto;
+  min-width: 38px;
+  padding: 5px 8px;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.12s;
+}
+.qchip:hover, .qchip.on {
+  border-color: var(--cu);
+  background: var(--cu);
+  color: #ffffff;
+}
+
+/* Bannière de correspondance intelligente en direct */
+.match-banner {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--ok-bg);
+  border: 1.5px solid var(--ok-border);
+  color: var(--ink);
+  font-size: 0.83rem;
+}
+.match-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 6px 0;
+  border-top: 1px dashed var(--ok-border);
+}
+.match-item:first-of-type { border-top: 0; padding-top: 2px; }
+.match-btn {
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: var(--ok);
+  color: #ffffff;
+  border: 0;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.match-btn.alt {
+  background: transparent;
+  color: var(--ok);
+  border: 1px solid var(--ok);
+}
+
+/* Barre d'ajustement rapide de la largeur de forme (-1/8 / +1/8) */
+.nudge-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+.nudge-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--cu-border);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.79rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.nudge-btn:hover {
+  background: var(--cu);
+  color: #ffffff;
+  border-color: var(--cu);
+}
+
+/* Mode Atelier Plein Écran (Mains libres & Anti-veille) */
+#workshopModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  background: #090d14;
+  color: #f8fafc;
+  flex-direction: column;
+  padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+}
+#workshopModal.open { display: flex; }
+.wk-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 18px;
+  background: #111827;
+  border-bottom: 1px solid #1f2937;
+  flex-wrap: wrap;
+}
+.wk-body {
+  flex: 1;
+  overflow-y: auto;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.wk-giant-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 720px) {
+  .wk-giant-grid { grid-template-columns: 1fr 1.35fr; }
+}
+.wk-box {
+  background: #131c2b;
+  border: 2px solid #263548;
+  border-radius: 18px;
+  padding: 18px;
+}
+.wk-box.active-focus {
+  border-color: #f59e0b;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.15);
+}
+.wk-cran-step {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 74px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 2px solid #334155;
+  background: #1e293b;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.wk-cran-step.cur {
+  background: linear-gradient(135deg, #f59e0b, #d97736);
+  color: #090d14;
+  border-color: #fde68a;
+  transform: scale(1.07);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.4);
+}
+.wk-cran-step.done {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #6ee7b7;
+}
+.wk-big-btn {
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 2px solid #334155;
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 1.08rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.wk-big-btn.pri {
+  background: linear-gradient(135deg, #f59e0b, #d97736);
+  color: #090d14;
+  border-color: #fbbf24;
+}
+.wk-big-btn:active { transform: scale(0.98); }
+
 @media print {
-  header, .b, #toast, nav, #apCard, .no-print { display: none !important; }
+  header, .b, #toast, nav, #apCard, .no-print, #colInput, #emptyState, #workshopModal { display: none !important; }
   section { display: none !important; }
   #t-calc { display: block !important; }
-  #t-calc > .c:first-child { display: none !important; }
+  .calc-layout { display: block !important; }
   #res { display: block !important; box-shadow: none !important; border: 0 !important; padding: 0 !important; }
+  #svgFormeWrap, #svgCircleWrap, #svgLinearWrap { display: block !important; page-break-inside: avoid; border: 1px solid #cbd5e1 !important; background: #fff !important; margin-bottom: 12px !important; }
   body { background: #fff !important; color: #000 !important; }
   body::before { display: none !important; }
-  .svg-wrap { border: 1px solid #ccc !important; background: #fff !important; break-inside: avoid; }
 }
 </style>
 </head>
 <body>
 <header>
   <div class="hbar">
-    <h1>
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--hl)"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/></svg>
-      <span>Bobinage · Atelier & Fiche de rebobinage</span>
-    </h1>
-    <button type="button" class="theme-btn" id="bTheme" title="Basculer le thème clair / sombre">🌓 Thème</button>
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <circle cx="12" cy="12" r="3.5"/>
+          <path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Bobinage · Atelier & Fiche de rebobinage</h1>
+        <div class="brand-sub">Calcul de forme à crans, schémas statoriques & tables NEMA</div>
+      </div>
+    </div>
+    <div class="h-actions">
+      <span class="db-pill" title="Base de données d'atelier active">
+        <span class="db-dot"></span>
+        <span id="hdrDbCount">45 fiches vérifiées</span>
+      </span>
+      <button type="button" class="theme-btn" id="bTheme" title="Basculer le mode Clair / Sombre">
+        <span id="themeIcon">🌓</span>
+        <span id="themeTxt">Thème</span>
+      </button>
+    </div>
   </div>
-  <nav role="tablist">
-    <button role="tab" data-t="calc">Calculer</button>
-    <button role="tab" data-t="cat">Catalogue (45+)</button>
-    <button role="tab" data-t="tools">Outils & AWG</button>
-    <button role="tab" data-t="jobs">Travaux</button>
-    <button role="tab" data-t="docs">Docs & Photos</button>
-    <button role="tab" data-t="set">Réglages</button>
+  <nav role="tablist" aria-label="Menu principal">
+    <button role="tab" data-t="calc">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+      Calculer
+    </button>
+    <button role="tab" data-t="cat">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Catalogue (45+)
+    </button>
+    <button role="tab" data-t="tools">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Outils & AWG
+    </button>
+    <button role="tab" data-t="jobs">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      Travaux
+    </button>
+    <button role="tab" data-t="docs">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Docs & Photos
+    </button>
+    <button role="tab" data-t="set">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+      Réglages
+    </button>
   </nav>
 </header>
 
 <main>
 <!-- ==================== ONGLET 1 : CALCULER ==================== -->
 <section id="t-calc">
-  <div class="c">
-    <h2>
-      <span>Données du moteur & bobinage</span>
-      <button type="button" id="bClearForm" class="text-xs px-2.5 py-1 rounded border border-slate-400/40 font-semibold hover:opacity-80">Effacer les champs</button>
-    </h2>
+  <div class="calc-layout">
+    <!-- COLONNE GAUCHE : SAISIE -->
+    <div id="colInput">
+      <div class="c">
+        <h2>
+          <span>Paramètres du moteur</span>
+          <span style="display:flex;align-items:center;gap:8px">
+            <span id="draftStatus" class="mute" style="font-size:0.72rem;font-weight:600">✓ Brouillon auto</span>
+            <button type="button" id="bUndoForm" style="display:none" class="text-xs px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-500 border border-amber-500/40 font-bold">↶ Annuler</button>
+            <button type="button" id="bClearForm" class="text-xs px-2.5 py-1 rounded-lg border border-slate-400/40 font-bold hover:opacity-80">Nouveau / Vider</button>
+          </span>
+        </h2>
 
-    <div class="g">
-      <label class="f">Type de moteur
-        <select id="mode">
-          <option value="3">Triphasé (3 phases)</option>
-          <option value="1">Monophasé : Run + Start</option>
-        </select>
-      </label>
-      <label class="f">Couches d'enroulement
-        <select id="couches">
-          <option value="2">Double couche (2 côtés/encoche)</option>
-          <option value="1">Simple couche (1 côté/encoche)</option>
-        </select>
-      </label>
-    </div>
+        <!-- Barre d'exemples rapides en 1 clic -->
+        <div class="mute" style="font-size:0.75rem;font-weight:700;margin-bottom:4px">DÉMARRAGE RAPIDE (CHARGER UN MOTEUR VÉRIFIÉ) :</div>
+        <div class="preset-bar" id="presetBar">
+          <button type="button" class="preset-chip" data-pre="mono36">⚡ Mono 36 enc. (Ø 3 1/8" · 5-7-9)</button>
+          <button type="button" class="preset-chip" data-pre="mono24">⚡ Mono 24 enc. (Ø 4" · 4-6-8-10-12)</button>
+          <button type="button" class="preset-chip" data-pre="tri36">⚙️ Tri 36 enc. (5 HP · Ø 4 3/4" · 5-7-9)</button>
+          <button type="button" class="preset-chip" data-pre="tri48">⚙️ Tri 48 enc. (15 HP · Ø 7 1/2" · 8-10-12)</button>
+        </div>
 
-    <div class="g" id="form" style="margin-top:10px"></div>
+        <div class="g">
+          <label class="f">Type de moteur
+            <select id="mode">
+              <option value="3">Triphasé (3 phases)</option>
+              <option value="1">Monophasé : Run + Start</option>
+            </select>
+          </label>
+          <label class="f">Couches d'enroulement
+            <select id="couches">
+              <option value="2">Double couche (2 côtés/enc.)</option>
+              <option value="1">Simple couche (1 côté/enc.)</option>
+            </select>
+          </label>
+        </div>
 
-    <!-- Section Monophasé (Run + Start) -->
-    <div id="mono" style="display:none">
-      <div class="mt-4 p-3 rounded-xl border border-amber-500/30" style="background:var(--bg)">
-        <h2 style="margin-bottom:6px">Run — Enroulement principal (Marche)</h2>
-        <div class="g" id="fRun"></div>
+        <div id="form" style="margin-top:6px"></div>
+
+        <!-- Section Monophasé (Run + Start) -->
+        <div id="mono" style="display:none">
+          <div class="sub-box" style="border-color:var(--cu-border)">
+            <div class="sub-box-title">🟠 Run — Enroulement principal (Marche)</div>
+            <div class="g" id="fRun"></div>
+          </div>
+          <div class="sub-box" style="border-color:var(--info-border)">
+            <div class="sub-box-title" style="color:var(--info)">🔵 Start — Enroulement auxiliaire (Démarrage)</div>
+            <p class="mute" style="margin:0 0 8px">Tu peux laisser le Start vide et le calculer plus tard.</p>
+            <div class="g" id="fStart"></div>
+          </div>
+        </div>
+
+        <!-- Plaque signalétique facultative -->
+        <details class="adv" id="advPlaque">
+          <summary>Plaque signalétique & infos client (facultatif)</summary>
+          <div class="g mt-3">
+            <label class="f">Puissance (HP / kW)<input id="plHp" type="text" placeholder="ex. 5 HP"></label>
+            <label class="f">Vitesse (RPM)<input id="plRpm" type="text" inputmode="numeric" placeholder="ex. 1750"></label>
+            <label class="f">Tension (Volts)<input id="plVolts" type="text" placeholder="ex. 230/460 ou 575V"></label>
+            <label class="f">Ampérage (FLA)<input id="plAmps" type="text" placeholder="ex. 13.2 / 6.6 A"></label>
+            <label class="f">Frame / Carcasse<input id="plFrame" type="text" placeholder="ex. 184T / 56C"></label>
+            <label class="f">Fréquence (Hz)<input id="plHz" type="text" inputmode="numeric" placeholder="60"></label>
+            <label class="f">Classe d'isolation<input id="plIso" type="text" placeholder="ex. Classe F / H"></label>
+            <label class="f">N° de série / Client<input id="plSerie" type="text" placeholder="ex. SN-84920"></label>
+          </div>
+        </details>
+
+        <div class="err" id="err" role="alert"></div>
+
+        <button class="b cu" id="bCalc" type="button">Calculer la fiche & les schémas</button>
+        <div class="row2">
+          <button class="b s" id="bRun" type="button" style="display:none">Calculer Run seul</button>
+          <button class="b s" id="bStart" type="button" style="display:none">Calculer Start seul</button>
+        </div>
+        <button class="b s" id="bSave" type="button">💾 Enregistrer dans mes travaux</button>
       </div>
-      <div class="mt-3 p-3 rounded-xl border border-sky-500/30" style="background:var(--bg)">
-        <h2 style="margin-bottom:4px">Start — Enroulement auxiliaire (Démarrage)</h2>
-        <p class="mute" style="margin-top:0;margin-bottom:8px">Tu peux laisser le Start vide et le calculer plus tard.</p>
-        <div class="g" id="fStart"></div>
+    </div>
+
+    <!-- COLONNE DROITE : RÉSULTATS, KPI, SCHÉMAS SVG & APPRENTISSAGE -->
+    <div id="colOutput">
+      <!-- État d'accueil quand aucun calcul n'est encore affiché -->
+      <div class="c" id="emptyState">
+        <h2><span>Aperçu de la Fiche d'Atelier</span><span class="badge">Prêt à calculer</span></h2>
+        <p class="mute">Entre les dimensions du stator (encoches, pôles, diamètre intérieur, longueur du fer et pitch) à gauche ou touche un des boutons de <b>Démarrage rapide</b> pour générer instantanément :</p>
+        <div class="kpi-grid">
+          <div class="kpi-card hi">
+            <div class="kpi-lbl">Distance pattes</div>
+            <div class="kpi-val">Auto / Exacte</div>
+            <div class="kpi-sub">Forme de bobinage</div>
+          </div>
+          <div class="kpi-card hi">
+            <div class="kpi-lbl">Positions (Crans)</div>
+            <div class="kpi-val">Crans 1 à 16</div>
+            <div class="kpi-sub">45 fiches + Régression</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-lbl">Schémas SVG</div>
+            <div class="kpi-val">3 Vues Pro</div>
+            <div class="kpi-sub">Forme, Stator & Linéaire</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-lbl">Cuivre & Ω</div>
+            <div class="kpi-val">AWG 8–36</div>
+            <div class="kpi-sub">Poids (kg/lb) & Résistance</div>
+          </div>
+        </div>
+        <p class="mute" style="margin-bottom:0">Astuce : utilise le bouton <b>⇅</b> à côté des champs en pouces pour ouvrir la roue de fractions (1/8", 1/16", 1/32", 1/64").</p>
       </div>
-    </div>
 
-    <!-- Plaque signalétique facultative pour enrichir la fiche -->
-    <details class="adv" id="advPlaque">
-      <summary>Plaque signalétique & infos client (facultatif)</summary>
-      <div class="g-4 mt-3">
-        <label class="f">Puissance (HP / kW)<input id="plHp" type="text" placeholder="ex. 5 HP"></label>
-        <label class="f">Vitesse (RPM)<input id="plRpm" type="text" inputmode="numeric" placeholder="ex. 1750"></label>
-        <label class="f">Tension (Volts)<input id="plVolts" type="text" placeholder="ex. 230/460 ou 575V"></label>
-        <label class="f">Ampérage (FLA)<input id="plAmps" type="text" placeholder="ex. 13.2 / 6.6 A"></label>
-        <label class="f">Frame / Carcasse<input id="plFrame" type="text" placeholder="ex. 184T / 56C"></label>
-        <label class="f">Fréquence (Hz)<input id="plHz" type="text" inputmode="numeric" placeholder="60"></label>
-        <label class="f">Classe d'isolation<input id="plIso" type="text" placeholder="ex. Classe F / H"></label>
-        <label class="f">N° de série / Client<input id="plSerie" type="text" placeholder="ex. SN-84920"></label>
+      <!-- Carte principale des résultats -->
+      <div class="c" id="res" style="display:none">
+        <div id="out"></div>
+
+        <!-- VISUALISATION GRAPHIQUE SVG HAUTE PRÉCISION -->
+        <div id="vizZone" style="margin-top:20px;border-top:1px solid var(--line);padding-top:16px">
+          <h2>
+            <span>Schémas techniques d'atelier (Forme & Stator)</span>
+            <span class="badge">SVG Haute Précision</span>
+          </h2>
+          <div class="tab-sub no-print" id="vizTabs">
+            <button type="button" data-v="forme" class="act">1. Forme à 16 crans & Boucles</button>
+            <button type="button" data-v="circle">2. Stator circulaire (Encoches)</button>
+            <button type="button" data-v="linear">3. Schéma linéaire développé</button>
+            <button type="button" data-v="all">Afficher les 3 vues</button>
+          </div>
+          <div id="svgFormeWrap" class="svg-wrap"></div>
+          <div id="svgCircleWrap" class="svg-wrap" style="display:none"></div>
+          <div id="svgLinearWrap" class="svg-wrap" style="display:none"></div>
+        </div>
+
+        <!-- APPRENTISSAGE AUTOMATIQUE -->
+        <div id="apCard" class="sub-box" style="margin-top:18px;border-color:var(--cu-border)">
+          <h2><span>Apprendre de ce moteur (Calibration Atelier)</span><span class="badge">Auto-apprentissage</span></h2>
+          <p class="mute" id="apInfo" style="margin-top:0"></p>
+          <div class="g mt-2">
+            <label class="f">Distance réelle entre les deux pattes (po)
+              <input id="apW" type="text" inputmode="decimal" placeholder="ex. 6 1/4" autocomplete="off">
+            </label>
+            <label class="f">Positions réelles où tu as mis le fil (crans)
+              <input id="apP" type="text" inputmode="text" placeholder="ex. 5-8-11" autocomplete="off">
+            </label>
+            <label class="f" id="apQWrap">Enroulement à enregistrer
+              <select id="apQ">
+                <option value="r">Run (Principal)</option>
+                <option value="s">Start (Auxiliaire)</option>
+              </select>
+            </label>
+            <label class="f">Statut de validation
+              <select id="apS">
+                <option value="">Choisis…</option>
+                <option value="verifie">Bobiné et vérifié une fois</option>
+                <option value="confirme">Confirmé (plusieurs bobinages)</option>
+                <option value="nonverifie">Pas encore testé</option>
+              </select>
+            </label>
+          </div>
+          <button class="b s" id="bLearn" type="button">🧠 Enregistrer ce moteur (l’application apprend)</button>
+        </div>
+
+        <div class="row2 no-print" style="margin-top:12px">
+          <button class="b s" id="bShare" type="button">📋 Copier / partager la fiche</button>
+          <button class="b cu" id="bPrint" type="button">🖨️ Imprimer la fiche complète</button>
+        </div>
       </div>
-    </details>
-
-    <div class="err" id="err" role="alert"></div>
-
-    <div class="row2" style="margin-top:6px">
-      <button class="b cu" id="bCalc" type="button">Calculer la fiche complète</button>
-      <button class="b s" id="bSave" type="button">Enregistrer le travail</button>
-    </div>
-    <div class="row2">
-      <button class="b s" id="bRun" type="button" style="display:none">Calculer le Run seulement</button>
-      <button class="b s" id="bStart" type="button" style="display:none">Calculer le Start seulement</button>
-    </div>
-  </div>
-
-  <!-- RÉSULTATS DE LA FICHE DE REBOBINAGE -->
-  <div class="c" id="res" style="display:none">
-    <div id="out"></div>
-
-    <!-- VISUALISATION GRAPHIQUE SVG (Gabarit à crans + Stator) -->
-    <div id="vizZone" style="margin-top:18px">
-      <h2>
-        <span>Schémas visuels d'atelier (Forme & Stator)</span>
-        <span class="badge">Interactif & Imprimable</span>
-      </h2>
-      <div class="tab-sub no-print" id="vizTabs">
-        <button type="button" data-v="forme" class="act">1. Forme à 16 crans (Gabarit)</button>
-        <button type="button" data-v="circle">2. Stator circulaire (Encoches)</button>
-        <button type="button" data-v="linear">3. Schéma linéaire développé</button>
-      </div>
-      <div id="svgFormeWrap" class="svg-wrap"></div>
-      <div id="svgCircleWrap" class="svg-wrap" style="display:none"></div>
-      <div id="svgLinearWrap" class="svg-wrap" style="display:none"></div>
-    </div>
-
-    <!-- APPRENTISSAGE AUTOMATIQUE -->
-    <div id="apCard" class="mt-5 p-4 rounded-xl border border-amber-500/40" style="background:var(--bg)">
-      <h2>Apprendre de ce moteur (calibration atelier)</h2>
-      <p class="mute" id="apInfo"></p>
-      <div class="g mt-2">
-        <label class="f">Distance réelle entre les deux pattes (po)
-          <input id="apW" type="text" inputmode="decimal" placeholder="ex. 6 1/4" autocomplete="off">
-        </label>
-        <label class="f">Positions réelles où tu as mis le fil (crans)
-          <input id="apP" type="text" inputmode="text" placeholder="ex. 5-8-11" autocomplete="off">
-        </label>
-        <label class="f" id="apQWrap">Enroulement à enregistrer
-          <select id="apQ">
-            <option value="r">Run (Principal)</option>
-            <option value="s">Start (Auxiliaire)</option>
-          </select>
-        </label>
-        <label class="f">Statut de validation
-          <select id="apS">
-            <option value="">Choisis…</option>
-            <option value="verifie">Bobiné et vérifié une fois</option>
-            <option value="confirme">Confirmé (plusieurs bobinages)</option>
-            <option value="nonverifie">Pas encore testé</option>
-          </select>
-        </label>
-      </div>
-      <button class="b s" id="bLearn" type="button">Enregistrer ce moteur (l’application apprend)</button>
-    </div>
-
-    <div class="row2 no-print" style="margin-top:12px">
-      <button class="b s" id="bShare" type="button">📋 Copier / partager la fiche</button>
-      <button class="b" id="bPrint" type="button">🖨️ Imprimer la fiche (avec schémas)</button>
     </div>
   </div>
 </section>
@@ -718,9 +1280,9 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
   <div class="c">
     <h2>
       <span>Catalogue des moteurs vérifiés & appris</span>
-      <span class="badge" id="catCountBadge">45 fiches</span>
+      <span class="badge ok" id="catCountBadge">45 fiches vérifiées</span>
     </h2>
-    <p class="mute">Sélectionne ou filtre un moteur déjà vérifié en atelier pour charger instantanément ses dimensions, son pitch et ses positions sur la forme.</p>
+    <p class="mute">Toutes tes fiches d'atelier vérifiées sur photo (36), celles de ton ancienne application (9) ainsi que tes moteurs appris sont consultables ici. Charge n'importe quelle fiche en 1 clic.</p>
     <div class="g-3 mt-3">
       <label class="f">Filtrer par encoches
         <select id="catFilterSlots">
@@ -739,7 +1301,7 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
           <option value="u">Moteurs appris par toi</option>
         </select>
       </label>
-      <label class="f">Rechercher (diamètre, pitch, longueur…)
+      <label class="f">Rechercher (diamètre, pitch, crans, longueur…)
         <input id="catSearch" type="search" placeholder="ex. 3 1/8 ou 5-7-9 ou 4.25">
       </label>
     </div>
@@ -752,16 +1314,16 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
   <!-- Outil 1 : Équivalence de fils en parallèle AWG -->
   <div class="c">
     <h2>
-      <span>1. Convertisseur & Équivalence de fil en parallèle (AWG)</span>
-      <span class="badge">NEMA MW 1000</span>
+      <span>1. Convertisseur & Équivalence de fils en parallèle (AWG)</span>
+      <span class="badge">Standard NEMA MW 1000</span>
     </h2>
-    <p class="mute">Trouve instantanément par quels fils en parallèle remplacer un calibre manquant (même section de cuivre en mm² et Circular Mils) ou vérifie la section totale d'un faisceau de fils.</p>
+    <p class="mute">Remplace un calibre manquant par plusieurs fils en parallèle (ou une combinaison mixte de 2 calibres voisins) en conservant exactement la même section de cuivre en mm² et Circular Mils (CM).</p>
     <div class="g-4 mt-3">
       <label class="f">Calibre AWG d'origine
         <select id="eqAwgOrig"></select>
       </label>
       <label class="f">Nb de fils en main d'origine
-        <input id="eqFilsOrig" type="number" min="1" max="20" value="1">
+        <input id="eqFilsOrig" type="number" min="1" max="20" value="1" inputmode="numeric">
       </label>
       <label class="f">Nb de fils souhaités en remplacement
         <select id="eqFilsTarget">
@@ -774,7 +1336,7 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
           <option value="6">6 fils en parallèle</option>
         </select>
       </label>
-      <label class="f">Autoriser 2 calibres mixtes (ex. 1×17 + 1×18)
+      <label class="f">Combinaisons mixtes (ex. 1×17 + 1×18)
         <select id="eqMix">
           <option value="1">Oui (calibres identiques + mixtes)</option>
           <option value="0">Non (calibres identiques seulement)</option>
@@ -787,16 +1349,16 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
   <!-- Outil 2 : Changement de Tension / Fréquence / Connexion -->
   <div class="c">
     <h2>
-      <span>2. Modification de Tension, Fréquence ou Connexion (Re-rating)</span>
-      <span class="badge">Recalcul Tours & AWG</span>
+      <span>2. Modification de Tension, Fréquence ou Connexion (Y ↔ Δ)</span>
+      <span class="badge">Recalcul Tours & Section</span>
     </h2>
-    <p class="mute">Calcule le nouveau nombre de tours par bobine et le nouveau calibre AWG requis lors d'un changement de tension (ex. 575 V → 230/460 V), de connexion (Étoile ↔ Triangle) ou de fréquence (60 Hz ↔ 50 Hz) à flux magnétique constant.</p>
+    <p class="mute">Calcule automatiquement le nouveau nombre de tours par bobine et le nouveau calibre AWG requis lors d'un changement de tension (ex. 575 V → 460 V ou 230 V), de connexion (Étoile ↔ Triangle) ou de fréquence (60 Hz ↔ 50 Hz) à flux magnétique et remplissage d'encoche constants.</p>
     <div class="g-4 mt-3">
-      <label class="f">Tension d'origine (V)<input id="rrV1" type="number" value="575"></label>
-      <label class="f">Nouvelle tension (V)<input id="rrV2" type="number" value="460"></label>
+      <label class="f">Tension d'origine (V)<input id="rrV1" type="number" value="575" inputmode="decimal"></label>
+      <label class="f">Nouvelle tension (V)<input id="rrV2" type="number" value="460" inputmode="decimal"></label>
       <label class="f">Connexion d'origine
         <select id="rrC1">
-          <option value="1">Même connexion (ou Étoile → Étoile)</option>
+          <option value="1">Même connexion</option>
           <option value="1.7320508">Étoile (Y) à l'origine</option>
           <option value="1.0">Triangle (Δ) à l'origine</option>
         </select>
@@ -808,36 +1370,36 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
           <option value="1.0">Triangle (Δ) finale</option>
         </select>
       </label>
-      <label class="f">Tours / bobine d'origine<input id="rrT1" type="number" value="45"></label>
+      <label class="f">Tours / bobine d'origine<input id="rrT1" type="number" value="45" inputmode="numeric"></label>
       <label class="f">Calibre AWG d'origine<select id="rrAwg1"></select></label>
-      <label class="f">Fils en parallèle d'origine<input id="rrFils1" type="number" min="1" value="1"></label>
+      <label class="f">Fils en parallèle d'origine<input id="rrFils1" type="number" min="1" value="1" inputmode="numeric"></label>
       <label class="f">Circuits (Origine → Nouveau)
         <div class="row2" style="margin-top:4px">
-          <input id="rrCirc1" type="number" min="1" value="1" title="Circuits d'origine" style="margin-top:0">
-          <input id="rrCirc2" type="number" min="1" value="1" title="Nouveaux circuits" style="margin-top:0">
+          <input id="rrCirc1" type="number" min="1" value="1" title="Circuits d'origine" style="margin-top:0" inputmode="numeric">
+          <input id="rrCirc2" type="number" min="1" value="1" title="Nouveaux circuits" style="margin-top:0" inputmode="numeric">
         </div>
       </label>
-      <label class="f">Fréquence d'origine (Hz)<input id="rrHz1" type="number" value="60"></label>
-      <label class="f">Nouvelle fréquence (Hz)<input id="rrHz2" type="number" value="60"></label>
+      <label class="f">Fréquence d'origine (Hz)<input id="rrHz1" type="number" value="60" inputmode="numeric"></label>
+      <label class="f">Nouvelle fréquence (Hz)<input id="rrHz2" type="number" value="60" inputmode="numeric"></label>
     </div>
-    <button type="button" class="b" id="bRerate">Calculer le nouveau bobinage</button>
+    <button type="button" class="b cu" id="bRerate">Calculer le nouveau bobinage</button>
     <div id="rrOut" class="mt-4"></div>
   </div>
 
   <!-- Outil 3 : Calculateur Électrique, Vitesse, Glissement, Condensateurs -->
   <div class="c">
     <h2>
-      <span>3. Calculateur Électrique, Densité de courant & Condensateurs</span>
+      <span>3. Calculateur Électrique, Vitesse Synchrone, Couple & Condensateurs</span>
       <span class="badge">Atelier Québec / NEMA</span>
     </h2>
     <div class="g-4 mt-2">
-      <label class="f">Puissance (HP)<input id="elHp" type="number" step="0.25" value="5"></label>
-      <label class="f">Tension (V)<input id="elV" type="number" value="575"></label>
-      <label class="f">Pôles<input id="elPoles" type="number" step="2" value="4"></label>
-      <label class="f">Fréquence (Hz)<input id="elHz" type="number" value="60"></label>
-      <label class="f">Vitesse réelle plaque (RPM)<input id="elRpm" type="number" value="1750"></label>
-      <label class="f">Rendement estimé (%)<input id="elEff" type="number" value="87"></label>
-      <label class="f">Facteur de puissance (cos φ)<input id="elPf" type="number" step="0.01" value="0.84"></label>
+      <label class="f">Puissance (HP)<input id="elHp" type="number" step="0.25" value="5" inputmode="decimal"></label>
+      <label class="f">Tension (V)<input id="elV" type="number" value="575" inputmode="decimal"></label>
+      <label class="f">Pôles<input id="elPoles" type="number" step="2" value="4" inputmode="numeric"></label>
+      <label class="f">Fréquence (Hz)<input id="elHz" type="number" value="60" inputmode="numeric"></label>
+      <label class="f">Vitesse réelle plaque (RPM)<input id="elRpm" type="number" value="1750" inputmode="numeric"></label>
+      <label class="f">Rendement estimé (%)<input id="elEff" type="number" value="87" inputmode="decimal"></label>
+      <label class="f">Facteur de puissance (cos φ)<input id="elPf" type="number" step="0.01" value="0.84" inputmode="decimal"></label>
       <label class="f">Phases
         <select id="elPh">
           <option value="3">Triphasé (3~)</option>
@@ -848,14 +1410,63 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
     <div id="elOut" class="mt-4"></div>
   </div>
 
-  <!-- Outil 4 : Table complète AWG -->
+  <!-- Outil 4 : Micromètre -> Calibre AWG & Vérificateur d'Équilibre Ohmique -->
+  <div class="g">
+    <div class="c" style="margin-bottom:16px">
+      <h2>
+        <span>4. Micromètre → Calibre AWG</span>
+        <span class="badge">Identification du fil</span>
+      </h2>
+      <p class="mute">Entre le diamètre mesuré au micromètre (en pouces/mils ou en mm) pour identifier instantanément le calibre AWG correspondant.</p>
+      <div class="g mt-2">
+        <label class="f">Mesure au micromètre
+          <input id="micVal" type="text" inputmode="decimal" value="0.0403" placeholder="ex. 0.0403 ou 1.02">
+        </label>
+        <label class="f">Unité de mesure
+          <select id="micUnit">
+            <option value="in">Pouces (ex. 0.0403")</option>
+            <option value="mm">Millimètres (ex. 1.02 mm)</option>
+          </select>
+        </label>
+        <label class="f w">État du fil mesuré
+          <select id="micType">
+            <option value="bare">Fil de cuivre nu (émail gratté / brûlé)</option>
+            <option value="heavy">Fil avec émail (Heavy Build NEMA MW-1000)</option>
+          </select>
+        </label>
+      </div>
+      <div id="micOut" class="mt-3"></div>
+    </div>
+
+    <div class="c" style="margin-bottom:16px">
+      <h2>
+        <span>5. Test d'Équilibre Ohmique (3 Phases)</span>
+        <span class="badge ok">Norme EASA / IEEE</span>
+      </h2>
+      <p class="mute">Vérifie l'équilibre des 3 phases à l'ohmmètre après bobinage ou lors d'un diagnostic client (écart max recommandé &lt; 2 %).</p>
+      <div class="g-3 mt-2">
+        <label class="f">R (T1 – T2) en Ω
+          <input id="ohm12" type="number" step="0.001" value="1.420" inputmode="decimal">
+        </label>
+        <label class="f">R (T2 – T3) en Ω
+          <input id="ohm23" type="number" step="0.001" value="1.430" inputmode="decimal">
+        </label>
+        <label class="f">R (T3 – T1) en Ω
+          <input id="ohm31" type="number" step="0.001" value="1.415" inputmode="decimal">
+        </label>
+      </div>
+      <div id="ohmOut" class="mt-3"></div>
+    </div>
+  </div>
+
+  <!-- Outil 6 : Table complète AWG -->
   <div class="c">
-    <h2>4. Table de référence complète du fil émaillé (AWG 8 à AWG 36)</h2>
-    <div style="overflow-x:auto;max-height:420px">
+    <h2>6. Table de référence complète du fil émaillé (AWG 8 à AWG 36)</h2>
+    <div style="overflow-x:auto;max-height:440px;border:1px solid var(--line);border-radius:10px">
       <table class="tbl" id="tblAwg">
         <thead>
           <tr>
-            <th>AWG</th>
+            <th>Calibre</th>
             <th>Ø Nu (po)</th>
             <th>Ø Nu (mm)</th>
             <th>Ø Émaillé Heavy (po)</th>
@@ -874,7 +1485,10 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
 <!-- ==================== ONGLET 4 : TRAVAUX ENREGISTRÉS ==================== -->
 <section id="t-jobs">
   <div class="c">
-    <h2>Travaux enregistrés</h2>
+    <h2>
+      <span>Travaux enregistrés sur l'appareil</span>
+      <input id="jobSearch" type="search" placeholder="Rechercher un travail, client, encoches…" style="max-width:280px;margin-top:0;padding:7px 11px;font-size:0.84rem">
+    </h2>
     <div id="list"></div>
   </div>
 </section>
@@ -885,14 +1499,14 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
     <h2>Ajouter des documents (Photos de plaque, connexions, PDF)</h2>
     <div class="g">
       <label class="f w">Catégorie<select id="aCat"></select></label>
-      <label class="f">N° de série<input id="aSer" type="text" autocomplete="off"></label>
+      <label class="f">N° de série<input id="aSer" type="text" autocomplete="off" placeholder="ex. SN-49201"></label>
       <label class="f">Référence<input id="aRef" type="text" autocomplete="off" placeholder="moteur ou fabricant"></label>
       <label class="f w">Travail lié<select id="aJob"></select></label>
     </div>
     <input id="dcam" class="vh" type="file" accept="image/*" capture="environment">
     <input id="dfile" class="vh" type="file" accept="image/*,application/pdf" multiple>
     <div class="row2 mt-2">
-      <label class="b" for="dcam">📷 Prendre une photo</label>
+      <label class="b cu" for="dcam">📷 Prendre une photo</label>
       <label class="b s" for="dfile">📁 Choisir photos ou PDF</label>
     </div>
     <p class="mute mt-2">Avec un n° de série ou une référence, chaque document est nommé automatiquement, par exemple « Plaque signalétique · SN12345 ».</p>
@@ -904,7 +1518,7 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
       <label class="f">Catégorie<select id="fCat"></select></label>
       <label class="f">Rechercher<input id="dq" type="search" placeholder="nom, série, référence"></label>
     </div>
-    <div id="dlist" style="margin-top:6px"></div>
+    <div id="dlist" style="margin-top:8px"></div>
     <p class="mute" id="dinfo"></p>
     <button class="b s" id="bCats" type="button">Gérer les catégories</button>
     <div id="cats" style="display:none"></div>
@@ -915,11 +1529,11 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
 <section id="t-set">
   <div class="c">
     <h2>Calcul de la forme (Gabarit à crans)</h2>
-    <p class="mute">Réglages du calcul de la distance entre les pattes et des positions (crans). Les valeurs par défaut (« auto ») sont calibrées par régression sur tes 45 fiches vérifiées + tes moteurs appris.</p>
+    <p class="mute">Réglages du calcul de la distance entre les pattes et des positions (crans). Les valeurs par défaut (« auto ») sont calibrées par régression linéaire multiple sur tes 45 fiches vérifiées + tes moteurs appris.</p>
     <div class="g" id="setf"></div>
     <button class="b s" id="bReset" type="button">Rétablir les valeurs d’origine</button>
 
-    <h2 style="margin-top:20px">Roues de mesure en fractions de pouce</h2>
+    <h2 style="margin-top:22px">Roues de mesure en fractions de pouce</h2>
     <div class="g">
       <label class="f">Plus petite fraction
         <select id="pkStep">
@@ -931,18 +1545,18 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
       </label>
       <label class="f">Pouces maximum<input id="pkMax" type="text" inputmode="numeric"></label>
     </div>
-    <p class="mute">Tu peux toujours taper une valeur exacte (ex. <code>4 3/8</code> ou <code>4.375</code>) ou utiliser le bouton <b>⇅</b> à côté des champs en pouces.</p>
+    <p class="mute">Tu peux toujours taper une valeur exacte (ex. <code>4 3/8</code> ou <code>4.375</code>) ou toucher le bouton <b>⇅</b> à côté des champs en pouces.</p>
 
-    <h2 style="margin-top:20px">Apprentissage automatique & Formule active</h2>
-    <p class="mute" id="apSet"></p>
-    <div id="apList"></div>
+    <h2 style="margin-top:22px">Apprentissage automatique & Équation active</h2>
+    <div class="info-box" id="apSet"></div>
+    <div id="apList" class="mt-3"></div>
     <button class="b s" id="apClear" type="button">Effacer mes ajouts d'apprentissage</button>
 
-    <h2 style="margin-top:20px">Sauvegarde & Transfert</h2>
-    <p class="mute">Copie ou télécharge tes travaux, moteurs appris, réglages et catégories pour les sauvegarder ou les transférer sur un autre téléphone/ordinateur.</p>
+    <h2 style="margin-top:22px">Sauvegarde & Transfert (JSON)</h2>
+    <p class="mute">Copie ou télécharge tes travaux, moteurs appris, réglages et catégories pour les sauvegarder ou les transférer d'un appareil à l'autre (ex. téléphone ↔ PC).</p>
     <div class="row2">
       <button class="b s" id="bkCopy" type="button">📋 Copier la sauvegarde</button>
-      <button class="b" id="bkFile" type="button">💾 Télécharger fichier .json</button>
+      <button class="b cu" id="bkFile" type="button">💾 Télécharger fichier .json</button>
     </div>
     <label class="f" style="margin-top:10px">Coller une sauvegarde JSON pour la restaurer
       <textarea id="bk" rows="3"></textarea>
@@ -956,7 +1570,7 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
 </section>
 </main>
 
-<!-- Visionneuse de documents (Photos / PDF) -->
+<!-- Visionneuse plein écran de documents (Photos / PDF) -->
 <div id="viewer">
   <div class="vbar">
     <b id="vt"></b>
@@ -973,12 +1587,12 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
       <label class="f w">Travail lié<select id="mJob"></select></label>
       <label class="f w">Notes<input id="mNote" type="text" placeholder="ex. enroulement d’origine, 2 circuits"></label>
     </div>
-    <button class="b" id="mSave" type="button">Enregistrer les infos</button>
+    <button class="b cu" id="mSave" type="button">Enregistrer les infos</button>
   </details>
   <div id="vc"></div>
 </div>
 
-<!-- Liste de suggestions pour types de connexion -->
+<!-- Suggestions de connexions -->
 <datalist id="dlConn">
   <option value="Étoile (Y)">
   <option value="Triangle (Δ)">
@@ -997,33 +1611,99 @@ details.adv[open] > summary::after { transform: rotate(180deg); }
 <div id="pk">
   <div class="pkb"></div>
   <div class="pks" role="dialog" aria-modal="true" aria-labelledby="pkt">
-    <b id="pkt"></b>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <b id="pkt" style="font-size:1.02rem">Mesure en pouces</b>
+      <span class="badge mono" id="pkLiveDec">0.000 po</span>
+    </div>
     <div class="pkw">
       <div class="pkband"></div>
       <div class="col" id="pkI"></div>
       <div class="col" id="pkF"></div>
     </div>
-    <label class="f">Valeur exacte (po), modifiable
+    <label class="f">Valeur exacte (po), modifiable au clavier
       <input id="pkv" type="text" inputmode="decimal" autocomplete="off">
     </label>
     <div class="chips" id="pkc"></div>
     <div class="row2">
-      <button class="b s" id="pkFav" type="button">☆ Favori</button>
-      <button class="b" id="pkOk" type="button">Valider</button>
+      <button class="b s" id="pkFav" type="button">☆ Ajouter favori</button>
+      <button class="b cu" id="pkOk" type="button">Valider la mesure</button>
     </div>
     <button class="b s" id="pkNo" type="button">Annuler</button>
   </div>
 </div>
 
-<!-- Boîte de dialogue modale interne (aucun alert/confirm/prompt natif) -->
-<div id="dlg" style="display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;padding:16px">
-  <div style="background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:18px;max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,0.35)">
-    <p id="dlgM" style="margin:0 0 12px;white-space:pre-wrap;font-weight:600"></p>
-    <input id="dlgI" type="text" style="display:none;width:100%;padding:10px;font:inherit;margin-bottom:10px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px">
-    <textarea id="dlgT" readonly rows="12" style="display:none;width:100%;padding:10px;font:13px/1.4 monospace;margin-bottom:10px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px"></textarea>
+<!-- Boîte de dialogue modale interne (zéro alert/confirm/prompt natif) -->
+<div id="dlg" style="display:none;position:fixed;inset:0;z-index:80;background:rgba(0,0,0,0.6);backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:16px">
+  <div style="background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:18px;max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 12px 36px rgba(0,0,0,0.4)">
+    <p id="dlgM" style="margin:0 0 12px;white-space:pre-wrap;font-weight:700"></p>
+    <input id="dlgI" type="text" style="display:none;width:100%;padding:10px;font:inherit;margin-bottom:10px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:8px">
+    <textarea id="dlgT" readonly rows="12" style="display:none;width:100%;padding:10px;font:13px/1.4 var(--mono);margin-bottom:10px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:8px"></textarea>
     <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap">
       <button class="b s" id="dlgX" type="button" style="width:auto;margin-top:0;padding:9px 16px">Annuler</button>
-      <button class="b" id="dlgOk" type="button" style="width:auto;margin-top:0;padding:9px 18px">OK</button>
+      <button class="b cu" id="dlgOk" type="button" style="width:auto;margin-top:0;padding:9px 18px">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- Mode Atelier Plein Écran (Anti-veille & Suivi de bobinage avec gants) -->
+<div id="workshopModal" role="dialog" aria-modal="true" aria-label="Mode Atelier Plein Écran">
+  <div class="wk-top">
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <b id="wkTitle" style="font-size:1.1rem;color:#f8fafc">Mode Atelier</b>
+        <span id="wkWakeBadge" class="badge ok">🔆 Écran maintenu actif</span>
+      </div>
+      <div id="wkSub" style="font-size:0.8rem;color:#94a3b8;margin-top:2px" class="mono"></div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button type="button" id="wkBeepBtn" class="theme-btn" style="padding:8px 12px;font-size:0.84rem">🔊 Bip : Activé</button>
+      <button type="button" id="wkCloseBtn" class="theme-btn" style="padding:8px 14px;font-size:0.88rem;background:#dc2626;border-color:#ef4444">✕ Quitter Mode Atelier</button>
+    </div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-giant-grid">
+      <!-- Bloc 1 : Distance entre les pattes géante + Ajustement rapide -->
+      <div class="wk-box">
+        <div style="font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8">1. Distance entre les deux pattes de la forme</div>
+        <div id="wkWidthVal" class="mono" style="font-size:2.7rem;font-weight:900;color:#f59e0b;line-height:1.15;margin:8px 0">—</div>
+        <div id="wkWidthSub" class="mono" style="font-size:0.9rem;color:#cbd5e1;margin-bottom:12px"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button type="button" class="nudge-btn" data-wknudge="-0.25" style="background:#1e293b;color:#f8fafc;border-color:#475569;padding:8px 12px">− 1/4"</button>
+          <button type="button" class="nudge-btn" data-wknudge="-0.125" style="background:#1e293b;color:#f8fafc;border-color:#475569;padding:8px 12px">− 1/8"</button>
+          <button type="button" class="nudge-btn" data-wknudge="0" style="background:#1e293b;color:#f8fafc;border-color:#475569;padding:8px 12px">Auto</button>
+          <button type="button" class="nudge-btn" data-wknudge="0.125" style="background:#1e293b;color:#f8fafc;border-color:#475569;padding:8px 12px">+ 1/8"</button>
+          <button type="button" class="nudge-btn" data-wknudge="0.25" style="background:#1e293b;color:#f8fafc;border-color:#475569;padding:8px 12px">+ 1/4"</button>
+        </div>
+      </div>
+
+      <!-- Bloc 2 : Cran actif & Progression bobine par bobine -->
+      <div class="wk-box active-focus">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <span id="wkGroupLabel" style="font-size:0.84rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#fbbf24">GROUPE ACTIF</span>
+          <span id="wkCoilInfo" class="badge" style="font-size:0.82rem;background:rgba(245,158,11,0.2);color:#fbbf24;border-color:#f59e0b">Bobine 1</span>
+        </div>
+        <div id="wkActiveCranBig" class="mono" style="font-size:2.4rem;font-weight:900;color:#ffffff;margin:8px 0">Cran —</div>
+        <div id="wkCransRow" style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0"></div>
+        <div class="row2" style="margin-top:12px">
+          <button type="button" class="wk-big-btn" id="wkPrevCran">◀ Cran préc.</button>
+          <button type="button" class="wk-big-btn pri" id="wkNextCran">Cran suivant ✓ ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloc 3 : Compteur de groupes / pôles bobinés et compteur de tours -->
+    <div class="wk-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-size:0.8rem;font-weight:800;text-transform:uppercase;color:#94a3b8">Suivi des groupes / pôles bobinés</div>
+          <div id="wkGroupsDoneTxt" class="mono" style="font-size:1.65rem;font-weight:900;color:#34d399;margin-top:4px">0 / 4 groupes terminés</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" class="wk-big-btn" id="wkGroupMinus" style="padding:12px 18px">− 1</button>
+          <button type="button" class="wk-big-btn pri" id="wkGroupPlus" style="padding:12px 22px">✓ Groupe terminé (+1)</button>
+          <button type="button" class="wk-big-btn" id="wkGroupReset" style="padding:12px 16px;font-size:0.9rem">Remise à 0</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1039,14 +1719,22 @@ const ecrire = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); ret
 
 /* ---------- Thème Clair / Sombre ---------- */
 (function initTheme() {
+  const majBtnTheme = () => {
+    const cur = document.documentElement.getAttribute("data-theme");
+    const isDark = cur === "dark" || (!cur && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    $("themeIcon").textContent = isDark ? "☀️" : "🌙";
+    $("themeTxt").textContent = isDark ? "Clair" : "Sombre";
+  };
   const th = lire("bobinage:theme", "");
   if (th === "dark" || th === "light") document.documentElement.setAttribute("data-theme", th);
+  majBtnTheme();
   $("bTheme").onclick = () => {
     const cur = document.documentElement.getAttribute("data-theme");
     const isDark = cur === "dark" || (!cur && window.matchMedia("(prefers-color-scheme: dark)").matches);
     const next = isDark ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", next);
     ecrire("bobinage:theme", next);
+    majBtnTheme();
   };
 })();
 
@@ -1055,7 +1743,7 @@ let reg = Object.assign({}, DEF, lire("bobinage:reglages", {}));
 let fiche = "";
 let dernierRes = null;
 
-/* ---------- Champs de saisie (TOUS DÉVERROUILLÉS !) ---------- */
+/* ---------- Définition et structuration des champs ---------- */
 const CH = [
   ["nom", "Nom du travail ou du moteur", "text", "ex. Pompe 5 HP, client Tremblay", 1],
   ["connexion", "Type de connexion", "text", "ex. Étoile, Triangle, Série, 2Y", 1],
@@ -1064,7 +1752,7 @@ const CH = [
   ["diam", "Diamètre intérieur du stator (po)", "decimal", "4 1/2"],
   ["longueur", "Longueur du fer / stator (po)", "decimal", "2 3/8"],
   ["larg", "Distance entre les pattes personnalisée (facultatif, po)", "decimal", "vide = auto (longueur + 1/2)"],
-  ["essai", "Bobines d’essai (1 ou 2) : pitch=cran, ex. 5=8, 9=12", "text", "ex. 5=8, 9=12 (facultatif)"],
+  ["essai", "Bobines d’essai (1 ou 2) : pitch=cran, ex. 5=8, 9=12", "text", "ex. 5=8, 9=12 (facultatif)", 1],
   ["pitch", "Pitch (groupes séparés par une virgule)", "text", "ex. 5-7-9 ou 1-8, 2-9", 1],
   ["awg", "Calibre du fil (AWG, facultatif)", "numeric", "ex. 18"],
   ["fils", "Fils en parallèle (en main)", "numeric", "1"],
@@ -1084,17 +1772,60 @@ const SE = [
   ["wPos", "Positions : effet de la largeur de forme (auto)"]
 ];
 
-$("form").innerHTML = CH.map(c =>
-  `<label class="f${c[4] ? " w" : ""}">${c[1]}<input id="${c[0]}" type="text" inputmode="${c[2]}" placeholder="${c[3]}" autocomplete="off"></label>`
-).join("");
+const champHtml = c => `<label class="f${c[4] ? " w" : ""}">${c[1]}<input id="${c[0]}" type="text" inputmode="${c[2]}" placeholder="${c[3]}" autocomplete="off"></label>`;
 
-$("pitch").closest("label").insertAdjacentHTML("afterend",
-  `<label class="f w">Notation du pitch (triphasé)<select id="notation">
-    <option value="auto">Automatique (2 numéros = début-fin ex. 1-8 ; 3 et plus = pas des bobines ex. 5-7-9)</option>
-    <option value="pas">Pas des bobines directement (ex. 5-7-9 ou 6-8 = bobines de pas 6 et 8)</option>
-    <option value="debfin">Encoches début-fin (ex. 1-8 = 1 bobine de pas 7)</option>
-  </select></label>`
-);
+$("form").innerHTML = `
+  <div class="sub-box">
+    <div class="sub-box-title">1. Identification & Connexion</div>
+    <div class="g">${champHtml(CH[0])}${champHtml(CH[1])}</div>
+  </div>
+  <div class="sub-box">
+    <div class="sub-box-title">2. Dimensions du Stator & Encoches</div>
+    <div class="g">
+      <div>
+        ${champHtml(CH[2])}
+        <div class="qchips" data-qtarget="coches">
+          <button type="button" class="qchip" data-qv="24">24</button>
+          <button type="button" class="qchip" data-qv="32">32</button>
+          <button type="button" class="qchip" data-qv="36">36</button>
+          <button type="button" class="qchip" data-qv="48">48</button>
+          <button type="button" class="qchip" data-qv="72">72</button>
+        </div>
+      </div>
+      <div>
+        ${champHtml(CH[3])}
+        <div class="qchips" data-qtarget="poles">
+          <button type="button" class="qchip" data-qv="2">2P</button>
+          <button type="button" class="qchip" data-qv="4">4P</button>
+          <button type="button" class="qchip" data-qv="6">6P</button>
+          <button type="button" class="qchip" data-qv="8">8P</button>
+        </div>
+      </div>
+      ${champHtml(CH[4])}
+      ${champHtml(CH[5])}
+    </div>
+    <div id="liveMatchBanner" style="display:none"></div>
+  </div>
+  <div class="sub-box">
+    <div class="sub-box-title">3. Configuration de la Forme & Pitch</div>
+    <div class="g">
+      ${champHtml(CH[6])}
+      ${champHtml(CH[7])}
+      ${champHtml(CH[8])}
+      <label class="f w" id="lblNotation">Notation du pitch (triphasé)
+        <select id="notation">
+          <option value="auto">Automatique (2 numéros = début-fin ex. 1-8 ; 3+ = pas des bobines ex. 5-7-9)</option>
+          <option value="pas">Pas des bobines directement (ex. 5-7-9 ou 6-8 = bobines de pas 6 et 8)</option>
+          <option value="debfin">Encoches début-fin (ex. 1-8 = 1 bobine de pas 7)</option>
+        </select>
+      </label>
+    </div>
+  </div>
+  <div class="sub-box" id="boxFilTri">
+    <div class="sub-box-title">4. Fil de cuivre & Tours (Triphasé — facultatif)</div>
+    <div class="g">${champHtml(CH[9])}${champHtml(CH[10])}${champHtml(CH[11])}${champHtml(CH[12])}</div>
+  </div>
+`;
 
 $("setf").innerHTML = SE.map(c =>
   `<label class="f">${c[1]}<input id="s_${c[0]}" type="text" inputmode="decimal" value="${esc(reg[c[0]])}"></label>`
@@ -1108,7 +1839,7 @@ function lirePouces(texte) {
     const v = lirePouces(t0.slice(1));
     return isNaN(v) ? NaN : -v;
   }
-  const t = t0.replace(",", ".").replace(/\s*po$/i, "").trim();
+  const t = t0.replace(",", ".").replace(/\s*po$/i, "").replace(/"/g, "").trim();
   if (!t) return NaN;
   let m = t.match(/^(\d+)[\s-]+(\d+)\/(\d+)$/);
   if (m) {
@@ -1161,7 +1892,7 @@ function analyserPitch(texte, coches, seul) {
   return out;
 }
 
-/* ---------- Boîtes de dialogue dans la page (sans alert/confirm/prompt) ---------- */
+/* ---------- Boîtes de dialogue modales internes ---------- */
 function boite({ msg, saisie = null, texte = null, ok = "OK", annuler = "Annuler" }) {
   return new Promise(res => {
     $("dlgM").textContent = msg || "";
@@ -1477,17 +2208,24 @@ function fiabReelle() {
 
 const FIAB = {
   fiche: "✔ Fiche identique vérifiée sur photo : fiable.",
-  ancienne: "✔ Moteur identique de ton ancienne app (pas revérifié sur photo) : fiable si la fiche d’origine était bonne.",
-  appris1: "✔ Moteur que tu as enregistré, vérifié une fois : à confirmer au prochain bobinage.",
-  confirme: "✔ Moteur que tu as confirmé (plusieurs bobinages) : fiable.",
-  tri: "≈ Estimation à vérifier : fiabilité pas encore mesurée en triphasé (tes fiches sont monophasées). Fais une bobine d’essai.",
-  tri_essai: "≈ Calculé avec ta bobine d’essai : fiabilité pas encore mesurée en triphasé, vérifie la 2e bobine.",
-  fiche_ajustee: "✔ Fiche enregistrée, mais avec une autre largeur de forme : positions ajustées par calcul (à 1 cran près).",
+  ancienne: "✔ Moteur identique de ton ancienne app : fiable.",
+  appris1: "✔ Moteur enregistré par toi, vérifié une fois : à confirmer au prochain bobinage.",
+  confirme: "✔ Moteur confirmé par toi (plusieurs bobinages) : fiable.",
+  tri: "≈ Estimation par régression : fais une bobine d’essai pour valider le 1er cran.",
+  tri_essai: "≈ Calculé avec ta bobine d’essai : vérifie la 2e bobine.",
+  fiche_ajustee: "✔ Fiche connue ajustée à ta largeur de forme (à 1 cran près).",
   essai1: "≈ Calculé à partir de ta bobine d’essai : vérifie la bobine suivante.",
-  essai2: "≈ Calculé à partir de tes bobines d’essai : vérifie la bobine suivante.",
-  estime: "≈ Estimé avec ta largeur, sans bobine d’essai : vérifie avec une bobine d’essai.",
-  estime_nw: "≈ Estimé sans largeur ni essai : le résultat le moins sûr. Entre ta largeur de forme ou fais une bobine d’essai."
+  essai2: "≈ Calculé à partir de tes 2 bobines d’essai : haute précision.",
+  estime: "≈ Estimé avec ta largeur de forme : vérifie avec une bobine d’essai.",
+  estime_nw: "≈ Estimé sans largeur personnalisée ni essai : entre ta largeur ou fais une bobine d’essai."
 };
+
+function badgeFiabHtml(code) {
+  if (code === "fiche" || code === "confirme") return `<span class="badge ok">✔ Fiche Vérifiée</span>`;
+  if (code === "ancienne" || code === "appris1" || code === "fiche_ajustee") return `<span class="badge info">✔ Référence Atelier</span>`;
+  if (code === "essai1" || code === "essai2" || code === "tri_essai") return `<span class="badge">🎯 Calibré sur Essai</span>`;
+  return `<span class="badge warn">≈ Estimation Régression</span>`;
+}
 
 function pitchActuel(v, coches) {
   const g = analyserPitch(v.mode === "1" ? (v.rpitch || v.spitch) : v.pitch, coches, v.mode === "1");
@@ -1511,14 +2249,15 @@ function majApprentissage() {
   const v = saisie(), d = lirePouces(v.diam), R = {};
   for (const k in reg) R[k] = lirePouces(reg[k]);
   const exc = isNaN(R.excForme) ? 0.5 : R.excForme, P = paramsPos(R), I = P.info;
+  $("hdrDbCount").textContent = `${VERIF.length} vérifiées + ${appris.length} appris`;
   let t = `${VERIF.length} séries de fiches vérifiées (jamais modifiées) + ${appris.length} moteur(s) ajouté(s) par toi.`;
   const sem = moteurSemblable(parseInt(v.coches, 10), d, pitchActuel(v, parseInt(v.coches, 10)));
-  if (sem) t += ` Moteur semblable déjà fait : ${sem.coches} coches, diamètre ${fpCourt(sem.diam)}, pitch ${sem.pitch.join("-")} → positions sur la forme ${sem.pos.join("-")} (pattes ${fpCourt(sem.W)}).`;
+  if (sem) t += ` Moteur semblable en base : ${sem.coches} coches, Ø ${fpCourt(sem.diam)}, pitch ${sem.pitch.join("-")} → crans ${sem.pos.join("-")} (pattes ${fpCourt(sem.W)}).`;
   $("apInfo").textContent = t;
-  $("apSet").textContent = `Hauteur du cran = ${f2(P.a, 2)} + ${f2(P.k, 2)} × arc du pitch + ${f2(P.s, 3)} × encoches du pitch ${P.l < 0 ? "−" : "+"} ${f2(Math.abs(P.l), 2)} × longueur du fer − ${f2(P.w, 2)} × (distance pattes − longueur du fer)${I.auto ? `, recalculé sur ${I.n} mesures de crans` : " (valeurs de départ)"}${I.ignores.length ? `; ${I.ignores.length} moteur(s) écarté(s) du calcul parce que leurs crans s’éloignent trop du modèle` : ""}. Cran 1 = 1/2 po, +1/4 po par cran, crans 15 et 16 = 4 po. Distance pattes par défaut = longueur du fer + ${fp(exc)}. ${fiabReelle()}`;
+  $("apSet").innerHTML = `<b>Équation active (moindres carrés) :</b><br><span class="mono">Hauteur(po) = ${f2(P.a, 2)} + ${f2(P.k, 2)}×Arc + ${f2(P.s, 3)}×Pas ${P.l < 0 ? "−" : "+"} ${f2(Math.abs(P.l), 2)}×Fer − ${f2(P.w, 2)}×(Pattes − Fer)</span><br>${I.auto ? `Recalculé automatiquement sur <b>${I.n}</b> mesures de crans` : "Valeurs de départ"}${I.ignores.length ? ` (${I.ignores.length} moteur(s) atypique(s) écarté(s) au-delà de ±${SEUIL_ECART} po)` : ""}.<br>Géométrie de la forme : Cran 1 = 1/2 po, +1/4 po par cran, crans 15 et 16 = 4 po. Distance pattes par défaut = Fer + ${fp(exc)}.<br>${fiabReelle()}`;
   $("apList").innerHTML = appris.length
-    ? appris.map(x => `<div class="job"><div><b>${esc(x.nom)}</b><br><span class="mute">${x.coches || "?"} coches · Ø ${fpCourt(x.diam)} · fer ${fpCourt(x.L)} · pattes ${fpCourt(x.W)}${Array.isArray(x.pitch) ? " · pitch " + x.pitch.join("-") : ""}${Array.isArray(x.pos) ? " → crans " + x.pos.join("-") : ""} · ${esc(x.date)}<br>Statut : <b>${STATUT[x.statut || "verifie"]}</b></span><br><button class="b s" style="margin-top:6px;padding:6px 10px;width:auto" data-st="${x.id}">Changer le statut</button></div><button data-ap="${x.id}" aria-label="Supprimer">✕</button></div>`).join("")
-    : `<p class="mute">Aucun moteur ajouté pour l’instant.</p>`;
+    ? appris.map(x => `<div class="job"><div><b>${esc(x.nom)}</b> <span class="badge">${esc(STATUT[x.statut || "verifie"])}</span><br><span class="mute mono">${x.coches || "?"} enc. · Ø ${fpCourt(x.diam)} · fer ${fpCourt(x.L)} · pattes ${fpCourt(x.W)}${Array.isArray(x.pitch) ? " · pitch " + x.pitch.join("-") : ""}${Array.isArray(x.pos) ? " → crans " + x.pos.join("-") : ""} · ${esc(x.date)}</span><br><button class="b s" style="margin-top:6px;padding:6px 10px;width:auto" data-st="${x.id}">Changer le statut</button></div><button data-ap="${x.id}" aria-label="Supprimer">✕</button></div>`).join("")
+    : `<p class="mute">Aucun moteur ajouté par toi pour l’instant.</p>`;
 }
 
 /* ---------- Calcul Triphasé ---------- */
@@ -1576,11 +2315,13 @@ function calculer(s) {
     const mlt = 2 * L + 2 * Math.hypot(arc / 2, d1) + 2 * Math.hypot(arc / 2, d2);
     const tot = r.bobines * tours * mlt * 0.0254;
     const masseKg = tot * A * 1e-6 * 8960;
+    const res20 = 1.724e-8 * (tot / 3) / (A * 1e-6) / (circ * circ);
     r.fil = {
       dmm, A, cm, mlt, tot,
       masse: masseKg,
       masseLb: masseKg * 2.20462,
-      res: 1.724e-8 * (tot / 3) / (A * 1e-6) / (circ * circ),
+      res: res20,
+      res75: res20 * (1 + 0.00393 * 55),
       awg, tours, fils, circ
     };
   }
@@ -1598,7 +2339,9 @@ function montage(r) {
   const g = r.pos.map((p, i) => ({
     pitch: r.groupes[i],
     pos: p.join("-"),
+    posArr: p,
     hauts: p.map(c => fpCourt(hautCran(c))).join(" / "),
+    codeFiab: (r.fiab || [])[i] || "estime",
     fiab: FIAB[(r.fiab || [])[i]] || ""
   }));
   const note = r.pos.flat().some(n => n >= r.pmax - 1 && n <= r.pmax) ? `Les positions ${r.pmax - 1} et ${r.pmax} ont la même hauteur (4 po).` : "";
@@ -1621,138 +2364,234 @@ function blocPlaqueHtml(s) {
   if (s.plIso) items.push(["Isolation", esc(s.plIso)]);
   if (s.plSerie) items.push(["N° Série / Client", esc(s.plSerie)]);
   if (!items.length) return "";
-  return `<h3>Plaque signalétique</h3>` + items.map(x => row(x[0], x[1])).join("");
+  return `<h3>Plaque signalétique & Client</h3>` + items.map(x => row(x[0], x[1])).join("");
 }
 
 function rendu(r, s) {
   dernierRes = { type: "3", r, s };
+  $("emptyState").style.display = "none";
   const m = montage(r);
-  let h = `<h2><span>${esc(s.nom || "Sans nom")}</span><span class="badge">Triphasé · ${r.coches} encoches</span></h2>` +
-    blocPlaqueHtml(s) +
-    row("Encoches / Pôles", `${r.coches} encoches / ${r.poles} pôles (${Math.round(3600 / (r.poles / 2))} RPM sync @ 60 Hz)`) +
-    row("Diamètre intérieur / Longueur du fer", `${fp(r.diam)} / ${fp(r.L)}`) +
-    (s.connexion && s.connexion.trim() ? row("Type de connexion", esc(s.connexion.trim())) : "") +
-    row("Pitch saisi", esc(r.groupes.join(", "))) +
-    row("Interprétation du pitch", esc(r.lecture)) +
-    `<h2 style="margin-top:16px">Montage sur la forme (Gabarit à ${r.pmax} crans)</h2>` +
-    `<div class="ok-box"><p class="ph" style="margin:0"><b>1.</b> Règle la distance entre les deux pattes de la forme à <b>${fp(r.largeur)}</b>.</p>` +
-    m.g.map((x, i) => `<p class="ph" style="margin:6px 0 0"><b>${i + 2}.</b> Groupe ${i + 1} (pitch ${esc(x.pitch)}) : place le fil sur les positions (crans) <b style="font-size:1.1rem">${esc(x.pos)}</b> <span class="mute">(hauteurs : ${x.hauts})</span>.<br><span class="mute">${esc(x.fiab)}</span></p>`).join("") +
-    `</div>` +
+  const rpm60 = Math.round(120 * 60 / r.poles);
+  const rpm50 = Math.round(120 * 50 / r.poles);
+
+  let h = `<div class="no-print" style="margin-bottom:12px">
+      <button type="button" class="b cu" data-open-wk="1" style="margin-top:0;padding:13px 16px;font-size:0.96rem">
+        🛠️ Ouvrir le Mode Atelier (Écran actif anti-veille & Suivi cran par cran)
+      </button>
+    </div>` +
+    `<h2>
+      <span>${esc(s.nom || "Moteur Triphasé")}</span>
+      <span style="display:flex;gap:6px;align-items:center">${badgeFiabHtml(m.g[0]?.codeFiab)}<span class="badge">3~ · ${r.coches} enc.</span></span>
+    </h2>` +
+    `<div class="kpi-grid">
+      <div class="kpi-card hi">
+        <div class="kpi-lbl">Écartement pattes</div>
+        <div class="kpi-val">${fpCourt(r.largeur)}</div>
+        <div class="kpi-sub">${Math.round(r.largeur * 1000) / 1000} po (Fer ${fpCourt(r.L)})</div>
+      </div>
+      <div class="kpi-card hi">
+        <div class="kpi-lbl">Crans sur la forme</div>
+        <div class="kpi-val">${esc(m.g.map(x => x.pos).join(" | "))}</div>
+        <div class="kpi-sub">Haut. ${esc(m.g[0]?.hauts || "")}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">Vitesse Synchrone</div>
+        <div class="kpi-val">${rpm60} RPM</div>
+        <div class="kpi-sub">60 Hz (${rpm50} RPM @ 50 Hz)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">Pas polaire & kw</div>
+        <div class="kpi-val">τ = ${f2(r.tau, 1)}</div>
+        <div class="kpi-sub">kw = ${r.kw === null ? "fract." : f2(r.kw, 3)} (${f2(r.ratio * 100, 0)}%)</div>
+      </div>
+    </div>` +
+    `<div class="crans-banner">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:4px">
+        <b style="font-size:0.95rem">1. Règle la distance entre les deux pattes de la forme à <span class="mono" style="color:var(--cu);font-size:1.08rem">${fp(r.largeur)}</span></b>
+      </div>
+      <div class="nudge-bar no-print">
+        <span class="mute" style="font-size:0.76rem;font-weight:700;margin-right:4px">Ajuster pattes en direct :</span>
+        <button type="button" class="nudge-btn" data-nudge="-0.25">− 1/4"</button>
+        <button type="button" class="nudge-btn" data-nudge="-0.125">− 1/8"</button>
+        <button type="button" class="nudge-btn" data-nudge="0">Auto</button>
+        <button type="button" class="nudge-btn" data-nudge="0.125">+ 1/8"</button>
+        <button type="button" class="nudge-btn" data-nudge="0.25">+ 1/4"</button>
+        <button type="button" class="nudge-btn" data-prefill-learn="1" style="margin-left:auto">⬇ Copier vers Apprendre</button>
+      </div>
+      ${m.g.map((x, i) => `
+        <div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+            <span><b>${i + 2}. Groupe ${i + 1}</b> (pitch <span class="mono">${esc(x.pitch)}</span>) — Place le fil sur les crans :</span>
+            <div>${x.posArr.map(c => `<span class="cran-pill" title="Cran ${c} = ${fpCourt(hautCran(c))}">${c}</span>`).join("")}</div>
+          </div>
+          <div class="mute" style="margin-top:4px">Hauteurs des crans : <span class="mono">${x.hauts}</span> · ${esc(x.fiab)}</div>
+        </div>
+      `).join("")}
+    </div>` +
     (m.note ? `<p class="mute" style="margin-top:6px">${esc(m.note)}</p>` : "") +
     (m.hors ? `<p class="warn">${esc(m.hors)}</p>` : "") +
-    `<h2 style="margin-top:16px">Géométrie & Enroulement</h2>` +
-    row("Distance entre les pattes de la forme", fp(r.largeur)) +
+    blocPlaqueHtml(s) +
+    `<h3>Géométrie & Paramètres d'enroulement</h3>` +
+    row("Encoches / Pôles", `${r.coches} encoches / ${r.poles} pôles`) +
+    row("Diamètre intérieur / Longueur du fer", `${fp(r.diam)} / ${fp(r.L)}`) +
+    (s.connexion && s.connexion.trim() ? row("Type de connexion", esc(s.connexion.trim())) : "") +
+    row("Pitch lu comme", esc(r.lecture)) +
     row("Portée axiale totale (avec têtes estimées)", fp(r.portee)) +
-    row("Pas polaire (τ)", f2(r.tau, 2) + " encoches") +
     row("Encoches par pôle et par phase (q)", f2(r.q, 2)) +
     row("Pas moyen de bobine", `${f2(r.spanMoy, 1)} encoches (${f2(r.ratio * 100, 0)} % du pas polaire)`) +
-    row("Facteur de bobinage (kw)", r.kw === null ? "n/d (fractionnaire)" : `${f2(r.kw, 3)} (kp ${f2(r.kp, 3)} × kd ${f2(r.kd, 3)})`) +
-    row("Bobines au total", `${r.bobines} bobines (${r.couches === 1 ? "simple couche" : "double couche"})`);
+    row("Facteur de bobinage (kw)", r.kw === null ? "n/d (fractionnaire)" : `${f2(r.kw, 3)} (raccourcissement ${f2(r.kp, 3)} × distribution ${f2(r.kd, 3)})`) +
+    row("Nombre total de bobines", `${r.bobines} bobines (${r.couches === 1 ? "simple couche" : "double couche"})`);
 
   if (r.fil) {
-    h += `<h2 style="margin-top:16px">Fil de cuivre & Résistance (estimation)</h2>` +
+    h += `<h3>Bilan Cuivre & Résistance Ohmique</h3>` +
       row(`Fil AWG ${r.fil.awg} × ${r.fil.fils} en main`, `${f2(r.fil.dmm, 3)} mm · Section totale ${f2(r.fil.A, 3)} mm² (${r.fil.cm.toLocaleString("fr-CA")} CM)`) +
-      row("Tours par bobine / Circuits", `${r.fil.tours} tours · ${r.fil.circ} circuit(s)`) +
+      row("Tours par bobine / Circuits parallèles", `${r.fil.tours} tours · ${r.fil.circ} circuit(s)`) +
       row("Longueur moyenne d’un tour (MLT)", fp(r.fil.mlt)) +
-      row("Longueur & Poids total de cuivre", `${f2(r.fil.tot, 1)} m — ${f2(r.fil.masse, 2)} kg (${f2(r.fil.masseLb, 2)} lb)`) +
-      row("Résistance par phase à 20 °C", f2(r.fil.res, 3) + " Ω");
+      row("Longueur & Masse totale de cuivre", `${f2(r.fil.tot, 1)} m — ${f2(r.fil.masse, 2)} kg (${f2(r.fil.masseLb, 2)} lb)`) +
+      row("Résistance par phase à 20 °C / à 75 °C", `${f2(r.fil.res, 3)} Ω (20°C)  ·  ${f2(r.fil.res75, 3)} Ω (75°C)`);
   }
 
-  h += `<h2 style="margin-top:16px">Distribution des phases (côté aller, encoches 1 à ${r.coches})</h2>` +
-    phases(r).split("\n").map(l => `<p class="ph"><b>Phase ${esc(l)}</b></p>`).join("") +
+  h += `<h3>Distribution des phases (côté aller, encoches 1 à ${r.coches})</h3>` +
+    phases(r).split("\n").map(l => `<p class="ph mono"><b>Phase ${esc(l)}</b></p>`).join("") +
     `<p class="mute">Chaque bobine part du groupe aller et revient selon son pas (${r.sp[0].join(", ")} encoche${r.span > 1 ? "s" : ""} plus loin). Le signe − indique le sens de polarité opposé.</p>` +
-    `<p class="warn">La distance entre les pattes, les crans, le poids de fil et la résistance sont des estimations d'atelier. Vérifie toujours la 1re bobine d’essai dans le stator avant de bobiner la série complète.</p>`;
+    `<p class="warn">Vérifie toujours la 1re bobine d’essai dans le stator avant de bobiner la série complète.</p>`;
 
   $("out").innerHTML = h;
 
   fiche = `FICHE DE REBOBINAGE TRIPHASÉ — ${s.nom || "Sans nom"}\n` +
     (s.plSerie ? `N° Série / Client : ${s.plSerie}\n` : "") +
     (s.plHp || s.plVolts ? `Plaque : ${[s.plHp, s.plRpm && s.plRpm + " RPM", s.plVolts, s.plAmps, s.plFrame && "Frame " + s.plFrame].filter(Boolean).join(" · ")}\n` : "") +
-    `\nEncoches : ${r.coches}   Pôles : ${r.poles}\n` +
+    `\nEncoches : ${r.coches}   Pôles : ${r.poles} (${rpm60} RPM sync @ 60Hz)\n` +
     (s.connexion && s.connexion.trim() ? `Type de connexion : ${s.connexion.trim()}\n` : "") +
     `Diamètre intérieur : ${fp(r.diam)}\nLongueur stator : ${fp(r.L)}\nPitch : ${r.groupes.join(", ")} (${r.lecture})\n` +
     `\nMONTAGE SUR LA FORME\nDistance entre les pattes de la forme : ${fp(r.largeur)}\n` +
     m.g.map((x, i) => `Groupe ${i + 1} (pitch ${x.pitch}) : positions (crans) ${x.pos} [hauteurs ${x.hauts}]${x.fiab ? "\n   " + x.fiab : ""}`).join("\n") +
     (m.note ? "\n" + m.note : "") + (m.hors ? "\n" + m.hors : "") +
     `\n\nPas polaire : ${f2(r.tau, 2)}   q : ${f2(r.q, 2)}   Pas de bobine : ${r.sp[0].join("-")}\nFacteur de bobinage : ${r.kw === null ? "n/d" : f2(r.kw, 3)}\nBobines : ${r.bobines}\n` +
-    (r.fil ? `\nFil AWG ${r.fil.awg} × ${r.fil.fils} (${f2(r.fil.A, 3)} mm² / ${r.fil.cm} CM), ${r.fil.tours} tours/bobine, ${r.fil.circ} circuit(s)\nCuivre total : ${f2(r.fil.tot, 1)} m — ${f2(r.fil.masse, 2)} kg (${f2(r.fil.masseLb, 2)} lb)\nRésistance par phase (20 °C) : ${f2(r.fil.res, 3)} Ω\n` : "") +
+    (r.fil ? `\nFil AWG ${r.fil.awg} × ${r.fil.fils} (${f2(r.fil.A, 3)} mm² / ${r.fil.cm} CM), ${r.fil.tours} tours/bobine, ${r.fil.circ} circuit(s)\nCuivre total : ${f2(r.fil.tot, 1)} m — ${f2(r.fil.masse, 2)} kg (${f2(r.fil.masseLb, 2)} lb)\nRésistance par phase : ${f2(r.fil.res, 3)} Ω @ 20°C (${f2(r.fil.res75, 3)} Ω @ 75°C)\n` : "") +
     `\nSchéma des phases :\n${phases(r)}\n`;
 
   $("res").style.display = "block";
   dessinerVisuels();
 }
 
-/* ---------- VISUALISATIONS GRAPHIQUES SVG (Forme 16 crans, Stator Circulaire, Linéaire) ---------- */
+/* ---------- VISUALISATIONS GRAPHIQUES SVG HAUTE PRÉCISION ---------- */
 function svgFormeGabarit(blocsForme, pmax) {
-  // blocsForme = [{ titre: "Triphasé" | "Run" | "Start", largeur, L, groupes: [{ label, pitchArr, posArr, color }] }]
-  const W = 760, H = 260 * blocsForme.length + 20;
-  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="font-family:system-ui,sans-serif">`;
+  const W = 780, H = 310 * blocsForme.length + 16;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="font-family:system-ui,sans-serif">
+  <defs>
+    <linearGradient id="cuGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#d97736"/>
+      <stop offset="100%" stop-color="#9a3412"/>
+    </linearGradient>
+    <linearGradient id="steelGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>`;
+
   blocsForme.forEach((bf, bi) => {
-    const y0 = bi * 260 + 10;
-    const usedMap = {}; // cran -> [{grpIdx, coilIdx, span, color}]
+    const y0 = bi * 310 + 8;
+    const usedMap = {};
     bf.groupes.forEach((g, gi) => {
       g.posArr.forEach((cran, ci) => {
         if (!usedMap[cran]) usedMap[cran] = [];
-        usedMap[cran].push({ gi, ci, span: g.pitchArr[ci], color: g.color || "#d97706", label: g.label });
+        usedMap[cran].push({ gi, ci, span: g.pitchArr[ci], color: g.color || "#d97736", label: g.label });
       });
     });
 
-    // Cadre
-    svg += `<rect x="8" y="${y0}" width="${W - 16}" height="245" rx="10" fill="none" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4 3"/>`;
-    svg += `<text x="22" y="${y0 + 24}" font-size="14" font-weight="700" fill="currentColor">${esc(bf.titre)} — Écartement entre les 2 pattes : ${fp(bf.largeur)} (Fer : ${fpCourt(bf.L)})</text>`;
+    svg += `<rect x="6" y="${y0}" width="${W - 12}" height="296" rx="12" fill="none" stroke="#64748b" stroke-width="1.2" stroke-opacity="0.5"/>`;
+    svg += `<text x="20" y="${y0 + 24}" font-size="13.5" font-weight="800" fill="currentColor">${esc(bf.titre)} — Écartement des pattes : ${fp(bf.largeur)} (Longueur fer : ${fpCourt(bf.L)})</text>`;
 
-    // Dessin de la patte centrale / barre porte-crans (crans 1 à pmax de gauche à droite)
-    const xStart = 46, xEnd = W - 46;
+    //PARTIE GAUCHE (x=20..255) : Vue de face des 2 pattes avec les boucles de fil octogonales sur les crans actifs
+    const cxForme = 135, cyForme = y0 + 162;
+    const legHalfSpread = 48; // demi-écartement visuel entre les 2 pattes
+    // Zone du paquet de tôles (stator)
+    svg += `<rect x="${cxForme - legHalfSpread + 6}" y="${cyForme - 78}" width="${(legHalfSpread - 6) * 2}" height="156" rx="4" fill="#64748b" fill-opacity="0.12" stroke="#64748b" stroke-dasharray="3 3"/>`;
+    svg += `<text x="${cxForme}" y="${cyForme + 4}" font-size="9.5" font-weight="700" fill="#64748b" text-anchor="middle">LARGEUR ${fpCourt(bf.largeur)}</text>`;
+
+    // Cote fléchée entre les deux pattes
+    svg += `<line x1="${cxForme - legHalfSpread}" y1="${y0 + 48}" x2="${cxForme + legHalfSpread}" y2="${y0 + 48}" stroke="#d97736" stroke-width="2"/>`;
+    svg += `<line x1="${cxForme - legHalfSpread}" y1="${y0 + 42}" x2="${cxForme - legHalfSpread}" y2="${y0 + 54}" stroke="#d97736" stroke-width="2"/>`;
+    svg += `<line x1="${cxForme + legHalfSpread}" y1="${y0 + 42}" x2="${cxForme + legHalfSpread}" y2="${y0 + 54}" stroke="#d97736" stroke-width="2"/>`;
+    svg += `<text x="${cxForme}" y="${y0 + 43}" font-size="10.5" font-weight="800" fill="#d97736" text-anchor="middle">${fpCourt(bf.largeur)}</text>`;
+
+    // Les 2 pattes verticales du gabarit
+    svg += `<rect x="${cxForme - legHalfSpread - 5}" y="${cyForme - 95}" width="10" height="190" rx="4" fill="url(#steelGrad)"/>`;
+    svg += `<rect x="${cxForme + legHalfSpread - 5}" y="${cyForme - 95}" width="10" height="190" rx="4" fill="url(#steelGrad)"/>`;
+
+    // Dessiner les boucles de bobines concentriques sur les crans utilisés
+    const activeCrans = Object.keys(usedMap).map(Number).sort((a, b) => a - b);
+    activeCrans.forEach((cran) => {
+      const info = usedMap[cran][0];
+      const hRatio = (cran - 1) / Math.max(1, pmax - 1);
+      const ry = 24 + hRatio * 68;
+      const rx = legHalfSpread + 4 + hRatio * 18;
+      const pts = [
+        `${cxForme - legHalfSpread},${cyForme - ry}`,
+        `${cxForme + legHalfSpread},${cyForme - ry}`,
+        `${cxForme + rx},${cyForme - ry * 0.55}`,
+        `${cxForme + rx},${cyForme + ry * 0.55}`,
+        `${cxForme + legHalfSpread},${cyForme + ry}`,
+        `${cxForme - legHalfSpread},${cyForme + ry}`,
+        `${cxForme - rx},${cyForme + ry * 0.55}`,
+        `${cxForme - rx},${cyForme - ry * 0.55}`
+      ].join(" ");
+      svg += `<polygon points="${pts}" fill="none" stroke="${info.color}" stroke-width="3" opacity="0.92"/>`;
+      svg += `<circle cx="${cxForme - legHalfSpread}" cy="${cyForme - ry}" r="4" fill="${info.color}"/>`;
+      svg += `<circle cx="${cxForme + legHalfSpread}" cy="${cyForme - ry}" r="4" fill="${info.color}"/>`;
+      svg += `<circle cx="${cxForme - legHalfSpread}" cy="${cyForme + ry}" r="4" fill="${info.color}"/>`;
+      svg += `<circle cx="${cxForme + legHalfSpread}" cy="${cyForme + ry}" r="4" fill="${info.color}"/>`;
+      svg += `<text x="${cxForme}" y="${cyForme - ry - 4}" font-size="9.5" font-weight="800" fill="${info.color}" text-anchor="middle">Cran ${cran} (Pas ${info.span})</text>`;
+    });
+
+    // PARTIE DROITE (x=275..755) : Échelle graduée des crans 1 à 16
+    const xStart = 285, xEnd = W - 30;
     const stepX = (xEnd - xStart) / Math.max(1, pmax - 1);
-    const yRail = y0 + 165;
+    const yRail = y0 + 205;
 
-    // Barre métallique de la forme
-    svg += `<rect x="${xStart - 16}" y="${yRail}" width="${xEnd - xStart + 32}" height="18" rx="4" fill="#475569"/>`;
-    svg += `<text x="${W / 2}" y="${yRail + 13}" font-size="10" font-weight="700" fill="#f8fafc" text-anchor="middle">GABARIT À CRANS (1 À ${pmax}) — HAUTEUR EN POUCES PAR CRAN</text>`;
+    svg += `<rect x="${xStart - 14}" y="${yRail}" width="${xEnd - xStart + 28}" height="18" rx="4" fill="url(#steelGrad)"/>`;
+    svg += `<text x="${(xStart + xEnd) / 2}" y="${yRail + 12.5}" font-size="9.5" font-weight="800" fill="#f8fafc" text-anchor="middle">ÉCHELLE DES ${pmax} CRANS DE LA FORME (HAUTEUR DE 1/2" À 4")</text>`;
 
     for (let c = 1; c <= pmax; c++) {
       const cx = xStart + (c - 1) * stepX;
-      const hPo = hautCran(c); // 0.5 to 4.0 po
-      const pinH = 18 + (hPo / 4.0) * 82; // hauteur visuelle proportionnelle
+      const hPo = hautCran(c);
+      const pinH = 22 + (hPo / 4.0) * 102;
       const u = usedMap[c];
       const active = !!u;
       const col = active ? u[0].color : "#94a3b8";
 
-      // Tige du cran
-      svg += `<rect x="${cx - (active ? 6 : 3.5)}" y="${yRail - pinH}" width="${active ? 12 : 7}" height="${pinH}" rx="3" fill="${col}" stroke="${active ? "#1e293b" : "none"}" stroke-width="1.5"/>`;
+      svg += `<rect x="${cx - (active ? 6 : 3.2)}" y="${yRail - pinH}" width="${active ? 12 : 6.4}" height="${pinH}" rx="3" fill="${col}" fill-opacity="${active ? "1" : "0.45"}"/>`;
 
-      // Numéro du cran sous le rail
-      svg += `<circle cx="${cx}" cy="${yRail + 32}" r="${active ? 12 : 9}" fill="${active ? col : "transparent"}" stroke="${active ? col : "#64748b"}" stroke-width="1.5"/>`;
-      svg += `<text x="${cx}" y="${yRail + 36}" font-size="${active ? 12 : 10}" font-weight="700" fill="${active ? "#ffffff" : "currentColor"}" text-anchor="middle">${c}</text>`;
+      svg += `<circle cx="${cx}" cy="${yRail + 32}" r="${active ? 11.5 : 8.5}" fill="${active ? col : "transparent"}" stroke="${active ? col : "#64748b"}" stroke-width="1.5"/>`;
+      svg += `<text x="${cx}" y="${yRail + 36}" font-size="${active ? 11.5 : 9.5}" font-weight="800" fill="${active ? "#ffffff" : "currentColor"}" text-anchor="middle">${c}</text>`;
 
-      // Hauteur en pouces sous le numéro
       const hTxt = c <= 15 ? fpCourt(hPo).replace(" po", '"') : '4"';
-      svg += `<text x="${cx}" y="${yRail + 56}" font-size="9.5" font-weight="${active ? "700" : "400"}" fill="${active ? col : "#64748b"}" text-anchor="middle">${hTxt}</text>`;
+      svg += `<text x="${cx}" y="${yRail + 55}" font-size="9" font-weight="${active ? "800" : "500"}" fill="${active ? col : "#64748b"}" text-anchor="middle">${hTxt}</text>`;
 
-      // Étiquette au-dessus du cran actif (Pitch associé)
       if (active) {
-        const txtPitch = u.map(x => `Pas ${x.span}`).join("/");
-        svg += `<rect x="${cx - 22}" y="${yRail - pinH - 24}" width="44" height="19" rx="4" fill="${col}"/>`;
-        svg += `<text x="${cx}" y="${yRail - pinH - 11}" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">${esc(txtPitch)}</text>`;
+        const txtPitch = u.map(x => `P.${x.span}`).join("/");
+        svg += `<rect x="${cx - 19}" y="${yRail - pinH - 22}" width="38" height="17" rx="4" fill="${col}"/>`;
+        svg += `<text x="${cx}" y="${yRail - pinH - 10}" font-size="9.5" font-weight="800" fill="#ffffff" text-anchor="middle">${esc(txtPitch)}</text>`;
       }
     }
   });
+
   svg += `</svg>`;
   return svg;
 }
 
 function svgStatorCirculaire(resObj) {
-  const S = 520, cx = S / 2, cy = S / 2, rOut = 225, rSlotOut = 188, rSlotIn = 148;
+  const S = 540, cx = S / 2, cy = S / 2, rOut = 232, rSlotOut = 194, rSlotIn = 152;
   let coches = 36, poles = 4, sch = [], arcs = [];
   if (resObj.type === "3") {
     const r = resObj.r;
     coches = r.coches;
     poles = r.poles;
     sch = r.sch;
-    // Construire les arcs de la Phase A (et premier groupe B/C) pour montrer clairement les pas
     const phColors = { A: "#dc2626", B: "#2563eb", C: "#16a34a" };
     const sp0 = r.sp[0] || [r.span];
-    // Montrer les bobines du 1er pôle de chaque phase
     ["A", "B", "C"].forEach((ph, pi) => {
       const grp = sch.find(g => g.ph === ph);
       if (!grp) return;
@@ -1763,7 +2602,6 @@ function svgStatorCirculaire(resObj) {
       });
     });
   } else {
-    // Monophasé : Run (ambre/rouge) + Start (bleu)
     coches = resObj.coches;
     poles = resObj.poles;
     const pasPolaire = coches / poles;
@@ -1775,7 +2613,7 @@ function svgStatorCirculaire(resObj) {
           const half = Math.floor(sp / 2);
           const s1 = ((center - half - 1 + coches * 2) % coches) + 1;
           const s2 = ((s1 - 1 + sp) % coches) + 1;
-          arcs.push({ s1, s2, color: "#d97706", label: p === 0 ? `Run (${sp})` : "", radOffset: ci * 6 });
+          arcs.push({ s1, s2, color: "#d97736", label: p === 0 ? `Run (${sp})` : "", radOffset: ci * 6 });
         });
       }
     }
@@ -1794,7 +2632,6 @@ function svgStatorCirculaire(resObj) {
     }
   }
 
-  // Carte de couleur par encoche
   const slotInfo = {};
   if (resObj.type === "3") {
     const phColors = { A: "#dc2626", B: "#2563eb", C: "#16a34a" };
@@ -1808,11 +2645,9 @@ function svgStatorCirculaire(resObj) {
   const angOf = s => ((s - 1) / coches) * 2 * Math.PI - Math.PI / 2;
 
   let svg = `<svg viewBox="0 0 ${S} ${S}" width="100%" style="max-width:520px;margin:0 auto;display:block;font-family:system-ui,sans-serif" xmlns="http://www.w3.org/2000/svg">`;
-  // Couronne extérieure du stator
   svg += `<circle cx="${cx}" cy="${cy}" r="${rOut}" fill="none" stroke="#64748b" stroke-width="3"/>`;
   svg += `<circle cx="${cx}" cy="${cy}" r="${rSlotIn}" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="3 3"/>`;
 
-  // Encoches
   for (let s = 1; s <= coches; s++) {
     const a = angOf(s);
     const x1 = cx + rSlotIn * Math.cos(a), y1 = cy + rSlotIn * Math.sin(a);
@@ -1821,32 +2656,30 @@ function svgStatorCirculaire(resObj) {
     const info = slotInfo[s];
     const col = info ? info.color : "#64748b";
     svg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${col}" stroke-width="5" stroke-linecap="round"/>`;
-    svg += `<text x="${xt.toFixed(1)}" y="${(yt + 3.5).toFixed(1)}" font-size="${coches > 36 ? 8.5 : 10}" font-weight="700" fill="${col}" text-anchor="middle">${s}</text>`;
+    svg += `<text x="${xt.toFixed(1)}" y="${(yt + 3.5).toFixed(1)}" font-size="${coches > 36 ? 8.5 : 10}" font-weight="800" fill="${col}" text-anchor="middle">${s}</text>`;
   }
 
-  // Arcs de bobines à l'intérieur de l'alésage
   arcs.forEach(ar => {
     const a1 = angOf(ar.s1), a2 = angOf(ar.s2);
     const rArc = Math.max(42, rSlotIn - 14 - (ar.radOffset || 0));
     const x1 = cx + rSlotIn * Math.cos(a1), y1 = cy + rSlotIn * Math.sin(a1);
     const x2 = cx + rSlotIn * Math.cos(a2), y2 = cy + rSlotIn * Math.sin(a2);
     const xm = cx + rArc * Math.cos((a1 + a2) / 2), ym = cy + rArc * Math.sin((a1 + a2) / 2);
-    svg += `<path d="M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${xm.toFixed(1)} ${ym.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${ar.color}" stroke-width="2.4" opacity="0.9"/>`;
+    svg += `<path d="M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${xm.toFixed(1)} ${ym.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${ar.color}" stroke-width="2.5" opacity="0.92"/>`;
   });
 
-  // Légende centrale
-  svg += `<text x="${cx}" y="${cy - 8}" font-size="13" font-weight="700" fill="currentColor" text-anchor="middle">${coches} encoches · ${poles} pôles</text>`;
-  svg += `<text x="${cx}" y="${cy + 12}" font-size="11" fill="#64748b" text-anchor="middle">${resObj.type === "3" ? "Rouge=Ph.A · Bleu=Ph.B · Vert=Ph.C" : "Ambre=Run · Bleu=Start"}</text>`;
+  svg += `<text x="${cx}" y="${cy - 8}" font-size="13.5" font-weight="800" fill="currentColor" text-anchor="middle">${coches} encoches · ${poles} pôles</text>`;
+  svg += `<text x="${cx}" y="${cy + 12}" font-size="11" font-weight="600" fill="#64748b" text-anchor="middle">${resObj.type === "3" ? "Rouge=Ph.A · Bleu=Ph.B · Vert=Ph.C" : "Cuivre=Run · Bleu=Start"}</text>`;
   svg += `</svg>`;
   return svg;
 }
 
 function svgStatorLineaire(resObj) {
   const coches = resObj.type === "3" ? resObj.r.coches : resObj.coches;
-  const W = Math.max(720, coches * 22 + 60), H = 210;
-  const x0 = 30, step = (W - 60) / coches, ySlot = 125;
+  const W = Math.max(740, coches * 22 + 60), H = 220;
+  const x0 = 30, step = (W - 60) / coches, ySlot = 132;
   let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="font-family:system-ui,sans-serif">`;
-  svg += `<text x="20" y="22" font-size="13" font-weight="700" fill="currentColor">Schéma développé linéaire des ${coches} encoches</text>`;
+  svg += `<text x="20" y="22" font-size="13" font-weight="800" fill="currentColor">Schéma panoramique développé des ${coches} encoches</text>`;
 
   const slotInfo = {};
   if (resObj.type === "3") {
@@ -1860,15 +2693,14 @@ function svgStatorLineaire(resObj) {
     const x = x0 + (s - 0.5) * step;
     const inf = slotInfo[s];
     const col = inf ? inf.color : "#64748b";
-    svg += `<rect x="${(x - 6).toFixed(1)}" y="${ySlot}" width="12" height="44" rx="3" fill="${col}"/>`;
-    svg += `<text x="${x.toFixed(1)}" y="${ySlot + 60}" font-size="10" font-weight="700" fill="currentColor" text-anchor="middle">${s}</text>`;
+    svg += `<rect x="${(x - 6.5).toFixed(1)}" y="${ySlot}" width="13" height="46" rx="3" fill="${col}"/>`;
+    svg += `<text x="${x.toFixed(1)}" y="${ySlot + 62}" font-size="10" font-weight="800" fill="currentColor" text-anchor="middle">${s}</text>`;
     if (inf) {
-      svg += `<text x="${x.toFixed(1)}" y="${ySlot + 20}" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">${inf.ph}</text>`;
-      svg += `<text x="${x.toFixed(1)}" y="${ySlot + 35}" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">${inf.sg}</text>`;
+      svg += `<text x="${x.toFixed(1)}" y="${ySlot + 19}" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">${inf.ph}</text>`;
+      svg += `<text x="${x.toFixed(1)}" y="${ySlot + 36}" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">${inf.sg === "+" ? "▲" : "▼"}</text>`;
     }
   }
 
-  // Dessiner les arcs du premier pôle pour illustrer le pas (pitch)
   if (resObj.type === "3") {
     const sp0 = resObj.r.sp[0] || [resObj.r.span];
     const phColors = { A: "#dc2626", B: "#2563eb", C: "#16a34a" };
@@ -1880,8 +2712,8 @@ function svgStatorLineaire(resObj) {
         const s2 = s1 + sp;
         if (s2 > coches) return;
         const x1 = x0 + (s1 - 0.5) * step, x2 = x0 + (s2 - 0.5) * step;
-        const hArc = Math.min(85, 22 + sp * 6);
-        svg += `<path d="M ${x1.toFixed(1)} ${ySlot} Q ${((x1 + x2) / 2).toFixed(1)} ${(ySlot - hArc).toFixed(1)} ${x2.toFixed(1)} ${ySlot}" fill="none" stroke="${phColors[ph]}" stroke-width="2.2"/>`;
+        const hArc = Math.min(90, 24 + sp * 6);
+        svg += `<path d="M ${x1.toFixed(1)} ${ySlot} Q ${((x1 + x2) / 2).toFixed(1)} ${(ySlot - hArc).toFixed(1)} ${x2.toFixed(1)} ${ySlot}" fill="none" stroke="${phColors[ph]}" stroke-width="2.4"/>`;
       });
     });
   } else {
@@ -1892,8 +2724,8 @@ function svgStatorLineaire(resObj) {
         const s2 = s1 + sp;
         if (s2 <= coches) {
           const x1 = x0 + (s1 - 0.5) * step, x2 = x0 + (s2 - 0.5) * step;
-          const hArc = 25 + sp * 5.5;
-          svg += `<path d="M ${x1.toFixed(1)} ${ySlot} Q ${((x1 + x2) / 2).toFixed(1)} ${(ySlot - hArc).toFixed(1)} ${x2.toFixed(1)} ${ySlot}" fill="none" stroke="#d97706" stroke-width="2.4"/>`;
+          const hArc = 26 + sp * 5.5;
+          svg += `<path d="M ${x1.toFixed(1)} ${ySlot} Q ${((x1 + x2) / 2).toFixed(1)} ${(ySlot - hArc).toFixed(1)} ${x2.toFixed(1)} ${ySlot}" fill="none" stroke="#d97736" stroke-width="2.5"/>`;
         }
       });
     }
@@ -1908,44 +2740,45 @@ function dessinerVisuels() {
   let blocs = [], pmax = 16;
   if (dernierRes.type === "3") {
     const r = dernierRes.r;
-    pmax = r.pmax;
-    const palette = ["#d97706", "#2563eb", "#16a34a", "#9333ea"];
+    pmax = r.pmax || 16;
     blocs.push({
-      titre: "Forme Triphasé",
+      titre: "Forme — Triphasé",
       largeur: r.largeur,
       L: r.L,
       groupes: r.pos.map((p, i) => ({
-        label: `Gr.${i + 1}`,
-        pitchArr: r.sp[i] || p,
+        label: `Groupe ${i + 1}`,
         posArr: p,
-        color: palette[i % palette.length]
+        pitchArr: r.sp[i] || p,
+        color: ["#d97736", "#2563eb", "#16a34a"][i % 3]
       }))
     });
   } else {
     if (dernierRes.run) {
-      pmax = dernierRes.run.pmax;
+      const r = dernierRes.run;
+      pmax = r.pmax || 16;
       blocs.push({
-        titre: "Forme RUN (Enroulement principal)",
-        largeur: dernierRes.run.largeur,
-        L: dernierRes.run.L,
-        groupes: dernierRes.run.pos.map((p, i) => ({
-          label: `Run ${i + 1}`,
-          pitchArr: dernierRes.run.grpRaw[i] || p,
+        titre: "Forme — RUN (Principal)",
+        largeur: r.largeur,
+        L: r.L,
+        groupes: r.pos.map((p, i) => ({
+          label: `Run G.${i + 1}`,
           posArr: p,
-          color: "#d97706"
+          pitchArr: r.grpRaw[i] || p,
+          color: "#d97736"
         }))
       });
     }
     if (dernierRes.start) {
-      pmax = dernierRes.start.pmax;
+      const r = dernierRes.start;
+      pmax = r.pmax || 16;
       blocs.push({
-        titre: "Forme START (Enroulement auxiliaire)",
-        largeur: dernierRes.start.largeur,
-        L: dernierRes.start.L,
-        groupes: dernierRes.start.pos.map((p, i) => ({
-          label: `Start ${i + 1}`,
-          pitchArr: dernierRes.start.grpRaw[i] || p,
+        titre: "Forme — START (Auxiliaire)",
+        largeur: r.largeur,
+        L: r.L,
+        groupes: r.pos.map((p, i) => ({
+          label: `Start G.${i + 1}`,
           posArr: p,
+          pitchArr: r.grpRaw[i] || p,
           color: "#0284c7"
         }))
       });
@@ -1957,25 +2790,24 @@ function dessinerVisuels() {
 }
 
 $("vizTabs").onclick = e => {
-  const b = e.target.closest("button[data-v]");
+  const b = e.target.closest("[data-v]");
   if (!b) return;
   $("vizTabs").querySelectorAll("button").forEach(x => x.classList.toggle("act", x === b));
   const v = b.dataset.v;
-  $("svgFormeWrap").style.display = v === "forme" ? "block" : "none";
-  $("svgCircleWrap").style.display = v === "circle" ? "block" : "none";
-  $("svgLinearWrap").style.display = v === "linear" ? "block" : "none";
+  $("svgFormeWrap").style.display = (v === "forme" || v === "all") ? "block" : "none";
+  $("svgCircleWrap").style.display = (v === "circle" || v === "all") ? "block" : "none";
+  $("svgLinearWrap").style.display = (v === "linear" || v === "all") ? "block" : "none";
 };
 
-/* ---------- Saisie, Travaux & Onglets ---------- */
+/* ---------- Champs Monophasé (Run + Start) & Lecture/Écriture du formulaire ---------- */
 const MON = [
-  ["pitch", "Pitch (pas des bobines concentriques)", "text", "ex. 3-5-7-9 ou 4-6-8-10-12", 1],
+  ["pitch", "Pitch (pas des bobines)", "text", "ex. 5-7-9 ou 4-6-8-10-12", 1],
   ["awg", "Calibre du fil (AWG)", "numeric", "ex. 18"],
   ["fils", "Fils en parallèle", "numeric", "1"],
   ["tours", "Tours par bobine", "numeric", "ex. 40"],
   ["circ", "Circuits parallèles", "numeric", "1"],
   ["bpp", "Bobines par pôle (vide = auto)", "numeric", "auto"]
 ];
-
 ["r", "s"].forEach(w => {
   $(w === "r" ? "fRun" : "fStart").innerHTML = MON.map(c =>
     `<label class="f${c[4] ? " w" : ""}">${c[1]}<input id="${w}${c[0]}" type="text" inputmode="${c[2]}" placeholder="${c[3]}" autocomplete="off"></label>`
@@ -1994,7 +2826,7 @@ const saisie = () => {
   return s;
 };
 
-const remplir = s => {
+function remplir(s) {
   s = s || {};
   CH.forEach(c => $(c[0]).value = s[c[0]] || "");
   ["r", "s"].forEach(w => MON.forEach(c => $(w + c[0]).value = s[w + c[0]] || ""));
@@ -2003,14 +2835,151 @@ const remplir = s => {
   $("mode").value = s.mode || "3";
   $("notation").value = s.notation || "auto";
   appliquerMode();
+  majQuickChips();
+  detecterMoteurProche();
+}
+
+/* ---------- Puces de sélection rapide (Encoches & Pôles) + Détection en direct ---------- */
+function majQuickChips() {
+  document.querySelectorAll(".qchips").forEach(box => {
+    const targetId = box.dataset.qtarget;
+    const val = ($(targetId)?.value || "").trim();
+    box.querySelectorAll(".qchip").forEach(btn => {
+      btn.classList.toggle("on", btn.dataset.qv === val);
+    });
+  });
+}
+
+document.addEventListener("click", e => {
+  const qc = e.target.closest(".qchip");
+  if (!qc) return;
+  const box = qc.closest(".qchips");
+  if (!box) return;
+  const inp = $(box.dataset.qtarget);
+  if (!inp) return;
+  inp.value = qc.dataset.qv;
+  inp.dispatchEvent(new Event("input", { bubbles: true }));
+  majQuickChips();
+  detecterMoteurProche();
+});
+
+function detecterMoteurProche() {
+  const banner = $("liveMatchBanner");
+  if (!banner) return;
+  const coches = parseInt($("coches")?.value, 10);
+  const diam = lirePouces($("diam")?.value);
+  const L = lirePouces($("longueur")?.value);
+  if (!(coches > 0) || !(diam > 0)) {
+    banner.style.display = "none";
+    return;
+  }
+  const tous = VERIF.map((m, i) => ({
+    coches: m[0], diam: m[1], pitch: m[2], pos: m[3], L: m[4], W: m[5],
+    label: m[6] === "p" ? `Fiche photo #${i + 1}` : `Ancienne app #${i + 1}`
+  })).concat(appris.filter(utilisable).map(x => ({
+    coches: x.coches, diam: x.diam, pitch: x.pitch || [], pos: x.pos || [], L: x.L, W: x.W,
+    label: x.nom || "Moteur appris"
+  })));
+
+  const proches = tous.filter(m => m.coches === coches && Math.abs(m.diam - diam) <= 0.26)
+    .map(m => ({ ...m, score: Math.abs(m.diam - diam) + (isFinite(L) ? 0.25 * Math.abs(m.L - L) : 0) }))
+    .sort((a, b) => a.score - b.score)
+    .slice(0, 3);
+
+  if (!proches.length) {
+    banner.style.display = "none";
+    return;
+  }
+
+  banner.style.display = "block";
+  banner.innerHTML = `<div style="font-weight:800;color:var(--ok);margin-bottom:4px">💡 ${proches.length} correspondance(s) trouvée(s) dans tes fiches pour ${coches} encoches :</div>` +
+    proches.map((m, idx) => `<div class="match-item">
+      <span class="mono"><b>${esc(m.label)}</b> : Ø <b>${fpCourt(m.diam)}</b> · Fer <b>${fpCourt(m.L)}</b> · Pitch <b>${m.pitch.join("-")}</b> → Crans <b>${m.pos.join("-")}</b> (Pattes ${fpCourt(m.W)})</span>
+      <span style="display:flex;gap:5px">
+        <button type="button" class="match-btn" data-apply-match="${idx}" data-with-w="1">Appliquer Pitch + Pattes</button>
+        <button type="button" class="match-btn alt" data-apply-match="${idx}" data-with-w="0">Pitch seul</button>
+      </span>
+    </div>`).join("");
+
+  banner.onclick = ev => {
+    const b = ev.target.closest("[data-apply-match]");
+    if (!b) return;
+    const m = proches[+b.dataset.applyMatch];
+    if (!m) return;
+    const pStr = m.pitch.join("-");
+    if ($("mode").value === "1") {
+      $("rpitch").value = pStr;
+    } else {
+      $("notation").value = "pas";
+      $("pitch").value = pStr;
+    }
+    if (!isFinite(L)) $("longueur").value = fpCourt(m.L).replace(" po", "");
+    if (b.dataset.withW === "1") {
+      $("larg").value = fpCourt(m.W).replace(" po", "");
+    }
+    ecrire("bobinage:brouillon", saisie());
+    go();
+    toast(`Pitch ${pStr} appliqué et calculé`);
+  };
+}
+
+/* Barre de démarrage rapide (4 moteurs vérifiés) */
+const PRESETS = {
+  mono36: {
+    mode: "1", nom: "Moteur Monophasé 36 enc. (Fiche #1 vérifiée)", connexion: "Série (1 circuit)",
+    coches: "36", poles: "4", diam: "3 1/8", longueur: "3 1/8", larg: "",
+    rpitch: "5-7-9", rawg: "17", rfils: "1", rtours: "38", rcirc: "1",
+    spitch: "8-10", sawg: "21", sfils: "1", stours: "52", scirc: "1"
+  },
+  mono24: {
+    mode: "1", nom: "Moteur Monophasé 24 enc. (Fiche #16 vérifiée)", connexion: "Parallèle (2 circuits)",
+    coches: "24", poles: "2", diam: "4", longueur: "5 1/8", larg: "7 3/4",
+    rpitch: "4-6-8-10-12", rawg: "16", rfils: "2", rtours: "22", rcirc: "2",
+    spitch: "6-8-10-12", sawg: "19", sfils: "1", stours: "34", scirc: "1"
+  },
+  tri36: {
+    mode: "3", notation: "pas", nom: "Pompe Triphasée 5 HP · 36 encoches", connexion: "Étoile série (1Y)",
+    coches: "36", poles: "4", diam: "4 3/4", longueur: "5", larg: "6 1/4",
+    pitch: "5-7-9", awg: "18", fils: "2", tours: "32", circ: "1",
+    plHp: "5 HP", plRpm: "1750", plVolts: "575 V", plAmps: "5.3 A", plFrame: "184T", plHz: "60"
+  },
+  tri48: {
+    mode: "3", notation: "pas", nom: "Ventilateur 15 HP · 48 encoches", connexion: "Triangle série (1Δ)",
+    coches: "48", poles: "4", diam: "7 1/2", longueur: "7 5/8", larg: "11 1/2",
+    pitch: "8-10-12", awg: "15", fils: "2", tours: "24", circ: "2",
+    plHp: "15 HP", plRpm: "1765", plVolts: "460 V", plAmps: "18.5 A", plFrame: "254T", plHz: "60"
+  }
 };
 
-$("bClearForm").onclick = async () => {
-  if (!await confirmer("Effacer tous les champs du formulaire actuel ?")) return;
+$("presetBar").onclick = e => {
+  const b = e.target.closest("[data-pre]");
+  if (!b) return;
+  const p = PRESETS[b.dataset.pre];
+  if (!p) return;
+  remplir(p);
+  ecrire("bobinage:brouillon", saisie());
+  go();
+  toast("Moteur type chargé et calculé");
+};
+
+let etatAvantVider = null;
+$("bClearForm").onclick = () => {
+  etatAvantVider = saisie();
   remplir({ mode: $("mode").value, couches: "2", notation: "auto" });
   ecrire("bobinage:brouillon", saisie());
   $("res").style.display = "none";
+  $("emptyState").style.display = "block";
   $("err").textContent = "";
+  $("bUndoForm").style.display = "inline-block";
+  toast("Formulaire vidé — touche « ↶ Annuler » en haut si besoin");
+};
+$("bUndoForm").onclick = () => {
+  if (!etatAvantVider) return;
+  remplir(etatAvantVider);
+  ecrire("bobinage:brouillon", saisie());
+  $("bUndoForm").style.display = "none";
+  go();
+  toast("Saisie précédente restaurée");
 };
 
 function go() {
@@ -2023,19 +2992,33 @@ function go() {
   }
   $("pitch").value = r.groupes.join(", ");
   rendu(r, saisie());
-  $("res").scrollIntoView({ behavior: "smooth" });
+  if (window.innerWidth < 980) $("res").scrollIntoView({ behavior: "smooth" });
   return true;
 }
 
 function liste() {
-  const j = lire("bobinage:travaux", []);
+  const q = ($("jobSearch")?.value || "").toLowerCase().trim();
+  const j = lire("bobinage:travaux", []).filter(t => {
+    if (!q) return true;
+    const s = t.s || {};
+    return `${t.nom} ${t.date} ${s.coches || ""} ${s.diam || ""} ${s.connexion || ""} ${s.plSerie || ""}`.toLowerCase().includes(q);
+  });
   $("list").innerHTML = j.length
     ? j.map(t => {
-        const sub = t.s ? `${t.s.mode === "1" ? "Monophasé" : "Triphasé"} · ${t.s.coches || "?"} enc. · Ø ${t.s.diam || "?"} po · Fer ${t.s.longueur || "?"} po` : "";
-        return `<div class="job"><div><b>${esc(t.nom)}</b><br><span class="mute">${esc(sub)} — ${esc(t.date)}</span></div><button data-o="${t.id}">Ouvrir</button><button data-d="${t.id}" aria-label="Supprimer">✕</button></div>`;
+        const isMono = t.s && t.s.mode === "1";
+        const sub = t.s ? `${t.s.coches || "?"} enc. · ${t.s.poles || "?"} pôles · Ø ${t.s.diam || "?"} po · Fer ${t.s.longueur || "?"} po` : "";
+        return `<div class="job">
+          <div>
+            <b>${esc(t.nom)}</b> <span class="badge ${isMono ? "info" : ""}">${isMono ? "1~ Monophasé" : "3~ Triphasé"}</span><br>
+            <span class="mute mono">${esc(sub)} — ${esc(t.date)}</span>
+          </div>
+          <button data-o="${t.id}">Ouvrir & Calculer</button>
+          <button data-d="${t.id}" aria-label="Supprimer">✕</button>
+        </div>`;
       }).join("")
-    : `<p class="mute">Aucun travail enregistré. Calcule un moteur, puis touche “Enregistrer le travail”.</p>`;
+    : `<p class="mute">Aucun travail enregistré correspondant. Calcule un moteur, puis touche “Enregistrer dans mes travaux”.</p>`;
 }
+if ($("jobSearch")) $("jobSearch").oninput = liste;
 
 function onglet(t) {
   document.querySelectorAll("main > section").forEach(e => e.classList.toggle("on", e.id === "t-" + t));
@@ -2052,7 +3035,7 @@ $("bSave").onclick = () => {
   const s = saisie(), j = lire("bobinage:travaux", []);
   s.nom = s.nom.trim() || "Sans nom";
   j.unshift({ id: String(Date.now()), nom: s.nom, date: new Date().toLocaleString("fr-CA"), s });
-  toast(ecrire("bobinage:travaux", j) ? "Travail enregistré" : "Enregistrement impossible sur cet appareil : télécharge une sauvegarde");
+  toast(ecrire("bobinage:travaux", j) ? "Travail enregistré avec succès" : "Enregistrement impossible : télécharge une sauvegarde");
   verifierStockage();
 };
 
@@ -2066,6 +3049,7 @@ $("list").onclick = async e => {
   if (d && await confirmer("Supprimer ce travail ?")) {
     ecrire("bobinage:travaux", j.filter(x => x.id !== d));
     liste();
+    verifierStockage();
   }
 };
 
@@ -2123,23 +3107,274 @@ $("bReset").onclick = () => {
 document.addEventListener("input", e => {
   if (e.target.closest("#form,#mono,#advPlaque") || e.target.id === "couches" || e.target.id === "mode" || e.target.id === "notation") {
     ecrire("bobinage:brouillon", saisie());
+    const ds = $("draftStatus");
+    if (ds) {
+      ds.textContent = "✓ Sauvegardé";
+      ds.style.color = "var(--ok)";
+      clearTimeout(ds._t);
+      ds._t = setTimeout(() => { ds.style.color = ""; }, 1200);
+    }
+    if (["coches", "poles", "diam", "longueur"].includes(e.target.id)) {
+      majQuickChips();
+      detecterMoteurProche();
+    }
   }
 });
+
+/* ---------- Ajustement en direct de la largeur de forme (-1/8 / +1/8) & Mode Atelier ---------- */
+function ajusterLargeurDirecte(deltaPo) {
+  if (!dernierRes) return;
+  const curR = dernierRes.type === "3" ? dernierRes.r : (dernierRes.run || dernierRes.start);
+  if (!curR) return;
+  if (deltaPo === 0) {
+    $("larg").value = "";
+  } else {
+    const nouv = Math.max(1.5, Math.min(21, Math.round((curR.largeur + deltaPo) * 16) / 16));
+    $("larg").value = fpCourt(nouv).replace(" po", "");
+  }
+  ecrire("bobinage:brouillon", saisie());
+  go();
+  if ($("workshopModal").classList.contains("open")) majModeAtelierUI();
+}
+
+document.addEventListener("click", e => {
+  const nb = e.target.closest("[data-nudge]");
+  if (nb) {
+    ajusterLargeurDirecte(parseFloat(nb.dataset.nudge));
+    return;
+  }
+  const wkn = e.target.closest("[data-wknudge]");
+  if (wkn) {
+    ajusterLargeurDirecte(parseFloat(wkn.dataset.wknudge));
+    return;
+  }
+  const pl = e.target.closest("[data-prefill-learn]");
+  if (pl && dernierRes) {
+    const curR = dernierRes.type === "3" ? dernierRes.r : (dernierRes.run || dernierRes.start);
+    if (curR) {
+      $("apW").value = fpCourt(curR.largeur).replace(" po", "");
+      $("apP").value = curR.pos.map(p => p.join("-")).join(", ");
+      $("apCard").scrollIntoView({ behavior: "smooth" });
+      $("apP").focus();
+      toast("Largeur et crans copiés dans le bloc d'apprentissage");
+    }
+    return;
+  }
+  const owk = e.target.closest("[data-open-wk]");
+  if (owk) {
+    ouvrirModeAtelier();
+  }
+});
+
+/* ---------- MODE ATELIER PLEIN ÉCRAN (Wake Lock + Suivi Cran par Cran + Bip Audio) ---------- */
+let wkState = { grpIdx: 0, cranIdx: 0, doneGroups: 0, totalGroups: 4, beep: true, wakeLock: null };
+
+function jouerBipAtelier(freq = 660, dur = 0.06) {
+  try {
+    if (navigator.vibrate) navigator.vibrate(35);
+    if (!wkState.beep) return;
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    const ctx = jouerBipAtelier.ctx || (jouerBipAtelier.ctx = new Ctx());
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.type = "triangle";
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.14, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+  } catch (e) {}
+}
+
+async function activerWakeLock() {
+  try {
+    if ("wakeLock" in navigator) {
+      wkState.wakeLock = await navigator.wakeLock.request("screen");
+      $("wkWakeBadge").textContent = "🔆 Écran maintenu actif (Anti-veille ON)";
+      $("wkWakeBadge").className = "badge ok";
+    } else {
+      $("wkWakeBadge").textContent = "📱 Mode Plein Écran Atelier";
+    }
+  } catch (e) {
+    $("wkWakeBadge").textContent = "📱 Mode Plein Écran Atelier";
+  }
+}
+
+function libererWakeLock() {
+  try {
+    if (wkState.wakeLock) {
+      wkState.wakeLock.release();
+      wkState.wakeLock = null;
+    }
+  } catch (e) {}
+}
+
+function listeGroupesAtelier() {
+  if (!dernierRes) return [];
+  const out = [];
+  if (dernierRes.type === "3") {
+    const r = dernierRes.r;
+    r.pos.forEach((p, i) => {
+      out.push({
+        titre: `Groupe ${i + 1}`,
+        largeur: r.largeur,
+        L: r.L,
+        pitchArr: r.sp[i] || p,
+        posArr: p
+      });
+    });
+  } else {
+    if (dernierRes.run) {
+      dernierRes.run.pos.forEach((p, i) => {
+        out.push({
+          titre: `RUN — Groupe ${i + 1}`,
+          largeur: dernierRes.run.largeur,
+          L: dernierRes.run.L,
+          pitchArr: dernierRes.run.grpRaw[i] || p,
+          posArr: p
+        });
+      });
+    }
+    if (dernierRes.start) {
+      dernierRes.start.pos.forEach((p, i) => {
+        out.push({
+          titre: `START — Groupe ${i + 1}`,
+          largeur: dernierRes.start.largeur,
+          L: dernierRes.start.L,
+          pitchArr: dernierRes.start.grpRaw[i] || p,
+          posArr: p
+        });
+      });
+    }
+  }
+  return out;
+}
+
+function majModeAtelierUI() {
+  const grps = listeGroupesAtelier();
+  if (!grps.length) return;
+  if (wkState.grpIdx >= grps.length) wkState.grpIdx = 0;
+  const g = grps[wkState.grpIdx];
+  if (wkState.cranIdx >= g.posArr.length) wkState.cranIdx = 0;
+
+  const s = dernierRes.s || {};
+  const coches = dernierRes.type === "3" ? dernierRes.r.coches : dernierRes.coches;
+  const poles = dernierRes.type === "3" ? dernierRes.r.poles : dernierRes.poles;
+  wkState.totalGroups = dernierRes.type === "3" ? poles * 3 : poles;
+
+  $("wkTitle").textContent = s.nom || (dernierRes.type === "3" ? "Moteur Triphasé" : "Moteur Monophasé");
+  $("wkSub").textContent = `${coches} encoches · ${poles} pôles · Ø ${fpCourt(lirePouces(s.diam))} · Fer ${fpCourt(g.L)}`;
+  $("wkWidthVal").textContent = fpCourt(g.largeur);
+  $("wkWidthSub").textContent = `Exact : ${Math.round(g.largeur * 1000) / 1000} po  (Longueur du fer : ${fpCourt(g.L)})`;
+
+  const curCran = g.posArr[wkState.cranIdx];
+  const curPitch = g.pitchArr[wkState.cranIdx] || "—";
+  $("wkGroupLabel").textContent = `${g.titre} (${wkState.grpIdx + 1}/${grps.length})`;
+  $("wkCoilInfo").textContent = `Bobine ${wkState.cranIdx + 1} sur ${g.posArr.length} · Pas ${curPitch}`;
+  $("wkActiveCranBig").textContent = `Cran ${curCran}  (${fpCourt(hautCran(curCran))})`;
+
+  $("wkCransRow").innerHTML = g.posArr.map((c, idx) => {
+    const cls = idx === wkState.cranIdx ? "cur" : idx < wkState.cranIdx ? "done" : "";
+    const p = g.pitchArr[idx] || "";
+    return `<button type="button" class="wk-cran-step ${cls}" data-wkcran="${idx}">
+      <span style="font-size:0.72rem;font-weight:700;opacity:0.85">Pas ${p}</span>
+      <span class="mono" style="font-size:1.55rem;font-weight:900;line-height:1.1">Cran ${c}</span>
+      <span class="mono" style="font-size:0.74rem;opacity:0.85">${fpCourt(hautCran(c))}</span>
+    </button>`;
+  }).join("");
+
+  $("wkGroupsDoneTxt").textContent = `${wkState.doneGroups} / ${wkState.totalGroups} groupes terminés`;
+}
+
+function ouvrirModeAtelier() {
+  if (!dernierRes) return;
+  wkState.grpIdx = 0;
+  wkState.cranIdx = 0;
+  $("workshopModal").classList.add("open");
+  activerWakeLock();
+  majModeAtelierUI();
+}
+
+function fermerModeAtelier() {
+  $("workshopModal").classList.remove("open");
+  libererWakeLock();
+}
+
+$("wkCloseBtn").onclick = fermerModeAtelier;
+$("wkBeepBtn").onclick = () => {
+  wkState.beep = !wkState.beep;
+  $("wkBeepBtn").textContent = wkState.beep ? "🔊 Bip : Activé" : "🔇 Bip : Muet";
+};
+$("wkCransRow").onclick = e => {
+  const b = e.target.closest("[data-wkcran]");
+  if (!b) return;
+  wkState.cranIdx = +b.dataset.wkcran;
+  jouerBipAtelier(620, 0.05);
+  majModeAtelierUI();
+};
+$("wkPrevCran").onclick = () => {
+  const grps = listeGroupesAtelier();
+  if (!grps.length) return;
+  if (wkState.cranIdx > 0) {
+    wkState.cranIdx--;
+  } else if (wkState.grpIdx > 0) {
+    wkState.grpIdx--;
+    wkState.cranIdx = grps[wkState.grpIdx].posArr.length - 1;
+  }
+  jouerBipAtelier(520, 0.05);
+  majModeAtelierUI();
+};
+$("wkNextCran").onclick = () => {
+  const grps = listeGroupesAtelier();
+  if (!grps.length) return;
+  const g = grps[wkState.grpIdx];
+  if (wkState.cranIdx < g.posArr.length - 1) {
+    wkState.cranIdx++;
+    jouerBipAtelier(740, 0.06);
+  } else {
+    wkState.cranIdx = 0;
+    wkState.grpIdx = (wkState.grpIdx + 1) % grps.length;
+    wkState.doneGroups++;
+    jouerBipAtelier(920, 0.12);
+    toast("Groupe complété (+1) — passage au 1er cran");
+  }
+  majModeAtelierUI();
+};
+$("wkGroupPlus").onclick = () => {
+  wkState.doneGroups++;
+  wkState.cranIdx = 0;
+  jouerBipAtelier(880, 0.1);
+  majModeAtelierUI();
+};
+$("wkGroupMinus").onclick = () => {
+  wkState.doneGroups = Math.max(0, wkState.doneGroups - 1);
+  jouerBipAtelier(480, 0.05);
+  majModeAtelierUI();
+};
+$("wkGroupReset").onclick = () => {
+  wkState.doneGroups = 0;
+  wkState.cranIdx = 0;
+  majModeAtelierUI();
+};
 
 /* ---------- Monophasé : Run + Start ---------- */
 function appliquerMode() {
   const m = $("mode").value === "1";
-  ["pitch", "notation", "awg", "fils", "tours", "circ"].forEach(id => {
-    const el = $(id);
-    if (el) el.closest("label").style.display = m ? "none" : "";
-  });
+  $("pitch").closest("label").style.display = m ? "none" : "";
+  $("lblNotation").style.display = m ? "none" : "";
+  $("boxFilTri").style.display = m ? "none" : "";
   $("mono").style.display = m ? "block" : "none";
   $("apQWrap").style.display = m ? "" : "none";
-  $("bRun").style.display = $("bStart").style.display = m ? "block" : "none";
-  $("bCalc").textContent = m ? "Calculer Run + Start" : "Calculer la fiche complète";
-  $("res").style.display = "none";
+  $("bRun").style.display = $("bStart").style.display = m ? "inline-flex" : "none";
+  $("bCalc").textContent = m ? "Calculer Run + Start" : "Calculer la fiche & les schémas";
 }
-$("mode").onchange = appliquerMode;
+$("mode").onchange = () => {
+  appliquerMode();
+  $("res").style.display = "none";
+  $("emptyState").style.display = "block";
+};
 
 function calcMono(s, w) {
   const n = k => parseInt(s[k], 10), p = k => lirePouces(s[k]);
@@ -2183,11 +3418,13 @@ function calcMono(s, w) {
     }, 0) / r.spans.length;
     const tot = r.bobines * tours * mlt * 0.0254;
     const masseKg = tot * A * 1e-6 * 8960;
+    const res20 = 1.724e-8 * tot / (A * 1e-6) / (circ * circ);
     r.fil = {
       dmm, A, cm, mlt, tot,
       masse: masseKg,
       masseLb: masseKg * 2.20462,
-      res: 1.724e-8 * tot / (A * 1e-6) / (circ * circ),
+      res: res20,
+      res75: res20 * (1 + 0.00393 * 55),
       awg, tours, fils, circ
     };
   }
@@ -2196,13 +3433,34 @@ function calcMono(s, w) {
 
 function blocMono(r, titre) {
   const m = montage(r), f = r.fil;
-  let h = `<h2 style="margin-top:16px"><span>${esc(titre)}</span><span class="badge">Pattes : ${fpCourt(r.largeur)}</span></h2>` +
-    `<div class="ok-box"><p class="ph" style="margin:0"><b>1.</b> Règle la distance entre les deux pattes de la forme à <b>${fp(r.largeur)}</b>.</p>` +
-    m.g.map((x, i) => `<p class="ph" style="margin:6px 0 0"><b>${i + 2}.</b> Groupe ${i + 1} (pitch ${esc(x.pitch)}) : place le fil sur les positions (crans) <b style="font-size:1.1rem">${esc(x.pos)}</b> <span class="mute">(hauteurs : ${x.hauts})</span>.<br><span class="mute">${esc(x.fiab)}</span></p>`).join("") +
-    `</div>` +
+  let h = `<h2 style="margin-top:16px">
+      <span>${esc(titre)}</span>
+      <span style="display:flex;gap:6px;align-items:center">${badgeFiabHtml(m.g[0]?.codeFiab)}<span class="badge">Pattes : ${fpCourt(r.largeur)}</span></span>
+    </h2>` +
+    `<div class="crans-banner">
+      <div><b>1. Règle la distance entre les deux pattes de la forme à <span class="mono" style="color:var(--cu)">${fp(r.largeur)}</span></b></div>
+      <div class="nudge-bar no-print">
+        <span class="mute" style="font-size:0.76rem;font-weight:700;margin-right:4px">Ajuster pattes en direct :</span>
+        <button type="button" class="nudge-btn" data-nudge="-0.25">− 1/4"</button>
+        <button type="button" class="nudge-btn" data-nudge="-0.125">− 1/8"</button>
+        <button type="button" class="nudge-btn" data-nudge="0">Auto</button>
+        <button type="button" class="nudge-btn" data-nudge="0.125">+ 1/8"</button>
+        <button type="button" class="nudge-btn" data-nudge="0.25">+ 1/4"</button>
+        <button type="button" class="nudge-btn" data-prefill-learn="1" style="margin-left:auto">⬇ Copier vers Apprendre</button>
+      </div>
+      ${m.g.map((x, i) => `
+        <div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+            <span><b>${i + 2}. Groupe ${i + 1}</b> (pitch <span class="mono">${esc(x.pitch)}</span>) — Crans :</span>
+            <div>${x.posArr.map(c => `<span class="cran-pill">${c}</span>`).join("")}</div>
+          </div>
+          <div class="mute" style="margin-top:4px">Hauteurs : <span class="mono">${x.hauts}</span> · ${esc(x.fiab)}</div>
+        </div>
+      `).join("")}
+    </div>` +
     (m.note ? `<p class="mute" style="margin-top:6px">${esc(m.note)}</p>` : "") +
     (m.hors ? `<p class="warn">${esc(m.hors)}</p>` : "") +
-    row("Pas polaire", f2(r.tau, 2) + " encoches") +
+    row("Pas polaire (τ)", f2(r.tau, 2) + " encoches") +
     row("Pas des bobines (encoches)", r.spans.join(" - ")) +
     row("Plus grande bobine", f2(r.ratio * 100, 0) + " % du pas polaire") +
     row("Bobines par pôle" + (r.forceBpp ? " (imposé)" : " (auto)"), r.bpp) +
@@ -2216,8 +3474,8 @@ function blocMono(r, titre) {
     h += row(`Fil AWG ${f.awg} × ${f.fils} en main`, `${f2(f.dmm, 3)} mm · ${f2(f.A, 3)} mm² (${f.cm.toLocaleString("fr-CA")} CM)`) +
       row("Tours par bobine / Circuits", `${f.tours} tours · ${f.circ} circuit(s)`) +
       row("Cuivre total", `${f2(f.tot, 1)} m — ${f2(f.masse, 2)} kg (${f2(f.masseLb, 2)} lb)`) +
-      row("Résistance à 20 °C", f2(f.res, 3) + " Ω");
-    t += `Fil AWG ${f.awg} × ${f.fils} (${f2(f.A, 3)} mm²), ${f.tours} tours par bobine, ${f.circ} circuit(s)\nFil total : ${f2(f.tot, 1)} m — ${f2(f.masse, 2)} kg (${f2(f.masseLb, 2)} lb)\nRésistance : ${f2(f.res, 3)} Ω\n`;
+      row("Résistance à 20 °C / à 75 °C", `${f2(f.res, 3)} Ω (20°C)  ·  ${f2(f.res75, 3)} Ω (75°C)`);
+    t += `Fil AWG ${f.awg} × ${f.fils} (${f2(f.A, 3)} mm²), ${f.tours} tours par bobine, ${f.circ} circuit(s)\nFil total : ${f2(f.tot, 1)} m — ${f2(f.masse, 2)} kg (${f2(f.masseLb, 2)} lb)\nRésistance : ${f2(f.res, 3)} Ω @ 20°C (${f2(f.res75, 3)} Ω @ 75°C)\n`;
   }
   return [h, t];
 }
@@ -2230,7 +3488,7 @@ function goMono(which) {
   for (const w of ws) {
     const titre = w === "r" ? "Run (Enroulement principal)" : "Start (Enroulement auxiliaire)";
     if (which === "both" && !s[w + "pitch"].trim()) {
-      blocs.push(`<h2 style="margin-top:16px">${esc(titre)}</h2><p class="mute">Pas encore renseigné. Remplis-le plus tard, puis touche “${w === "r" ? "Calculer le Run seulement" : "Calculer le Start seulement"}”.</p>`);
+      blocs.push(`<h2 style="margin-top:16px">${esc(titre)}</h2><p class="mute">Pas encore renseigné. Remplis-le plus tard, puis touche “${w === "r" ? "Calculer Run seul" : "Calculer Start seul"}”.</p>`);
       continue;
     }
     const r = calcMono(s, w);
@@ -2254,23 +3512,53 @@ function goMono(which) {
     return;
   }
   const c = parseInt(s.coches, 10), po = parseInt(s.poles, 10);
+  const rpm60 = Math.round(120 * 60 / po);
   dernierRes = { type: "1", coches: c, poles: po, run: resRun, start: resStart, s };
+  $("emptyState").style.display = "none";
 
-  $("out").innerHTML = `<h2><span>${esc(s.nom || "Sans nom")}</span><span class="badge">Monophasé · ${c} encoches</span></h2>` +
+  const mainR = resRun || resStart;
+  $("out").innerHTML = `<div class="no-print" style="margin-bottom:12px">
+      <button type="button" class="b cu" data-open-wk="1" style="margin-top:0;padding:13px 16px;font-size:0.96rem">
+        🛠️ Ouvrir le Mode Atelier (Écran actif anti-veille & Suivi cran par cran)
+      </button>
+    </div>` +
+    `<h2><span>${esc(s.nom || "Moteur Monophasé")}</span><span class="badge info">Monophasé · ${c} enc.</span></h2>` +
+    `<div class="kpi-grid">
+      <div class="kpi-card hi">
+        <div class="kpi-lbl">Pattes (Forme)</div>
+        <div class="kpi-val">${fpCourt(mainR.largeur)}</div>
+        <div class="kpi-sub">Fer : ${fpCourt(mainR.L)}</div>
+      </div>
+      <div class="kpi-card hi">
+        <div class="kpi-lbl">Crans Run</div>
+        <div class="kpi-val">${resRun ? resRun.pos.map(p => p.join("-")).join(", ") : "—"}</div>
+        <div class="kpi-sub">${resRun ? "Pitch " + resRun.groupes.join(",") : "Non saisi"}</div>
+      </div>
+      <div class="kpi-card hi">
+        <div class="kpi-lbl">Crans Start</div>
+        <div class="kpi-val">${resStart ? resStart.pos.map(p => p.join("-")).join(", ") : "—"}</div>
+        <div class="kpi-sub">${resStart ? "Pitch " + resStart.groupes.join(",") : "Non saisi"}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">Vitesse Sync</div>
+        <div class="kpi-val">${rpm60} RPM</div>
+        <div class="kpi-sub">${po} pôles @ 60 Hz</div>
+      </div>
+    </div>` +
     blocPlaqueHtml(s) +
-    row("Moteur", `Monophasé (${c} encoches / ${po} pôles — ${Math.round(3600 / (po / 2))} RPM sync @ 60 Hz)`) +
+    row("Encoches / Pôles", `${c} encoches / ${po} pôles (${rpm60} RPM sync @ 60 Hz)`) +
     (s.connexion && s.connexion.trim() ? row("Type de connexion", esc(s.connexion.trim())) : "") +
     row("Diamètre intérieur / Longueur du fer", `${fp(lirePouces(s.diam))} / ${fp(lirePouces(s.longueur))}`) +
     blocs.join("") +
-    `<p class="warn">Les distances entre les pattes, positions, bobines par pôle, fil et résistances sont des estimations. Vérifie-les avec une bobine d’essai avant de rebobiner.</p>`;
+    `<p class="warn">Vérifie toujours la 1re bobine d’essai dans le stator avant de bobiner la série complète.</p>`;
 
-  fiche = `FICHE DE REBOBINAGE MONOPHASÉ — ${s.nom || "Sans nom"}\n\nEncoches : ${c}   Pôles : ${po}\n` +
+  fiche = `FICHE DE REBOBINAGE MONOPHASÉ — ${s.nom || "Sans nom"}\n\nEncoches : ${c}   Pôles : ${po} (${rpm60} RPM sync)\n` +
     (s.connexion && s.connexion.trim() ? "Type de connexion : " + s.connexion.trim() + "\n" : "") +
-    `Diamètre intérieur : ${fp(lirePouces(s.diam))}\nLongueur stator : ${fp(lirePouces(s.longueur))}\n\n${txt.join("\n")}\nEstimations à vérifier sur le moteur réel.`;
+    `Diamètre intérieur : ${fp(lirePouces(s.diam))}\nLongueur stator : ${fp(lirePouces(s.longueur))}\n\n${txt.join("\n")}`;
 
   $("res").style.display = "block";
   dessinerVisuels();
-  $("res").scrollIntoView({ behavior: "smooth" });
+  if (window.innerWidth < 980) $("res").scrollIntoView({ behavior: "smooth" });
 }
 $("bRun").onclick = () => goMono("r");
 $("bStart").onclick = () => goMono("s");
@@ -2386,7 +3674,7 @@ function afficherCatalogue() {
     src: "u"
   })));
 
-  $("catCountBadge").textContent = `${items.length} fiches`;
+  $("catCountBadge").textContent = `${items.length} fiches disponibles`;
 
   const filt = items.filter(it => {
     if (fSlots && String(it.coches) !== fSlots) return false;
@@ -2400,13 +3688,14 @@ function afficherCatalogue() {
 
   $("catList").innerHTML = filt.length
     ? filt.map(it => {
-        const badgeTxt = it.src === "p" ? "Photo vérifiée" : it.src === "a" ? "Ancienne app" : "Appris atelier";
+        const badgeCls = it.src === "p" ? "ok" : it.src === "a" ? "info" : "";
+        const badgeTxt = it.src === "p" ? "✔ Photo vérifiée" : it.src === "a" ? "✔ Ancienne app" : "🧠 Appris atelier";
         return `<div class="job">
           <div>
-            <b>${esc(it.nom)}</b> <span class="badge">${badgeTxt}</span><br>
-            <span class="mute">
-              <b>${it.coches}</b> encoches · Ø intérieur <b>${fp(it.diam)}</b> · Fer <b>${fp(it.L)}</b><br>
-              Pitch : <b>${it.pitch.join("-")}</b> → Positions sur la forme (crans) : <b style="color:var(--cu)">${it.pos.join("-")}</b> · Distance pattes : <b>${fp(it.W)}</b>
+            <b>${esc(it.nom)}</b> <span class="badge ${badgeCls}">${badgeTxt}</span><br>
+            <span class="mute mono">
+              <b>${it.coches}</b> enc. · Ø int. <b>${fp(it.diam)}</b> · Fer <b>${fp(it.L)}</b><br>
+              Pitch : <b>${it.pitch.join("-")}</b> → Crans sur forme : <b style="color:var(--cu)">${it.pos.join("-")}</b> · Pattes : <b>${fp(it.W)}</b>
             </span>
           </div>
           <button type="button" data-load-cat="${it.idx}">Charger en 1~</button>
@@ -2453,7 +3742,7 @@ function afficherCatalogue() {
       onglet("calc");
       go();
     }
-    toast("Fiche chargée dans le calculateur");
+    toast("Fiche chargée et calculée");
   };
 }
 $("catFilterSlots").onchange = afficherCatalogue;
@@ -2465,10 +3754,9 @@ const AWG_LIST = [];
 for (let g = 8; g <= 36; g++) {
   const dIn = 0.005 * Math.pow(92, (36 - g) / 39);
   const dMm = dIn * 25.4;
-  // Épaisseur d'émail Heavy Build approximative NEMA MW 1000
   const insIn = dIn + (g <= 14 ? 0.0032 : g <= 24 ? 0.0024 : 0.0015);
   const areaMm2 = Math.PI * dMm * dMm / 4;
-  const cm = dIn * 1000 * (dIn * 1000); // Circular mils = (d_mils)^2
+  const cm = dIn * 1000 * (dIn * 1000);
   const ohmPer1000Ft = 10.371 / cm * 1000;
   const lbPer1000Ft = cm * 0.003027;
   AWG_LIST.push({ awg: g, dIn, dMm, insIn, areaMm2, cm, ohmPer1000Ft, lbPer1000Ft });
@@ -2479,13 +3767,12 @@ for (let g = 8; g <= 36; g++) {
   $("eqAwgOrig").innerHTML = opts;
   $("rrAwg1").innerHTML = opts;
 
-  // Remplir la table complète
   $("tblAwg").querySelector("tbody").innerHTML = AWG_LIST.map(x => `<tr>
     <td><b>AWG ${x.awg}</b></td>
     <td>${x.dIn.toFixed(4)}"</td>
     <td>${x.dMm.toFixed(3)} mm</td>
     <td>${x.insIn.toFixed(4)}"</td>
-    <td><b>${x.areaMm2.toFixed(3)} mm²</b></td>
+    <td><b style="color:var(--cu)">${x.areaMm2.toFixed(3)} mm²</b></td>
     <td>${Math.round(x.cm).toLocaleString("fr-CA")}</td>
     <td>${x.ohmPer1000Ft.toFixed(3)} Ω</td>
     <td>${x.lbPer1000Ft.toFixed(2)} lb</td>
@@ -2507,7 +3794,6 @@ function calcEquivalenceAwg() {
   const minN = nTarget > 0 ? nTarget : 1;
   const maxN = nTarget > 0 ? nTarget : 6;
 
-  // Combinaisons homogènes (N fils du même calibre)
   for (let n = minN; n <= maxN; n++) {
     for (const w of AWG_LIST) {
       if (n === n0 && w.awg === awg0) continue;
@@ -2525,7 +3811,6 @@ function calcEquivalenceAwg() {
     }
   }
 
-  // Combinaisons mixtes de 2 calibres voisins (ex. 1×AWG 17 + 1×AWG 18)
   if (allowMix) {
     for (let i = 0; i < AWG_LIST.length - 1; i++) {
       const wA = AWG_LIST[i], wB = AWG_LIST[i + 1];
@@ -2553,32 +3838,34 @@ function calcEquivalenceAwg() {
   const top = cands.slice(0, 10);
 
   $("eqOut").innerHTML = `<div class="ok-box">
-      <b>Origine : ${n0} × AWG ${awg0}</b> — Section totale : <b>${targetMm2.toFixed(3)} mm²</b> (${Math.round(targetCm).toLocaleString("fr-CA")} Circular Mils) · Ø nu unitaire : ${w0.dMm.toFixed(3)} mm (${w0.dIn.toFixed(4)}") · Capacité indicative (@ 4 A/mm²) : <b>${(targetMm2 * 4).toFixed(1)} A</b>
+      <b>Référence d'origine : ${n0} × AWG ${awg0}</b> — Section totale : <b class="mono">${targetMm2.toFixed(3)} mm²</b> (<span class="mono">${Math.round(targetCm).toLocaleString("fr-CA")} CM</span>) · Ø nu unitaire : <span class="mono">${w0.dMm.toFixed(3)} mm (${w0.dIn.toFixed(4)}")</span> · Courant indicatif (@ 4 A/mm²) : <b class="mono">${(targetMm2 * 4).toFixed(1)} A</b>
     </div>
-    <table class="tbl mt-3">
-      <thead>
-        <tr>
-          <th>Combinaison de remplacement</th>
-          <th>Fils en main</th>
-          <th>Section totale (mm²)</th>
-          <th>Circular Mils</th>
-          <th>Écart de section</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${top.map(c => {
-          const sign = c.diffPct >= 0 ? "+" : "";
-          const badgeCol = Math.abs(c.diffPct) <= 3 ? "color:var(--ok)" : Math.abs(c.diffPct) <= 7 ? "color:var(--cu)" : "color:var(--mute)";
-          return `<tr>
-            <td><b>${esc(c.desc)}</b></td>
-            <td>${c.nbFils} fil${c.nbFils > 1 ? "s" : ""}</td>
-            <td>${c.areaMm2.toFixed(3)} mm²</td>
-            <td>${Math.round(c.cm).toLocaleString("fr-CA")} CM</td>
-            <td><b style="${badgeCol}">${sign}${c.diffPct.toFixed(1)} %</b></td>
-          </tr>`;
-        }).join("")}
-      </tbody>
-    </table>`;
+    <div style="overflow-x:auto;margin-top:10px">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Combinaison de remplacement</th>
+            <th>Fils en main</th>
+            <th>Section totale (mm²)</th>
+            <th>Circular Mils</th>
+            <th>Écart de section</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${top.map(c => {
+            const sign = c.diffPct >= 0 ? "+" : "";
+            const badgeCol = Math.abs(c.diffPct) <= 3 ? "color:var(--ok)" : Math.abs(c.diffPct) <= 7 ? "color:var(--cu)" : "color:var(--mute)";
+            return `<tr>
+              <td><b>${esc(c.desc)}</b></td>
+              <td>${c.nbFils} fil${c.nbFils > 1 ? "s" : ""}</td>
+              <td>${c.areaMm2.toFixed(3)} mm²</td>
+              <td>${Math.round(c.cm).toLocaleString("fr-CA")} CM</td>
+              <td><b style="${badgeCol}">${sign}${c.diffPct.toFixed(1)} %</b></td>
+            </tr>`;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
 ["eqAwgOrig", "eqFilsOrig", "eqFilsTarget", "eqMix"].forEach(id => $(id).addEventListener("input", calcEquivalenceAwg));
 
@@ -2596,7 +3883,6 @@ function calcRerate() {
   const hz1 = parseFloat($("rrHz1").value) || 60;
   const hz2 = parseFloat($("rrHz2").value) || 60;
 
-  // Tension de phase effective par circuit
   const vph1 = (v1 / c1) / circ1;
   const vph2 = (v2 / c2) / circ2;
   const ratioTours = (vph2 / vph1) * (hz1 / hz2);
@@ -2605,10 +3891,8 @@ function calcRerate() {
 
   const w1 = AWG_LIST.find(x => x.awg === awg1) || AWG_LIST[10];
   const area1 = w1.areaMm2 * fils1;
-  // Pour conserver le même remplissage d'encoche (cuivre total par encoche constant) : A2 * T2 = A1 * T1
   const area2Target = area1 / ratioTours;
 
-  // Trouver les meilleurs calibres pour area2Target (1 à 4 fils en parallèle)
   const sugg = [];
   for (let nf = 1; nf <= 4; nf++) {
     let best = null, bestDiff = 1e9;
@@ -2649,18 +3933,17 @@ function calcElectrique() {
   const coupleNm = (kw * 9549) / Math.max(1, rpm);
   const coupleLbFt = coupleNm * 0.73756;
 
-  // Condensateurs approximatifs pour monophasé (ou moteur triphasé en Steinmetz)
   const capRunUf = (hp * 746 * 1e6) / (2 * Math.PI * hz * v * v * 0.85);
   const capStartUf = capRunUf * 4.2;
 
   $("elOut").innerHTML = `<div class="g">
-    <div>
+    <div class="sub-box" style="margin-top:0">
       ${row("Vitesse synchrone (Ns)", `${Math.round(ns)} RPM`)}
       ${row("Glissement (Slip)", `${slip.toFixed(2)} % (${Math.round(ns - rpm)} RPM)`)}
       ${row("Puissance mécanique", `${hp} HP (${kw.toFixed(2)} kW)`)}
-      ${row("Couple nominal", `${coupleNm.toFixed(1)} N·m (${coupleLbFt.toFixed(1)} lb·pi)`)}
+      ${row("Couple nominal à l'arbre", `${coupleNm.toFixed(1)} N·m (${coupleLbFt.toFixed(1)} lb·pi)`)}
     </div>
-    <div>
+    <div class="sub-box" style="margin-top:0">
       ${row(`Courant nominal estimé @ ${v} V`, `${fla.toFixed(1)} A`)}
       ${row("Section cuivre recommandée (@ 4 A/mm²)", `${(fla / 4).toFixed(2)} mm²`)}
       ${row("Condensateur de marche indicatif (1~)", `≈ ${Math.round(capRunUf)} µF`)}
@@ -2669,6 +3952,102 @@ function calcElectrique() {
   </div>`;
 }
 ["elHp", "elV", "elPoles", "elHz", "elRpm", "elEff", "elPf", "elPh"].forEach(id => $(id).addEventListener("input", calcElectrique));
+
+/* ---------- Outil 4 : Convertisseur Micromètre -> Calibre AWG ---------- */
+function calcMicrometreAwg() {
+  const raw = parseFloat(String($("micVal")?.value || "").replace(",", "."));
+  const unit = $("micUnit")?.value || "in";
+  const type = $("micType")?.value || "bare";
+  if (!(raw > 0)) {
+    $("micOut").innerHTML = `<p class="mute">Entre une mesure positive pour identifier le fil.</p>`;
+    return;
+  }
+  let dIn = unit === "mm" ? raw / 25.4 : raw;
+  if (unit === "in" && dIn > 1.5) dIn = dIn / 1000;
+
+  const sorted = AWG_LIST.map(w => {
+    const refIn = type === "heavy" ? w.insIn : w.dIn;
+    return { ...w, refIn, diffIn: dIn - refIn, absDiff: Math.abs(dIn - refIn) };
+  }).sort((a, b) => a.absDiff - b.absDiff);
+
+  const best = sorted[0], second = sorted[1];
+  $("micOut").innerHTML = `<div class="ok-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div>
+          <span class="mute" style="font-size:0.76rem;font-weight:700">CALIBRE IDENTIFIÉ :</span><br>
+          <b class="mono" style="font-size:1.35rem;color:var(--cu)">AWG ${best.awg}</b>
+          <span class="mono" style="font-size:0.84rem"> (écart ${best.diffIn >= 0 ? "+" : ""}${(best.diffIn * 1000).toFixed(1)} mils)</span>
+        </div>
+        <button type="button" class="match-btn" data-use-awg="${best.awg}">Utiliser AWG ${best.awg} dans Calculer</button>
+      </div>
+      <div class="r" style="margin-top:6px"><span>Ø Cuivre nu standard AWG ${best.awg}</span><b>${best.dIn.toFixed(4)}" (${best.dMm.toFixed(3)} mm)</b></div>
+      <div class="r"><span>Ø Émaillé Heavy Build AWG ${best.awg}</span><b>${best.insIn.toFixed(4)}" (${(best.insIn * 25.4).toFixed(3)} mm)</b></div>
+      <div class="r"><span>Section & Circular Mils</span><b>${best.areaMm2.toFixed(3)} mm² (${Math.round(best.cm).toLocaleString("fr-CA")} CM)</b></div>
+      <div class="r"><span>Calibre voisin le plus proche</span><b>AWG ${second.awg} (${(type === "heavy" ? second.insIn : second.dIn).toFixed(4)}")</b></div>
+    </div>`;
+
+  $("micOut").onclick = e => {
+    const b = e.target.closest("[data-use-awg]");
+    if (!b) return;
+    const g = b.dataset.useAwg;
+    if ($("mode").value === "1") {
+      $("rawg").value = g;
+    } else {
+      $("awg").value = g;
+    }
+    ecrire("bobinage:brouillon", saisie());
+    onglet("calc");
+    toast(`Calibre AWG ${g} reporté dans le formulaire du moteur`);
+  };
+}
+["micVal", "micUnit", "micType"].forEach(id => $(id)?.addEventListener("input", calcMicrometreAwg));
+
+/* ---------- Outil 5 : Vérificateur d'Équilibre Ohmique (3 Phases) ---------- */
+function calcEquilibreOhm() {
+  const r12 = parseFloat($("ohm12")?.value);
+  const r23 = parseFloat($("ohm23")?.value);
+  const r31 = parseFloat($("ohm31")?.value);
+  if (!(r12 > 0 && r23 > 0 && r31 > 0)) {
+    $("ohmOut").innerHTML = `<p class="mute">Entre les 3 mesures entre bornes (T1-T2, T2-T3, T3-T1).</p>`;
+    return;
+  }
+  const moy = (r12 + r23 + r31) / 3;
+  const maxDev = Math.max(Math.abs(r12 - moy), Math.abs(r23 - moy), Math.abs(r31 - moy));
+  const pct = (maxDev / moy) * 100;
+  const rPhaseY = moy / 2;
+  const rPhaseDelta = moy * 1.5;
+
+  let boxCls = "ok-box", verdict = "✔ CONFORME (Excellent < 1 %)";
+  if (pct > 2.0) {
+    boxCls = "warn";
+    verdict = "⚠ DÉSÉQUILIBRE EXCESSIF (> 2 % — vérifier connexions, soudures ou nombre de tours)";
+  } else if (pct > 1.0) {
+    boxCls = "info-box";
+    verdict = "✔ ACCEPTABLE (entre 1 % et 2 % selon norme EASA)";
+  }
+
+  $("ohmOut").innerHTML = `<div class="${boxCls}">
+    <div style="font-weight:800;margin-bottom:6px">${verdict}</div>
+    ${row("Écart maximal par rapport à la moyenne", `${pct.toFixed(2)} % (±${maxDev.toFixed(4)} Ω)`)}
+    ${row("Résistance moyenne entre bornes", `${moy.toFixed(4)} Ω`)}
+    ${row("Résistance par phase si couplé en Étoile (Y)", `${rPhaseY.toFixed(4)} Ω`)}
+    ${row("Résistance par phase si couplé en Triangle (Δ)", `${rPhaseDelta.toFixed(4)} Ω`)}
+  </div>`;
+}
+["ohm12", "ohm23", "ohm31"].forEach(id => $(id)?.addEventListener("input", calcEquilibreOhm));
+
+/* ---------- Raccourcis clavier (Entrée pour calculer, Échap pour fermer les modales) ---------- */
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    if ($("pk").classList.contains("open")) { fermerRoues(); return; }
+    if ($("viewer").classList.contains("open")) { fermerDoc(); return; }
+    if ($("workshopModal").classList.contains("open")) { fermerModeAtelier(); return; }
+  }
+  if (e.key === "Enter" && e.target.tagName === "INPUT" && e.target.closest("#colInput")) {
+    e.preventDefault();
+    go();
+  }
+});
 
 /* ---------- Documentation (IndexedDB, sur l’appareil) ---------- */
 let idb = null, urls = [], cur = null, vurl = null;
@@ -2813,7 +4192,7 @@ async function majCat(ancien, nouveau) {
 
 function rendreCats() {
   $("cats").innerHTML = cats.map((c, i) => `<div class="cr"><span>${esc(c)}</span><button data-r="${i}">Renommer</button><button data-x="${i}" aria-label="Supprimer">✕</button></div>`).join("") +
-    `<label class="f" style="margin-top:10px">Nouvelle catégorie<input id="nc" type="text" placeholder="ex. Bon de travail"></label><button class="b" id="ncAdd" type="button">Ajouter la catégorie</button>`;
+    `<label class="f" style="margin-top:10px">Nouvelle catégorie<input id="nc" type="text" placeholder="ex. Bon de travail"></label><button class="b cu" id="ncAdd" type="button">Ajouter la catégorie</button>`;
 }
 
 $("bCats").onclick = () => {
@@ -2982,8 +4361,8 @@ $("bkRest").onclick = async () => {
 };
 remplirSel();
 
-/* ---------- Roues de mesure (Diamètre, Longueur du fer, ET Distance des pattes !) ---------- */
-let pref = Object.assign({ step: 8, max: 24, fav: [] }, lire("bobinage:pref", {}));
+/* ---------- Roues de mesure (Diamètre, Longueur du fer, Distance des pattes) ---------- */
+let pref = Object.assign({ step: 8, max: 24, fav: ["2 3/8", "3 1/8", "3 3/4", "4 1/2", "5", "6 1/4"] }, lire("bobinage:pref", {}));
 const sauverPref = () => ecrire("bobinage:pref", pref);
 let pkEl = null, pkLock = 0, pkT = 0;
 
@@ -2996,6 +4375,11 @@ const fracs = () => {
   }
   return a;
 };
+
+function majLiveDec(str) {
+  const v = lirePouces(str);
+  $("pkLiveDec").textContent = isFinite(v) ? `${v.toFixed(3)} po` : "—";
+}
 
 function valeurRoues() {
   const i = Math.min(Math.round($("pkI").scrollTop / 44), pref.max);
@@ -3011,16 +4395,17 @@ function placerRoues(v) {
   if (i > pref.max) { i = pref.max; k = 0; }
   $("pkI").scrollTop = i * 44;
   $("pkF").scrollTop = k * 44;
+  majLiveDec(v);
 }
 
 function chips() {
-  $("pkc").innerHTML = pref.fav.map((v, i) => `<span class="chip"><button type="button" data-v="${esc(v)}">${esc(v)}</button><button type="button" data-x="${i}" aria-label="Retirer ce favori">✕</button></span>`).join("") || `<span class="mute">Aucun favori. Règle une valeur, puis touche “Favori”.</span>`;
+  $("pkc").innerHTML = pref.fav.map((v, i) => `<span class="chip"><button type="button" data-v="${esc(v)}">${esc(v)}"</button><button type="button" data-x="${i}" aria-label="Retirer ce favori">✕</button></span>`).join("") || `<span class="mute">Aucun favori. Règle une valeur, puis touche “Favori”.</span>`;
 }
 
 function ouvrirRoues(el, titre) {
   pkEl = el;
   $("pkt").textContent = titre;
-  $("pkI").innerHTML = Array.from({ length: pref.max + 1 }, (_, n) => `<div>${n}</div>`).join("");
+  $("pkI").innerHTML = Array.from({ length: pref.max + 1 }, (_, n) => `<div>${n}"</div>`).join("");
   $("pkF").innerHTML = fracs().map(f => `<div>${f.l}</div>`).join("");
   $("pkv").value = el.value.trim() || "0";
   $("pk").classList.add("open");
@@ -3033,11 +4418,18 @@ const fermerRoues = () => { $("pk").classList.remove("open"); pkEl = null; };
 const surDefil = () => {
   if (Date.now() < pkLock) return;
   clearTimeout(pkT);
-  pkT = setTimeout(() => { $("pkv").value = valeurRoues(); }, 90);
+  pkT = setTimeout(() => {
+    const val = valeurRoues();
+    $("pkv").value = val;
+    majLiveDec(val);
+  }, 80);
 };
 $("pkI").onscroll = surDefil;
 $("pkF").onscroll = surDefil;
-$("pkv").oninput = () => { const v = lirePouces($("pkv").value); if (!isNaN(v)) placerRoues(v); };
+$("pkv").oninput = () => {
+  const v = lirePouces($("pkv").value);
+  if (!isNaN(v)) placerRoues(v);
+};
 
 $("pkc").onclick = e => {
   const t = e.target;
@@ -3076,6 +4468,7 @@ $("pkMax").oninput = () => { const m = parseInt($("pkMax").value, 10); if (m >= 
   w.className = "pk";
   b.type = "button";
   b.textContent = "⇅";
+  b.title = "Ouvrir la roue de fractions de pouce";
   b.setAttribute("aria-label", "Choisir une mesure avec les roues");
   inp.parentNode.insertBefore(w, inp);
   w.append(inp, b);
@@ -3084,12 +4477,23 @@ $("pkMax").oninput = () => { const m = parseInt($("pkMax").value, 10); if (m >= 
 
 /* ---------- Initialisation au démarrage ---------- */
 $("connexion").setAttribute("list", "dlConn");
-remplir(lire("bobinage:brouillon", {}));
+const brouillonInit = lire("bobinage:brouillon", null);
+if (brouillonInit && (brouillonInit.coches || brouillonInit.diam)) {
+  remplir(brouillonInit);
+  if (brouillonInit.coches && brouillonInit.poles && brouillonInit.diam && brouillonInit.longueur && (brouillonInit.pitch || brouillonInit.rpitch)) {
+    go();
+  }
+} else {
+  remplir(PRESETS.tri36);
+  go();
+}
 majApprentissage();
 verifierStockage();
 calcEquivalenceAwg();
 calcRerate();
 calcElectrique();
+calcMicrometreAwg();
+calcEquilibreOhm();
 onglet("calc");
 </script>
 </body>
