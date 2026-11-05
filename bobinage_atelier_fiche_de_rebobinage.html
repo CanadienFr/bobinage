@@ -1,0 +1,3096 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bobinage — Atelier & Fiche de rebobinage</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --mute: #475569;
+  --line: #cbd5e1;
+  --cu: #b45309;
+  --cu-soft: #fef3c7;
+  --ttl: #1e3a5f;
+  --head: #1e293b;
+  --headink: #f8fafc;
+  --hl: #f59e0b;
+  --btn: #1e3a5f;
+  --btnink: #ffffff;
+  --warn: #b91c1c;
+  --warn-bg: #fef2f2;
+  --ok: #15803d;
+  --ok-bg: #f0fdf4;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b111b;
+    --card: #151f2e;
+    --ink: #e2e8f0;
+    --mute: #94a3b8;
+    --line: #283548;
+    --cu: #f59e0b;
+    --cu-soft: #2e2312;
+    --ttl: #f8fafc;
+    --head: #070b12;
+    --headink: #f1f5f9;
+    --hl: #f59e0b;
+    --btn: #f59e0b;
+    --btnink: #0f172a;
+    --warn: #fca5a5;
+    --warn-bg: #35161b;
+    --ok: #86efac;
+    --ok-bg: #112a1e;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b111b;
+  --card: #151f2e;
+  --ink: #e2e8f0;
+  --mute: #94a3b8;
+  --line: #283548;
+  --cu: #f59e0b;
+  --cu-soft: #2e2312;
+  --ttl: #f8fafc;
+  --head: #070b12;
+  --headink: #f1f5f9;
+  --hl: #f59e0b;
+  --btn: #f59e0b;
+  --btnink: #0f172a;
+  --warn: #fca5a5;
+  --warn-bg: #35161b;
+  --ok: #86efac;
+  --ok-bg: #112a1e;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15.5px/1.45 "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--head);
+  z-index: 20;
+}
+header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 19;
+  background: var(--head);
+  color: var(--headink);
+  border: 0;
+  padding: 12px 16px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.hbar {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+}
+.theme-btn {
+  background: rgba(255,255,255,0.12);
+  color: var(--headink);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+nav {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+nav button {
+  flex: 1 0 auto;
+  padding: 10px 10px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--headink);
+  opacity: 0.65;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s, border-color 0.15s;
+}
+nav button:hover { opacity: 0.9; }
+nav button[aria-selected="true"] {
+  opacity: 1;
+  border-color: var(--hl);
+  color: var(--hl);
+}
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 16px;
+}
+section { display: none; }
+section.on { display: block; }
+.c {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+  padding: 18px;
+  margin-bottom: 16px;
+}
+h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: var(--ttl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+h3 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 14px 0 6px;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.g {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (min-width: 720px) {
+  .g-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .g-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+}
+@media (max-width: 719px) {
+  .g-3, .g-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
+.f {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--mute);
+}
+.w { grid-column: 1 / -1; }
+input, select, textarea {
+  width: 100%;
+  margin-top: 4px;
+  padding: 10px 11px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+input:focus-visible, select:focus-visible, button:focus-visible, textarea:focus-visible {
+  outline: 2.5px solid var(--cu);
+  outline-offset: 1px;
+}
+.b {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 10px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--btnink);
+  background: var(--btn);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.08s, opacity 0.15s;
+}
+.b:active { transform: scale(0.99); }
+.b.s {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+}
+.b.cu {
+  background: var(--cu);
+  color: #fff;
+}
+.r {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+.r:last-child { border-bottom: 0; }
+.r b {
+  color: var(--cu);
+  text-align: right;
+  font-weight: 700;
+}
+.err {
+  color: var(--warn);
+  background: var(--warn-bg);
+  border-radius: 8px;
+  padding: 0;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.err:not(:empty) {
+  padding: 10px 12px;
+  border: 1px solid var(--warn);
+}
+.mute { color: var(--mute); font-size: 0.84rem; }
+.warn {
+  color: var(--warn);
+  background: var(--warn-bg);
+  border-left: 4px solid var(--warn);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.86rem;
+  margin-top: 10px;
+}
+.ok-box {
+  color: var(--ok);
+  background: var(--ok-bg);
+  border-left: 4px solid var(--ok);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.86rem;
+  margin-top: 8px;
+}
+.ph { margin: 7px 0; font-size: 0.94rem; }
+.job {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.job:last-child { border-bottom: 0; }
+.job div { flex: 1; min-width: 0; }
+.job button {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.job button:hover { border-color: var(--cu); }
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--bg);
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  display: none;
+  z-index: 80;
+  max-width: 92vw;
+  text-align: center;
+}
+.th {
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--cu);
+  flex: none;
+  background: var(--bg);
+}
+.th img { width: 100%; height: 100%; object-fit: cover; }
+.job.d { cursor: pointer; }
+#viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: var(--bg);
+  flex-direction: column;
+  padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+}
+#viewer.open { display: flex; }
+.vbar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--head);
+  color: var(--headink);
+}
+.vbar b { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vbar button {
+  padding: 7px 11px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: none;
+  color: var(--headink);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+#vc { flex: 1; overflow: auto; display: flex; flex-direction: column; align-items: center; padding: 12px; }
+#vc img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+#vc iframe { width: 100%; flex: 1; border: 0; min-height: 70vh; }
+#vc a { padding: 10px; color: var(--cu); font-weight: 600; }
+#vm {
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 14px;
+  max-height: 55vh;
+  overflow: auto;
+}
+#vm summary { font-weight: 600; cursor: pointer; padding: 4px 0; }
+.cr {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+}
+.cr span { flex: 1; }
+.cr button {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--ink);
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+}
+.pk { display: flex; gap: 6px; margin-top: 4px; }
+.pk input { margin-top: 0; flex: 1; }
+.pk button {
+  width: 46px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--cu);
+  border-radius: 8px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+#pk { display: none; position: fixed; inset: 0; z-index: 60; }
+#pk.open { display: block; }
+.pkb { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+.pks {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  max-width: 640px;
+  margin: 0 auto;
+  max-height: 94%;
+  overflow: auto;
+  background: var(--card);
+  border-radius: 18px 18px 0 0;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+}
+.pkw { position: relative; display: flex; gap: 8px; height: 176px; margin: 10px 0; }
+.pkband {
+  position: absolute;
+  left: 0; right: 0; top: 66px;
+  height: 44px;
+  border-top: 2px solid var(--cu);
+  border-bottom: 2px solid var(--cu);
+  pointer-events: none;
+}
+.col {
+  flex: 1;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  padding: 66px 0;
+  text-align: center;
+  scrollbar-width: none;
+  overscroll-behavior: contain;
+}
+.col::-webkit-scrollbar { display: none; }
+.col div { height: 44px; line-height: 44px; scroll-snap-align: center; font-size: 1.3rem; font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.chip {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg);
+}
+.chip button {
+  border: 0;
+  background: none;
+  color: var(--ink);
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
+label.b { display: block; text-align: center; cursor: pointer; }
+details.adv {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--bg);
+}
+details.adv > summary {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ttl);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+details.adv > summary::-webkit-details-marker { display: none; }
+details.adv > summary::after {
+  content: "▾";
+  font-size: 1rem;
+  color: var(--cu);
+  transition: transform 0.2s;
+}
+details.adv[open] > summary::after { transform: rotate(180deg); }
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: var(--cu-soft);
+  color: var(--cu);
+}
+.svg-wrap {
+  width: 100%;
+  overflow-x: auto;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
+.tab-sub {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.tab-sub button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.tab-sub button.act {
+  background: var(--cu);
+  color: #fff;
+  border-color: var(--cu);
+}
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+.tbl th, .tbl td {
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.tbl th {
+  color: var(--mute);
+  font-weight: 700;
+  background: var(--bg);
+}
+@media print {
+  header, .b, #toast, nav, #apCard, .no-print { display: none !important; }
+  section { display: none !important; }
+  #t-calc { display: block !important; }
+  #t-calc > .c:first-child { display: none !important; }
+  #res { display: block !important; box-shadow: none !important; border: 0 !important; padding: 0 !important; }
+  body { background: #fff !important; color: #000 !important; }
+  body::before { display: none !important; }
+  .svg-wrap { border: 1px solid #ccc !important; background: #fff !important; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hbar">
+    <h1>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--hl)"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/></svg>
+      <span>Bobinage · Atelier & Fiche de rebobinage</span>
+    </h1>
+    <button type="button" class="theme-btn" id="bTheme" title="Basculer le thème clair / sombre">🌓 Thème</button>
+  </div>
+  <nav role="tablist">
+    <button role="tab" data-t="calc">Calculer</button>
+    <button role="tab" data-t="cat">Catalogue (45+)</button>
+    <button role="tab" data-t="tools">Outils & AWG</button>
+    <button role="tab" data-t="jobs">Travaux</button>
+    <button role="tab" data-t="docs">Docs & Photos</button>
+    <button role="tab" data-t="set">Réglages</button>
+  </nav>
+</header>
+
+<main>
+<!-- ==================== ONGLET 1 : CALCULER ==================== -->
+<section id="t-calc">
+  <div class="c">
+    <h2>
+      <span>Données du moteur & bobinage</span>
+      <button type="button" id="bClearForm" class="text-xs px-2.5 py-1 rounded border border-slate-400/40 font-semibold hover:opacity-80">Effacer les champs</button>
+    </h2>
+
+    <div class="g">
+      <label class="f">Type de moteur
+        <select id="mode">
+          <option value="3">Triphasé (3 phases)</option>
+          <option value="1">Monophasé : Run + Start</option>
+        </select>
+      </label>
+      <label class="f">Couches d'enroulement
+        <select id="couches">
+          <option value="2">Double couche (2 côtés/encoche)</option>
+          <option value="1">Simple couche (1 côté/encoche)</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="g" id="form" style="margin-top:10px"></div>
+
+    <!-- Section Monophasé (Run + Start) -->
+    <div id="mono" style="display:none">
+      <div class="mt-4 p-3 rounded-xl border border-amber-500/30" style="background:var(--bg)">
+        <h2 style="margin-bottom:6px">Run — Enroulement principal (Marche)</h2>
+        <div class="g" id="fRun"></div>
+      </div>
+      <div class="mt-3 p-3 rounded-xl border border-sky-500/30" style="background:var(--bg)">
+        <h2 style="margin-bottom:4px">Start — Enroulement auxiliaire (Démarrage)</h2>
+        <p class="mute" style="margin-top:0;margin-bottom:8px">Tu peux laisser le Start vide et le calculer plus tard.</p>
+        <div class="g" id="fStart"></div>
+      </div>
+    </div>
+
+    <!-- Plaque signalétique facultative pour enrichir la fiche -->
+    <details class="adv" id="advPlaque">
+      <summary>Plaque signalétique & infos client (facultatif)</summary>
+      <div class="g-4 mt-3">
+        <label class="f">Puissance (HP / kW)<input id="plHp" type="text" placeholder="ex. 5 HP"></label>
+        <label class="f">Vitesse (RPM)<input id="plRpm" type="text" inputmode="numeric" placeholder="ex. 1750"></label>
+        <label class="f">Tension (Volts)<input id="plVolts" type="text" placeholder="ex. 230/460 ou 575V"></label>
+        <label class="f">Ampérage (FLA)<input id="plAmps" type="text" placeholder="ex. 13.2 / 6.6 A"></label>
+        <label class="f">Frame / Carcasse<input id="plFrame" type="text" placeholder="ex. 184T / 56C"></label>
+        <label class="f">Fréquence (Hz)<input id="plHz" type="text" inputmode="numeric" placeholder="60"></label>
+        <label class="f">Classe d'isolation<input id="plIso" type="text" placeholder="ex. Classe F / H"></label>
+        <label class="f">N° de série / Client<input id="plSerie" type="text" placeholder="ex. SN-84920"></label>
+      </div>
+    </details>
+
+    <div class="err" id="err" role="alert"></div>
+
+    <div class="row2" style="margin-top:6px">
+      <button class="b cu" id="bCalc" type="button">Calculer la fiche complète</button>
+      <button class="b s" id="bSave" type="button">Enregistrer le travail</button>
+    </div>
+    <div class="row2">
+      <button class="b s" id="bRun" type="button" style="display:none">Calculer le Run seulement</button>
+      <button class="b s" id="bStart" type="button" style="display:none">Calculer le Start seulement</button>
+    </div>
+  </div>
+
+  <!-- RÉSULTATS DE LA FICHE DE REBOBINAGE -->
+  <div class="c" id="res" style="display:none">
+    <div id="out"></div>
+
+    <!-- VISUALISATION GRAPHIQUE SVG (Gabarit à crans + Stator) -->
+    <div id="vizZone" style="margin-top:18px">
+      <h2>
+        <span>Schémas visuels d'atelier (Forme & Stator)</span>
+        <span class="badge">Interactif & Imprimable</span>
+      </h2>
+      <div class="tab-sub no-print" id="vizTabs">
+        <button type="button" data-v="forme" class="act">1. Forme à 16 crans (Gabarit)</button>
+        <button type="button" data-v="circle">2. Stator circulaire (Encoches)</button>
+        <button type="button" data-v="linear">3. Schéma linéaire développé</button>
+      </div>
+      <div id="svgFormeWrap" class="svg-wrap"></div>
+      <div id="svgCircleWrap" class="svg-wrap" style="display:none"></div>
+      <div id="svgLinearWrap" class="svg-wrap" style="display:none"></div>
+    </div>
+
+    <!-- APPRENTISSAGE AUTOMATIQUE -->
+    <div id="apCard" class="mt-5 p-4 rounded-xl border border-amber-500/40" style="background:var(--bg)">
+      <h2>Apprendre de ce moteur (calibration atelier)</h2>
+      <p class="mute" id="apInfo"></p>
+      <div class="g mt-2">
+        <label class="f">Distance réelle entre les deux pattes (po)
+          <input id="apW" type="text" inputmode="decimal" placeholder="ex. 6 1/4" autocomplete="off">
+        </label>
+        <label class="f">Positions réelles où tu as mis le fil (crans)
+          <input id="apP" type="text" inputmode="text" placeholder="ex. 5-8-11" autocomplete="off">
+        </label>
+        <label class="f" id="apQWrap">Enroulement à enregistrer
+          <select id="apQ">
+            <option value="r">Run (Principal)</option>
+            <option value="s">Start (Auxiliaire)</option>
+          </select>
+        </label>
+        <label class="f">Statut de validation
+          <select id="apS">
+            <option value="">Choisis…</option>
+            <option value="verifie">Bobiné et vérifié une fois</option>
+            <option value="confirme">Confirmé (plusieurs bobinages)</option>
+            <option value="nonverifie">Pas encore testé</option>
+          </select>
+        </label>
+      </div>
+      <button class="b s" id="bLearn" type="button">Enregistrer ce moteur (l’application apprend)</button>
+    </div>
+
+    <div class="row2 no-print" style="margin-top:12px">
+      <button class="b s" id="bShare" type="button">📋 Copier / partager la fiche</button>
+      <button class="b" id="bPrint" type="button">🖨️ Imprimer la fiche (avec schémas)</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ONGLET 2 : CATALOGUE (45+ FICHES) ==================== -->
+<section id="t-cat">
+  <div class="c">
+    <h2>
+      <span>Catalogue des moteurs vérifiés & appris</span>
+      <span class="badge" id="catCountBadge">45 fiches</span>
+    </h2>
+    <p class="mute">Sélectionne ou filtre un moteur déjà vérifié en atelier pour charger instantanément ses dimensions, son pitch et ses positions sur la forme.</p>
+    <div class="g-3 mt-3">
+      <label class="f">Filtrer par encoches
+        <select id="catFilterSlots">
+          <option value="">Toutes (24, 32, 36, 48…)</option>
+          <option value="24">24 encoches</option>
+          <option value="32">32 encoches</option>
+          <option value="36">36 encoches</option>
+          <option value="48">48 encoches</option>
+        </select>
+      </label>
+      <label class="f">Source de la fiche
+        <select id="catFilterSrc">
+          <option value="">Toutes les sources</option>
+          <option value="p">Photos d'atelier vérifiées (36)</option>
+          <option value="a">Ancienne application (9)</option>
+          <option value="u">Moteurs appris par toi</option>
+        </select>
+      </label>
+      <label class="f">Rechercher (diamètre, pitch, longueur…)
+        <input id="catSearch" type="search" placeholder="ex. 3 1/8 ou 5-7-9 ou 4.25">
+      </label>
+    </div>
+    <div id="catList" class="mt-4"></div>
+  </div>
+</section>
+
+<!-- ==================== ONGLET 3 : OUTILS & TABLES AWG ==================== -->
+<section id="t-tools">
+  <!-- Outil 1 : Équivalence de fils en parallèle AWG -->
+  <div class="c">
+    <h2>
+      <span>1. Convertisseur & Équivalence de fil en parallèle (AWG)</span>
+      <span class="badge">NEMA MW 1000</span>
+    </h2>
+    <p class="mute">Trouve instantanément par quels fils en parallèle remplacer un calibre manquant (même section de cuivre en mm² et Circular Mils) ou vérifie la section totale d'un faisceau de fils.</p>
+    <div class="g-4 mt-3">
+      <label class="f">Calibre AWG d'origine
+        <select id="eqAwgOrig"></select>
+      </label>
+      <label class="f">Nb de fils en main d'origine
+        <input id="eqFilsOrig" type="number" min="1" max="20" value="1">
+      </label>
+      <label class="f">Nb de fils souhaités en remplacement
+        <select id="eqFilsTarget">
+          <option value="0">Toutes combinaisons (1 à 6 fils)</option>
+          <option value="1">1 seul fil (équivalent direct)</option>
+          <option value="2">2 fils en parallèle</option>
+          <option value="3">3 fils en parallèle</option>
+          <option value="4">4 fils en parallèle</option>
+          <option value="5">5 fils en parallèle</option>
+          <option value="6">6 fils en parallèle</option>
+        </select>
+      </label>
+      <label class="f">Autoriser 2 calibres mixtes (ex. 1×17 + 1×18)
+        <select id="eqMix">
+          <option value="1">Oui (calibres identiques + mixtes)</option>
+          <option value="0">Non (calibres identiques seulement)</option>
+        </select>
+      </label>
+    </div>
+    <div id="eqOut" class="mt-4"></div>
+  </div>
+
+  <!-- Outil 2 : Changement de Tension / Fréquence / Connexion -->
+  <div class="c">
+    <h2>
+      <span>2. Modification de Tension, Fréquence ou Connexion (Re-rating)</span>
+      <span class="badge">Recalcul Tours & AWG</span>
+    </h2>
+    <p class="mute">Calcule le nouveau nombre de tours par bobine et le nouveau calibre AWG requis lors d'un changement de tension (ex. 575 V → 230/460 V), de connexion (Étoile ↔ Triangle) ou de fréquence (60 Hz ↔ 50 Hz) à flux magnétique constant.</p>
+    <div class="g-4 mt-3">
+      <label class="f">Tension d'origine (V)<input id="rrV1" type="number" value="575"></label>
+      <label class="f">Nouvelle tension (V)<input id="rrV2" type="number" value="460"></label>
+      <label class="f">Connexion d'origine
+        <select id="rrC1">
+          <option value="1">Même connexion (ou Étoile → Étoile)</option>
+          <option value="1.7320508">Étoile (Y) à l'origine</option>
+          <option value="1.0">Triangle (Δ) à l'origine</option>
+        </select>
+      </label>
+      <label class="f">Nouvelle connexion
+        <select id="rrC2">
+          <option value="1">Même connexion</option>
+          <option value="1.7320508">Étoile (Y) finale</option>
+          <option value="1.0">Triangle (Δ) finale</option>
+        </select>
+      </label>
+      <label class="f">Tours / bobine d'origine<input id="rrT1" type="number" value="45"></label>
+      <label class="f">Calibre AWG d'origine<select id="rrAwg1"></select></label>
+      <label class="f">Fils en parallèle d'origine<input id="rrFils1" type="number" min="1" value="1"></label>
+      <label class="f">Circuits (Origine → Nouveau)
+        <div class="row2" style="margin-top:4px">
+          <input id="rrCirc1" type="number" min="1" value="1" title="Circuits d'origine" style="margin-top:0">
+          <input id="rrCirc2" type="number" min="1" value="1" title="Nouveaux circuits" style="margin-top:0">
+        </div>
+      </label>
+      <label class="f">Fréquence d'origine (Hz)<input id="rrHz1" type="number" value="60"></label>
+      <label class="f">Nouvelle fréquence (Hz)<input id="rrHz2" type="number" value="60"></label>
+    </div>
+    <button type="button" class="b" id="bRerate">Calculer le nouveau bobinage</button>
+    <div id="rrOut" class="mt-4"></div>
+  </div>
+
+  <!-- Outil 3 : Calculateur Électrique, Vitesse, Glissement, Condensateurs -->
+  <div class="c">
+    <h2>
+      <span>3. Calculateur Électrique, Densité de courant & Condensateurs</span>
+      <span class="badge">Atelier Québec / NEMA</span>
+    </h2>
+    <div class="g-4 mt-2">
+      <label class="f">Puissance (HP)<input id="elHp" type="number" step="0.25" value="5"></label>
+      <label class="f">Tension (V)<input id="elV" type="number" value="575"></label>
+      <label class="f">Pôles<input id="elPoles" type="number" step="2" value="4"></label>
+      <label class="f">Fréquence (Hz)<input id="elHz" type="number" value="60"></label>
+      <label class="f">Vitesse réelle plaque (RPM)<input id="elRpm" type="number" value="1750"></label>
+      <label class="f">Rendement estimé (%)<input id="elEff" type="number" value="87"></label>
+      <label class="f">Facteur de puissance (cos φ)<input id="elPf" type="number" step="0.01" value="0.84"></label>
+      <label class="f">Phases
+        <select id="elPh">
+          <option value="3">Triphasé (3~)</option>
+          <option value="1">Monophasé (1~)</option>
+        </select>
+      </label>
+    </div>
+    <div id="elOut" class="mt-4"></div>
+  </div>
+
+  <!-- Outil 4 : Table complète AWG -->
+  <div class="c">
+    <h2>4. Table de référence complète du fil émaillé (AWG 8 à AWG 36)</h2>
+    <div style="overflow-x:auto;max-height:420px">
+      <table class="tbl" id="tblAwg">
+        <thead>
+          <tr>
+            <th>AWG</th>
+            <th>Ø Nu (po)</th>
+            <th>Ø Nu (mm)</th>
+            <th>Ø Émaillé Heavy (po)</th>
+            <th>Section (mm²)</th>
+            <th>Circular Mils (CM)</th>
+            <th>Ω / 1000 pi (20°C)</th>
+            <th>Poids (lb / 1000 pi)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ONGLET 4 : TRAVAUX ENREGISTRÉS ==================== -->
+<section id="t-jobs">
+  <div class="c">
+    <h2>Travaux enregistrés</h2>
+    <div id="list"></div>
+  </div>
+</section>
+
+<!-- ==================== ONGLET 5 : DOCS & PHOTOS ==================== -->
+<section id="t-docs">
+  <div class="c">
+    <h2>Ajouter des documents (Photos de plaque, connexions, PDF)</h2>
+    <div class="g">
+      <label class="f w">Catégorie<select id="aCat"></select></label>
+      <label class="f">N° de série<input id="aSer" type="text" autocomplete="off"></label>
+      <label class="f">Référence<input id="aRef" type="text" autocomplete="off" placeholder="moteur ou fabricant"></label>
+      <label class="f w">Travail lié<select id="aJob"></select></label>
+    </div>
+    <input id="dcam" class="vh" type="file" accept="image/*" capture="environment">
+    <input id="dfile" class="vh" type="file" accept="image/*,application/pdf" multiple>
+    <div class="row2 mt-2">
+      <label class="b" for="dcam">📷 Prendre une photo</label>
+      <label class="b s" for="dfile">📁 Choisir photos ou PDF</label>
+    </div>
+    <p class="mute mt-2">Avec un n° de série ou une référence, chaque document est nommé automatiquement, par exemple « Plaque signalétique · SN12345 ».</p>
+  </div>
+
+  <div class="c">
+    <h2>Bibliothèque de documents</h2>
+    <div class="g">
+      <label class="f">Catégorie<select id="fCat"></select></label>
+      <label class="f">Rechercher<input id="dq" type="search" placeholder="nom, série, référence"></label>
+    </div>
+    <div id="dlist" style="margin-top:6px"></div>
+    <p class="mute" id="dinfo"></p>
+    <button class="b s" id="bCats" type="button">Gérer les catégories</button>
+    <div id="cats" style="display:none"></div>
+  </div>
+</section>
+
+<!-- ==================== ONGLET 6 : RÉGLAGES & SAUVEGARDE ==================== -->
+<section id="t-set">
+  <div class="c">
+    <h2>Calcul de la forme (Gabarit à crans)</h2>
+    <p class="mute">Réglages du calcul de la distance entre les pattes et des positions (crans). Les valeurs par défaut (« auto ») sont calibrées par régression sur tes 45 fiches vérifiées + tes moteurs appris.</p>
+    <div class="g" id="setf"></div>
+    <button class="b s" id="bReset" type="button">Rétablir les valeurs d’origine</button>
+
+    <h2 style="margin-top:20px">Roues de mesure en fractions de pouce</h2>
+    <div class="g">
+      <label class="f">Plus petite fraction
+        <select id="pkStep">
+          <option value="8">1/8 po</option>
+          <option value="16">1/16 po</option>
+          <option value="32">1/32 po</option>
+          <option value="64">1/64 po</option>
+        </select>
+      </label>
+      <label class="f">Pouces maximum<input id="pkMax" type="text" inputmode="numeric"></label>
+    </div>
+    <p class="mute">Tu peux toujours taper une valeur exacte (ex. <code>4 3/8</code> ou <code>4.375</code>) ou utiliser le bouton <b>⇅</b> à côté des champs en pouces.</p>
+
+    <h2 style="margin-top:20px">Apprentissage automatique & Formule active</h2>
+    <p class="mute" id="apSet"></p>
+    <div id="apList"></div>
+    <button class="b s" id="apClear" type="button">Effacer mes ajouts d'apprentissage</button>
+
+    <h2 style="margin-top:20px">Sauvegarde & Transfert</h2>
+    <p class="mute">Copie ou télécharge tes travaux, moteurs appris, réglages et catégories pour les sauvegarder ou les transférer sur un autre téléphone/ordinateur.</p>
+    <div class="row2">
+      <button class="b s" id="bkCopy" type="button">📋 Copier la sauvegarde</button>
+      <button class="b" id="bkFile" type="button">💾 Télécharger fichier .json</button>
+    </div>
+    <label class="f" style="margin-top:10px">Coller une sauvegarde JSON pour la restaurer
+      <textarea id="bk" rows="3"></textarea>
+    </label>
+    <button class="b s" id="bkRest" type="button">Restaurer depuis le texte collé</button>
+    <label class="f" style="margin-top:10px">Ou restaurer directement depuis un fichier .json / .txt
+      <input id="bkOpen" type="file" accept=".json,.txt,application/json,text/plain">
+    </label>
+    <p class="mute" id="stoInfo" style="margin-top:10px"></p>
+  </div>
+</section>
+</main>
+
+<!-- Visionneuse de documents (Photos / PDF) -->
+<div id="viewer">
+  <div class="vbar">
+    <b id="vt"></b>
+    <button id="vRen" type="button">Renommer</button>
+    <button id="vDel" type="button">Supprimer</button>
+    <button id="vX" type="button">Fermer</button>
+  </div>
+  <details id="vm">
+    <summary>Infos du document</summary>
+    <div class="g">
+      <label class="f w">Catégorie<select id="mCat"></select></label>
+      <label class="f">N° de série<input id="mSer" type="text"></label>
+      <label class="f">Référence<input id="mRef" type="text"></label>
+      <label class="f w">Travail lié<select id="mJob"></select></label>
+      <label class="f w">Notes<input id="mNote" type="text" placeholder="ex. enroulement d’origine, 2 circuits"></label>
+    </div>
+    <button class="b" id="mSave" type="button">Enregistrer les infos</button>
+  </details>
+  <div id="vc"></div>
+</div>
+
+<!-- Liste de suggestions pour types de connexion -->
+<datalist id="dlConn">
+  <option value="Étoile (Y)">
+  <option value="Triangle (Δ)">
+  <option value="Série (1 circuit)">
+  <option value="Parallèle (2 circuits)">
+  <option value="Étoile série (1Y)">
+  <option value="Étoile parallèle (2Y)">
+  <option value="Triangle série (1Δ)">
+  <option value="Triangle parallèle (2Δ)">
+  <option value="2 vitesses (Dahlander / conséquents)">
+  <option value="Haute tension">
+  <option value="Basse tension">
+</datalist>
+
+<!-- Sélecteur à roues en pouces + fractions -->
+<div id="pk">
+  <div class="pkb"></div>
+  <div class="pks" role="dialog" aria-modal="true" aria-labelledby="pkt">
+    <b id="pkt"></b>
+    <div class="pkw">
+      <div class="pkband"></div>
+      <div class="col" id="pkI"></div>
+      <div class="col" id="pkF"></div>
+    </div>
+    <label class="f">Valeur exacte (po), modifiable
+      <input id="pkv" type="text" inputmode="decimal" autocomplete="off">
+    </label>
+    <div class="chips" id="pkc"></div>
+    <div class="row2">
+      <button class="b s" id="pkFav" type="button">☆ Favori</button>
+      <button class="b" id="pkOk" type="button">Valider</button>
+    </div>
+    <button class="b s" id="pkNo" type="button">Annuler</button>
+  </div>
+</div>
+
+<!-- Boîte de dialogue modale interne (aucun alert/confirm/prompt natif) -->
+<div id="dlg" style="display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;padding:16px">
+  <div style="background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:18px;max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,0.35)">
+    <p id="dlgM" style="margin:0 0 12px;white-space:pre-wrap;font-weight:600"></p>
+    <input id="dlgI" type="text" style="display:none;width:100%;padding:10px;font:inherit;margin-bottom:10px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px">
+    <textarea id="dlgT" readonly rows="12" style="display:none;width:100%;padding:10px;font:13px/1.4 monospace;margin-bottom:10px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px"></textarea>
+    <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap">
+      <button class="b s" id="dlgX" type="button" style="width:auto;margin-top:0;padding:9px 16px">Annuler</button>
+      <button class="b" id="dlgOk" type="button" style="width:auto;margin-top:0;padding:9px 18px">OK</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const lire = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+const ecrire = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
+
+/* ---------- Thème Clair / Sombre ---------- */
+(function initTheme() {
+  const th = lire("bobinage:theme", "");
+  if (th === "dark" || th === "light") document.documentElement.setAttribute("data-theme", th);
+  $("bTheme").onclick = () => {
+    const cur = document.documentElement.getAttribute("data-theme");
+    const isDark = cur === "dark" || (!cur && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const next = isDark ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    ecrire("bobinage:theme", next);
+  };
+})();
+
+const DEF = { nbCrans: "16", kPos: "auto", sPos: "auto", lPos: "auto", aPos: "auto", wPos: "auto", excForme: "1/2" };
+let reg = Object.assign({}, DEF, lire("bobinage:reglages", {}));
+let fiche = "";
+let dernierRes = null;
+
+/* ---------- Champs de saisie (TOUS DÉVERROUILLÉS !) ---------- */
+const CH = [
+  ["nom", "Nom du travail ou du moteur", "text", "ex. Pompe 5 HP, client Tremblay", 1],
+  ["connexion", "Type de connexion", "text", "ex. Étoile, Triangle, Série, 2Y", 1],
+  ["coches", "Encoches (Slots)", "numeric", "36"],
+  ["poles", "Pôles (nombre pair)", "numeric", "4"],
+  ["diam", "Diamètre intérieur du stator (po)", "decimal", "4 1/2"],
+  ["longueur", "Longueur du fer / stator (po)", "decimal", "2 3/8"],
+  ["larg", "Distance entre les pattes personnalisée (facultatif, po)", "decimal", "vide = auto (longueur + 1/2)"],
+  ["essai", "Bobines d’essai (1 ou 2) : pitch=cran, ex. 5=8, 9=12", "text", "ex. 5=8, 9=12 (facultatif)"],
+  ["pitch", "Pitch (groupes séparés par une virgule)", "text", "ex. 5-7-9 ou 1-8, 2-9", 1],
+  ["awg", "Calibre du fil (AWG, facultatif)", "numeric", "ex. 18"],
+  ["fils", "Fils en parallèle (en main)", "numeric", "1"],
+  ["tours", "Tours par bobine (facultatif)", "numeric", "ex. 40"],
+  ["circ", "Circuits parallèles", "numeric", "1"]
+];
+
+const PLAQUE_IDS = ["plHp", "plRpm", "plVolts", "plAmps", "plFrame", "plHz", "plIso", "plSerie"];
+
+const SE = [
+  ["excForme", "Distance pattes par défaut = longueur du fer + (po)"],
+  ["nbCrans", "Nombre de crans de la forme"],
+  ["kPos", "Positions : facteur de l’arc (auto = calculé depuis tes fiches)"],
+  ["sPos", "Positions : effet par encoche (auto)"],
+  ["lPos", "Positions : effet de la longueur du fer (auto)"],
+  ["aPos", "Positions : décalage en po (auto)"],
+  ["wPos", "Positions : effet de la largeur de forme (auto)"]
+];
+
+$("form").innerHTML = CH.map(c =>
+  `<label class="f${c[4] ? " w" : ""}">${c[1]}<input id="${c[0]}" type="text" inputmode="${c[2]}" placeholder="${c[3]}" autocomplete="off"></label>`
+).join("");
+
+$("pitch").closest("label").insertAdjacentHTML("afterend",
+  `<label class="f w">Notation du pitch (triphasé)<select id="notation">
+    <option value="auto">Automatique (2 numéros = début-fin ex. 1-8 ; 3 et plus = pas des bobines ex. 5-7-9)</option>
+    <option value="pas">Pas des bobines directement (ex. 5-7-9 ou 6-8 = bobines de pas 6 et 8)</option>
+    <option value="debfin">Encoches début-fin (ex. 1-8 = 1 bobine de pas 7)</option>
+  </select></label>`
+);
+
+$("setf").innerHTML = SE.map(c =>
+  `<label class="f">${c[1]}<input id="s_${c[0]}" type="text" inputmode="decimal" value="${esc(reg[c[0]])}"></label>`
+).join("");
+
+/* ---------- Utilitaires de mesure en pouces et fractions ---------- */
+function lirePouces(texte) {
+  const t0 = String(texte ?? "").trim();
+  if (!t0) return NaN;
+  if (t0[0] === "-") {
+    const v = lirePouces(t0.slice(1));
+    return isNaN(v) ? NaN : -v;
+  }
+  const t = t0.replace(",", ".").replace(/\s*po$/i, "").trim();
+  if (!t) return NaN;
+  let m = t.match(/^(\d+)[\s-]+(\d+)\/(\d+)$/);
+  if (m) {
+    const d = +m[3];
+    return d ? +m[1] + m[2] / d : NaN;
+  }
+  m = t.match(/^(\d+)\/(\d+)$/);
+  if (m) {
+    const d = +m[2];
+    return d ? m[1] / d : NaN;
+  }
+  return /^\d*\.?\d+$/.test(t) ? +t : NaN;
+}
+
+function fp(v) {
+  if (!isFinite(v)) return "—";
+  const dec = Math.round(v * 1000) / 1000;
+  const s = Math.round(Math.abs(v) * 16);
+  let e = Math.floor(s / 16), n = s % 16, d = 16;
+  while (n && n % 2 === 0) { n /= 2; d /= 2; }
+  const fr = n ? (e ? e + " " : "") + n + "/" + d : String(e);
+  return `${dec} po (${v < 0 ? "-" : ""}${fr})`;
+}
+
+function fpCourt(v) {
+  if (!isFinite(v)) return "—";
+  const s = Math.round(Math.abs(v) * 16);
+  let e = Math.floor(s / 16), n = s % 16, d = 16;
+  while (n && n % 2 === 0) { n /= 2; d /= 2; }
+  const fr = n ? (e ? e + " " : "") + n + "/" + d : String(e);
+  return `${v < 0 ? "-" : ""}${fr} po`;
+}
+
+function analyserPitch(texte, coches, seul) {
+  const parts = String(texte ?? "").split(/[,;]+/).map(s => s.trim()).filter(Boolean);
+  if (!parts.length) return null;
+  const out = [];
+  for (const p of parts) {
+    const nums = p.split(/\s*-\s*/);
+    if (nums.length < 2 && !seul) return null;
+    const vus = new Set();
+    for (const n of nums) {
+      if (!/^\d+$/.test(n)) return null;
+      const v = +n;
+      if (v < 1 || (coches && v > coches) || vus.has(v)) return null;
+      vus.add(v);
+    }
+    out.push(nums.map(Number));
+  }
+  return out;
+}
+
+/* ---------- Boîtes de dialogue dans la page (sans alert/confirm/prompt) ---------- */
+function boite({ msg, saisie = null, texte = null, ok = "OK", annuler = "Annuler" }) {
+  return new Promise(res => {
+    $("dlgM").textContent = msg || "";
+    const I = $("dlgI"), T = $("dlgT");
+    I.style.display = saisie === null ? "none" : "block";
+    I.value = saisie || "";
+    T.style.display = texte === null ? "none" : "block";
+    T.value = texte || "";
+    $("dlgOk").textContent = ok;
+    $("dlgX").textContent = annuler;
+    $("dlgX").style.display = annuler ? "" : "none";
+    $("dlg").style.display = "flex";
+    if (saisie !== null) setTimeout(() => I.focus(), 50);
+    if (texte !== null) setTimeout(() => { T.focus(); T.select(); }, 50);
+    const fin = v => {
+      $("dlg").style.display = "none";
+      $("dlgOk").onclick = $("dlgX").onclick = null;
+      res(v);
+    };
+    $("dlgOk").onclick = () => fin(saisie !== null ? I.value : true);
+    $("dlgX").onclick = () => fin(saisie !== null ? null : false);
+  });
+}
+const confirmer = m => boite({ msg: m, ok: "Oui", annuler: "Non" });
+const demander = (m, d) => boite({ msg: m, saisie: d || "" });
+const montrerTexte = (m, t) => boite({ msg: m, texte: t, ok: "Fermer", annuler: "" });
+
+function telecharger(nom, contenu, type) {
+  try {
+    const u = URL.createObjectURL(new Blob([contenu], { type: type || "text/plain;charset=utf-8" }));
+    const a = document.createElement("a");
+    a.href = u;
+    a.download = nom;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(u); a.remove(); }, 1500);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function toast(t) {
+  const e = $("toast");
+  e.textContent = t;
+  e.style.display = "block";
+  clearTimeout(toast.h);
+  toast.h = setTimeout(() => e.style.display = "none", t.length > 50 ? 4500 : 2400);
+}
+
+/* ---------- Schéma d’enroulement triphasé ---------- */
+function schema(coches, poles) {
+  const L = ["A", "C", "B", "A", "C", "B"], S = ["+", "−", "+", "−", "+", "−"], g = [];
+  let cur = null;
+  for (let i = 0; i < coches; i++) {
+    const a = (i * poles / 2 * 360 / coches) % 360, sec = Math.floor((a + 1e-6) / 60) % 6;
+    if (!cur || cur.sec !== sec) {
+      cur = { sec, ph: L[sec], sg: S[sec], a: i + 1, b: i + 1 };
+      g.push(cur);
+    } else {
+      cur.b = i + 1;
+    }
+  }
+  return g;
+}
+
+/* ---------- Moteurs vérifiés (45 entrées exactes) & Apprentissage ---------- */
+let appris = lire("bobinage:appris", []).filter(x => x && isFinite(x.diam) && isFinite(x.L) && isFinite(x.W));
+const sauverAppris = () => ecrire("bobinage:appris", appris);
+
+function debEst(D) {
+  return Math.max(0, 0.564 + 0.258 * D);
+}
+function largeurForme(L, d1, d2, diam, R, Wuser) {
+  if (Wuser > 0) return Math.min(21, Math.max(1.5, Wuser));
+  const e = (R && !isNaN(R.excForme)) ? R.excForme : 0.5;
+  return Math.min(21, Math.max(1.5, L + e));
+}
+/* Forme réelle mesurée : cran 1 = 1/2 po, +1/4 po par cran jusqu’au cran 15 (4 po); le cran 16 = 4 po aussi */
+function hautCran(c) {
+  return c <= 15 ? 0.25 * c + 0.25 : 4;
+}
+
+/* [encoches, diamètre, pitch, positions, longueur du fer, distance pattes, source] — source "p" = fiche vérifiée sur photo, "a" = moteur de ton ancienne app */
+const VERIF=[[36,3.125,[5,7,9],[4,6,9],3.125,3.75,"p"],[36,3.125,[8,10],[7,9],3.125,3.75,"p"],[36,3.125,[8],[7],3.125,4.0,"p"],[36,3.125,[5,7,9],[4,6,8],2,2.5,"p"],[36,3.125,[8],[7],2,2.5,"p"],[24,2.625,[4,6],[6,9],2.375,2.0,"p"],[24,2.625,[4,6],[4,7],1.75,2.0,"p"],[24,2.625,[6],[6],1.75,2.0,"p"],[36,3.125,[4,6,8,10],[4,6,8,10],3.875,4.0,"p"],[36,3,[4,6,8,10],[3,6,8,10],4.75,5.0,"p"],[36,3,[5,7,9],[5,7,9],4.75,4.75,"p"],[24,2.625,[4,6],[4,7],1.375,1.75,"p"],[24,2.625,[6],[6],1.375,1.75,"p"],[36,3,[4,6],[5,7],3.5,3.5,"p"],[24,2.25,[6,8,10,12],[6,9,12,15],3.5,3.75,"p"],[24,4,[4,6,8,10,12],[2,5,9,12,15],5.125,7.75,"p"],[24,4,[6,8,10,12],[5,9,12,15],5.125,7.75,"p"],[24,2.375,[4,6,8,10,12],[3,5,7,10,13],3,4.375,"p"],[24,2.375,[6,8,10,12],[5,7,10,13],3,4.375,"p"],[24,2.5,[6,8,10,12],[7,9,12,14],2,2.375,"p"],[36,5.5,[5,7,9],[5,8,12],4.25,6.25,"p"],[24,2.75,[6,8,10,12],[6,8,10,13],2,3.0,"p"],[36,3.625,[3,5,7,9],[5,7,9,11],5,5.0,"p"],[36,3.625,[4,6,8,10],[6,8,10,12],5,5.0,"p"],[36,3.625,[4,6,8],[6,8,10],5,5.0,"p"],[36,5.375,[5,7,9],[7,10,13],5.5,6.875,"p"],[36,5.375,[6,8,10],[8,11,15],5.5,6.875,"p"],[36,5.375,[3,5,7,9],[6,9,13,16],4.375,4.875,"p"],[24,4.25,[4,6,8,10,12],[3,6,9,12,15],2.25,4.875,"p"],[24,4.25,[6,8,10,12],[7,9,12,15],2.25,4.875,"p"],[24,4.25,[4,6,8,10,12],[2,5,8,11,15],4,7.5,"p"],[24,2.75,[4,6,8,10,12],[3,5,8,11,14],2.375,3.125,"p"],[24,2.75,[6,8,10,12],[5,8,11,14],2.375,3.125,"p"],[36,5,[3,5,7,9],[3,6,9,12],3.75,3.75,"p"],[36,5,[4,6,8,10],[4,7,10,13],3.75,3.75,"p"],[32,3.5,[4,6,8],[5,7,10],4,4,"p"],[48,7.5,[8,10,12],[7,11,14],7.625,11.5,"a"],[24,3,[4,6,8,10,12],[2,5,8,11,15],5.75,7.25,"a"],[36,4.25,[3,5,7,9],[3,6,9,12],6,6.875,"a"],[36,4.75,[5,7,9],[5,8,11],5,6.25,"a"],[36,3.75,[5,7],[4,7],3,3.625,"a"],[36,5.625,[3,5,7,9],[4,7,10,13],6,7.5,"a"],[24,2.75,[10,12],[11,13],3.875,5.25,"a"],[24,3.125,[4,6,8,10,12],[5,8,11,14,16],5.25,5.625,"a"],[24,2.625,[6,8,10,12],[7,9,12,14],2,2.25,"a"]];
+
+function separer(pos, pmax) {
+  const p = pos.slice();
+  for (let i = 1; i < p.length; i++) if (p[i] <= p[i - 1]) p[i] = p[i - 1] + 1;
+  for (let i = p.length - 1; i >= 0; i--) {
+    const m = pmax - (p.length - 1 - i);
+    if (p[i] > m) p[i] = m;
+  }
+  return p.map(x => Math.max(1, x));
+}
+
+const PARAM_DEF = { k: 0.56, s: 0.11, l: 0, a: 0.29, w: 0.37 };
+const utilisable = x => x && x.statut !== "nonverifie";
+
+function donneesCrans() {
+  const out = [];
+  VERIF.forEach(m => {
+    m[2].forEach((n, i) => out.push({
+      mot: m[0] + "|" + m[1] + "|" + m[4],
+      arc: Math.PI * m[1] * n / m[0],
+      n,
+      L: m[4],
+      ex: m[5] - m[4],
+      q: m[3][i]
+    }));
+  });
+  appris.filter(utilisable).forEach(x => {
+    if (Array.isArray(x.pos) && Array.isArray(x.pitch) && x.coches && isFinite(x.L) && isFinite(x.W)) {
+      x.pitch.forEach((n, i) => out.push({
+        mot: "a" + x.id,
+        arc: Math.PI * x.diam * n / x.coches,
+        n,
+        L: x.L,
+        ex: x.W - x.L,
+        q: x.pos[i]
+      }));
+    }
+  });
+  return out;
+}
+
+function moindresCarres(rows) {
+  const m = 5, A = [...Array(m)].map(() => Array(m).fill(0)), B = Array(m).fill(0);
+  rows.forEach(r => {
+    const v = [1, r.arc, r.n, r.L, r.ex], y = hautCran(r.q);
+    for (let i = 0; i < m; i++) {
+      B[i] += v[i] * y;
+      for (let j = 0; j < m; j++) A[i][j] += v[i] * v[j];
+    }
+  });
+  for (let i = 0; i < m; i++) {
+    let p = i;
+    for (let r = i + 1; r < m; r++) if (Math.abs(A[r][i]) > Math.abs(A[p][i])) p = r;
+    if (Math.abs(A[p][i]) < 1e-9) return null;
+    [A[i], A[p]] = [A[p], A[i]];
+    [B[i], B[p]] = [B[p], B[i]];
+    for (let r = i + 1; r < m; r++) {
+      const f = A[r][i] / A[i][i];
+      for (let c = i; c < m; c++) A[r][c] -= f * A[i][c];
+      B[r] -= f * B[i];
+    }
+  }
+  const x = Array(m).fill(0);
+  for (let i = m - 1; i >= 0; i--) {
+    let t = B[i];
+    for (let j = i + 1; j < m; j++) t -= A[i][j] * x[j];
+    x[i] = t / A[i][i];
+  }
+  return x;
+}
+
+const SEUIL_ECART = 0.75;
+function ajusterPositions(donnees) {
+  const tous = (donnees || donneesCrans()).filter(r => r.q <= 14);
+  if (tous.length < 12) return { ...PARAM_DEF, n: tous.length, ignores: [], auto: false };
+  const pred = (co, r) => co[0] + co[1] * r.arc + co[2] * r.n + co[3] * r.L + co[4] * r.ex;
+  let co = moindresCarres(tous), ign = [];
+  for (let p = 0; p < 2 && co; p++) {
+    const som = {}, nb = {};
+    tous.forEach(r => {
+      const e = hautCran(r.q) - pred(co, r);
+      som[r.mot] = (som[r.mot] || 0) + e;
+      nb[r.mot] = (nb[r.mot] || 0) + 1;
+    });
+    const mauvais = Object.keys(som).filter(m => Math.abs(som[m] / nb[m]) > SEUIL_ECART);
+    if (!mauvais.length) break;
+    mauvais.forEach(m => { if (!ign.includes(m)) ign.push(m); });
+    const reste = tous.filter(r => !ign.includes(r.mot));
+    if (reste.length < 12) break;
+    const c2 = moindresCarres(reste);
+    if (!c2) break;
+    co = c2;
+  }
+  if (!co || !(co[1] > 0.05 && co[1] < 2) || !(co[4] < 0 && co[4] > -2) || Math.abs(co[2]) > 0.5 || Math.abs(co[3]) > 1) {
+    return { ...PARAM_DEF, n: tous.length, ignores: ign, auto: false };
+  }
+  return {
+    a: co[0], k: co[1], s: co[2], l: co[3], w: -co[4],
+    n: tous.length - tous.filter(r => ign.includes(r.mot)).length,
+    ignores: ign, auto: true
+  };
+}
+
+function paramsPos(R) {
+  const P = ajusterPositions();
+  R = R || {};
+  return {
+    k: isNaN(R.kPos) ? P.k : R.kPos,
+    s: isNaN(R.sPos) ? P.s : R.sPos,
+    l: isNaN(R.lPos) ? P.l : R.lPos,
+    a: isNaN(R.aPos) ? P.a : R.aPos,
+    w: isNaN(R.wPos) ? P.w : R.wPos,
+    info: P
+  };
+}
+
+function cranDe(h, pmax) {
+  let best = 1, bd = 1e9;
+  for (let i = 1; i <= pmax; i++) {
+    const d = Math.abs(hautCran(i) - h);
+    if (d < bd - 1e-9 || (Math.abs(d - bd) <= 1e-9 && hautCran(i) !== hautCran(best))) {
+      bd = d;
+      best = i;
+    }
+  }
+  return best;
+}
+
+function lireEssais(texte, pmax) {
+  const out = [];
+  String(texte || "").replace(/(\d+(?:[.,]\d+)?)\s*(?:=|:|->|→)\s*(\d+)/g, (_, n, c) => {
+    n = parseFloat(n.replace(",", "."));
+    c = parseInt(c, 10);
+    if (n > 0 && c >= 1 && c <= pmax && c < 15) out.push({ n, c });
+  });
+  if (!out.length) {
+    const t = (String(texte || "").match(/\d+(?:[.,]\d+)?/g) || []).map(x => parseFloat(x.replace(",", ".")));
+    if (t.length === 2 && t[0] > 0 && t[1] >= 1 && t[1] < 15 && t[1] <= pmax) {
+      out.push({ n: t[0], c: Math.round(t[1]) });
+    }
+  }
+  return out.slice(0, 3);
+}
+
+function planForme(grp, coches, diam, pmax, R, Lf, Wuser, essai) {
+  R = R || {};
+  const P = paramsPos(R), k = P.k, a = P.a, w = P.w;
+  const Lx = Lf > 0 ? Lf : 0, hb = n => k * Math.PI * diam * n / coches + P.s * n + P.l * Lx;
+  const fixeW = Wuser > 0 && Lf > 0;
+  const exc0 = fixeW ? Wuser - Lf : (isNaN(R.excForme) ? 0.5 : R.excForme);
+  const liste = VERIF.map(m => ({
+    coches: m[0], diam: m[1], pitch: m[2], pos: m[3], L: m[4], W: m[5],
+    src: m[6] === "a" ? "ancienne" : "fiche"
+  })).concat(appris.filter(x => utilisable(x) && Array.isArray(x.pos) && Array.isArray(x.pitch) && x.coches).map(x => ({
+    coches: x.coches, diam: x.diam, pitch: x.pitch, pos: x.pos, L: x.L, W: x.W,
+    src: x.statut === "confirme" ? "confirme" : "appris1"
+  })));
+  const essais = lireEssais(essai, pmax);
+  let off = a - w * exc0, nEss = 0;
+  if (essais.length) {
+    off = essais.reduce((t, e) => t + hautCran(e.c) - hb(e.n), 0) / essais.length;
+    nEss = essais.length;
+  }
+  const hm = hautCran(pmax);
+  let cibMax = 0, exFiche = null;
+  const plan = grp.map(g => {
+    const cand = (nEss || R.sansFiche) ? [] : liste.filter(m => m.coches === coches && Math.abs(m.diam - diam) < 0.13 && String(m.pitch) === String(g));
+    const sc = m => Math.abs(m.diam - diam) + 0.2 * Math.abs((m.L || 0) - (Lf || 0)) + (fixeW ? 0.3 * Math.abs(((m.W || 0) - (m.L || 0)) - exc0) : 0);
+    const ex = cand.length ? cand.reduce((x, y) => sc(y) < sc(x) ? y : x) : null;
+    if (ex) {
+      if (!fixeW && exFiche === null) exFiche = (ex.W || 0) - (ex.L || 0);
+      const d = (fixeW ? exc0 : exFiche) - ((ex.W || 0) - (ex.L || 0));
+      if (Math.abs(d) < 0.06) return { fixe: ex.pos.map(x => Math.min(pmax, x)), fixeBrut: ex.pos, fiab: ex.src };
+      return { fixe: ex.pos.map(x => cranDe(hautCran(Math.min(pmax, x)) - w * d, pmax)), fiab: "fiche_ajustee" };
+    }
+    const base = g.map(n => hb(n));
+    base.forEach(c => { if (c + off > cibMax) cibMax = c + off; });
+    return { base, fiab: R.tri ? (nEss ? "tri_essai" : "tri") : nEss >= 2 ? "essai2" : nEss === 1 ? "essai1" : (fixeW ? "estime" : "estime_nw") };
+  });
+  let surplus = w > 0 ? Math.max(0, (cibMax - hm - 0.5) / w) : 0;
+  surplus = Math.ceil(surplus * 8) / 8;
+  if (surplus < 0.0625) surplus = 0;
+  const extra = fixeW ? 0 : surplus;
+  const decal = (!fixeW && exFiche !== null && !nEss) ? -w * (exFiche - exc0) : 0;
+  const alertes = [];
+  const pos = plan.map((p, gi) => {
+    const brut = p.fixe ? p.fixe.slice() : p.base.map(b => cranDe(b + off + decal - w * extra, pmax));
+    if (!p.fixe && !fixeW) {
+      const hmax = Math.max(...p.base.map(b => b + off + decal - w * extra));
+      if (hmax > hautCran(pmax) + 0.51) {
+        alertes.push(`Groupe ${gi + 1} : la plus grande bobine demande environ ${fp(hmax - hautCran(pmax))} de plus que le dernier cran.`);
+      }
+    }
+    if (p.fixeBrut && p.fixeBrut.some(x => x > pmax)) {
+      alertes.push(`Groupe ${gi + 1} : la fiche utilise un cran plus haut que le dernier cran réglé (${pmax}).`);
+    }
+    const sep = separer(brut, pmax);
+    if (sep.some((x, i) => hautCran(x) !== hautCran(brut[i]))) {
+      alertes.push(`Groupe ${gi + 1} : des bobines tombaient sur le même cran, l’app les a décalées (${brut.join("-")} → ${sep.join("-")}). Vérifie avec une bobine d’essai.`);
+    }
+    return sep;
+  });
+  return {
+    pos, extra, alertes, trop: fixeW ? surplus : 0,
+    fiab: plan.map(p => p.fiab),
+    largFiche: (!fixeW && exFiche !== null && Lf > 0) ? Lf + exFiche : null
+  };
+}
+
+function posForme(grp, coches, diam, pmax, R) {
+  return planForme(grp, coches, diam, pmax, R).pos;
+}
+
+function fiabReelle() {
+  let tot = 0, ex = 0, un = 0;
+  appris.filter(x => utilisable(x) && Array.isArray(x.prevu) && Array.isArray(x.pos) && x.prevu.length === x.pos.length).forEach(x =>
+    x.pos.forEach((a, i) => {
+      const p = x.prevu[i];
+      tot++;
+      if (p === a || (p >= 15 && a >= 15)) ex++;
+      if (Math.abs(Math.min(p, 15) - Math.min(a, 15)) <= 1) un++;
+    })
+  );
+  return tot
+    ? `Fiabilité réelle mesurée sur tes moteurs enregistrés : ${ex} crans exacts sur ${tot} (${Math.round(100 * ex / tot)} %), ${un} sur ${tot} à 1 cran près.`
+    : "Fiabilité réelle pas encore mesurée : chaque moteur que tu enregistres compare ce que l’app aurait calculé avec tes vrais crans.";
+}
+
+const FIAB = {
+  fiche: "✔ Fiche identique vérifiée sur photo : fiable.",
+  ancienne: "✔ Moteur identique de ton ancienne app (pas revérifié sur photo) : fiable si la fiche d’origine était bonne.",
+  appris1: "✔ Moteur que tu as enregistré, vérifié une fois : à confirmer au prochain bobinage.",
+  confirme: "✔ Moteur que tu as confirmé (plusieurs bobinages) : fiable.",
+  tri: "≈ Estimation à vérifier : fiabilité pas encore mesurée en triphasé (tes fiches sont monophasées). Fais une bobine d’essai.",
+  tri_essai: "≈ Calculé avec ta bobine d’essai : fiabilité pas encore mesurée en triphasé, vérifie la 2e bobine.",
+  fiche_ajustee: "✔ Fiche enregistrée, mais avec une autre largeur de forme : positions ajustées par calcul (à 1 cran près).",
+  essai1: "≈ Calculé à partir de ta bobine d’essai : vérifie la bobine suivante.",
+  essai2: "≈ Calculé à partir de tes bobines d’essai : vérifie la bobine suivante.",
+  estime: "≈ Estimé avec ta largeur, sans bobine d’essai : vérifie avec une bobine d’essai.",
+  estime_nw: "≈ Estimé sans largeur ni essai : le résultat le moins sûr. Entre ta largeur de forme ou fais une bobine d’essai."
+};
+
+function pitchActuel(v, coches) {
+  const g = analyserPitch(v.mode === "1" ? (v.rpitch || v.spitch) : v.pitch, coches, v.mode === "1");
+  return g ? g[0] : null;
+}
+
+function moteurSemblable(coches, diam, pitch) {
+  if (!pitch) return null;
+  const liste = VERIF.map(m => ({ coches: m[0], diam: m[1], pitch: m[2], pos: m[3], L: m[4], W: m[5] }))
+    .concat(appris.filter(x => Array.isArray(x.pos) && Array.isArray(x.pitch) && x.coches).map(x => ({ coches: x.coches, diam: x.diam, pitch: x.pitch, pos: x.pos, L: x.L, W: x.W })));
+  let c = liste.filter(m => m.coches === coches && m.pitch.length === pitch.length);
+  if (!c.length) c = liste.filter(m => m.pitch.length === pitch.length);
+  if (!c.length) return null;
+  return c.reduce((a, b) => Math.abs(b.diam - diam) < Math.abs(a.diam - diam) ? b : a);
+}
+
+const f2 = (v, d) => v === null || !isFinite(v) ? "—" : v.toFixed(d);
+const STATUT = { nonverifie: "pas encore testé (ignoré dans les calculs)", verifie: "vérifié une fois", confirme: "confirmé" };
+
+function majApprentissage() {
+  const v = saisie(), d = lirePouces(v.diam), R = {};
+  for (const k in reg) R[k] = lirePouces(reg[k]);
+  const exc = isNaN(R.excForme) ? 0.5 : R.excForme, P = paramsPos(R), I = P.info;
+  let t = `${VERIF.length} séries de fiches vérifiées (jamais modifiées) + ${appris.length} moteur(s) ajouté(s) par toi.`;
+  const sem = moteurSemblable(parseInt(v.coches, 10), d, pitchActuel(v, parseInt(v.coches, 10)));
+  if (sem) t += ` Moteur semblable déjà fait : ${sem.coches} coches, diamètre ${fpCourt(sem.diam)}, pitch ${sem.pitch.join("-")} → positions sur la forme ${sem.pos.join("-")} (pattes ${fpCourt(sem.W)}).`;
+  $("apInfo").textContent = t;
+  $("apSet").textContent = `Hauteur du cran = ${f2(P.a, 2)} + ${f2(P.k, 2)} × arc du pitch + ${f2(P.s, 3)} × encoches du pitch ${P.l < 0 ? "−" : "+"} ${f2(Math.abs(P.l), 2)} × longueur du fer − ${f2(P.w, 2)} × (distance pattes − longueur du fer)${I.auto ? `, recalculé sur ${I.n} mesures de crans` : " (valeurs de départ)"}${I.ignores.length ? `; ${I.ignores.length} moteur(s) écarté(s) du calcul parce que leurs crans s’éloignent trop du modèle` : ""}. Cran 1 = 1/2 po, +1/4 po par cran, crans 15 et 16 = 4 po. Distance pattes par défaut = longueur du fer + ${fp(exc)}. ${fiabReelle()}`;
+  $("apList").innerHTML = appris.length
+    ? appris.map(x => `<div class="job"><div><b>${esc(x.nom)}</b><br><span class="mute">${x.coches || "?"} coches · Ø ${fpCourt(x.diam)} · fer ${fpCourt(x.L)} · pattes ${fpCourt(x.W)}${Array.isArray(x.pitch) ? " · pitch " + x.pitch.join("-") : ""}${Array.isArray(x.pos) ? " → crans " + x.pos.join("-") : ""} · ${esc(x.date)}<br>Statut : <b>${STATUT[x.statut || "verifie"]}</b></span><br><button class="b s" style="margin-top:6px;padding:6px 10px;width:auto" data-st="${x.id}">Changer le statut</button></div><button data-ap="${x.id}" aria-label="Supprimer">✕</button></div>`).join("")
+    : `<p class="mute">Aucun moteur ajouté pour l’instant.</p>`;
+}
+
+/* ---------- Calcul Triphasé ---------- */
+function calculer(s) {
+  const n = k => parseInt(s[k], 10), p = k => lirePouces(s[k]);
+  const coches = n("coches"), poles = n("poles"), diam = p("diam"), L = p("longueur"), d1 = debEst(diam), d2 = debEst(diam);
+  const awg = n("awg"), tours = n("tours"), fils = n("fils") || 1, circ = n("circ") || 1, couches = +s.couches || 2;
+  const bad = [];
+  if (!(coches >= 6)) bad.push("encoches");
+  if (!(poles >= 2 && poles % 2 === 0)) bad.push("pôles (nombre pair)");
+  if (!(diam > 0)) bad.push("diamètre");
+  if (!(L > 0)) bad.push("longueur");
+  if (bad.length) return { err: "Valeur manquante ou invalide : " + bad.join(", ") + "." };
+  const grp = analyserPitch(s.pitch, coches, s.notation === "pas");
+  if (!grp) return { err: "Pitch invalide. Exemples : 1-8, 2-9 ou 5-7-9. Les numéros doivent être entre 1 et " + coches + "." };
+  const R = {};
+  for (const k in reg) R[k] = lirePouces(reg[k]);
+  const r = { mode: "3", coches, poles, diam, L, d1, d2, couches, groupes: grp.map(g => g.join("-")) };
+  r.portee = L + d1 + d2;
+  r.off = 1;
+  r.pmax = isNaN(R.nbCrans) ? 16 : R.nbCrans;
+  const sp = grp.map(g => {
+    const m = s.notation === "pas" || s.notation === "debfin" ? s.notation : (g.length === 2 ? "debfin" : "pas");
+    return m === "pas" ? g.slice() : [Math.max(...g) - Math.min(...g)];
+  });
+  r.sp = sp;
+  r.lecture = grp.map((g, i) => `${g.join("-")} = ${sp[i].length > 1 ? sp[i].length + " bobines de pas " + sp[i].join(", ") : "1 bobine de pas " + sp[i][0]}`).join(" ; ");
+  const Wu = lirePouces(s.larg);
+  const _pl = planForme(sp, coches, diam, r.pmax, { ...R, tri: true }, L, Wu, s.essai);
+  r.pos = _pl.pos;
+  r.extra = _pl.extra;
+  r.fiab = _pl.fiab;
+  r.trop = _pl.trop;
+  r.alertes = _pl.alertes || [];
+  r.largeur = _pl.largFiche ? Math.min(21, Math.max(1.5, _pl.largFiche)) : largeurForme(L, d1, d2, diam, R, Wu) + r.extra;
+  r.hors = r.pos.flat().filter(n => n > r.pmax);
+  /* enroulement */
+  r.tau = coches / poles;
+  r.q = coches / (3 * poles);
+  r.span = Math.max(...sp[0]);
+  r.spanMoy = sp[0].reduce((a, b) => a + b, 0) / sp[0].length;
+  r.ratio = r.spanMoy / r.tau;
+  r.kp = Math.sin(r.ratio * Math.PI / 2);
+  const gam = poles / 2 * 2 * Math.PI / coches;
+  r.kd = Number.isInteger(r.q) ? Math.sin(r.q * gam / 2) / (r.q * Math.sin(gam / 2)) : null;
+  r.kw = r.kd === null ? null : r.kp * r.kd;
+  r.bobines = coches / (couches === 1 ? 2 : 1);
+  r.sch = schema(coches, poles);
+  /* fil */
+  if (awg > 0 && tours > 0) {
+    const dmm = 0.127 * Math.pow(92, (36 - awg) / 39);
+    const A = Math.PI * dmm * dmm / 4 * fils;
+    const cm = Math.round(A * 1973.525);
+    const arc = Math.PI * diam * r.spanMoy / coches;
+    const mlt = 2 * L + 2 * Math.hypot(arc / 2, d1) + 2 * Math.hypot(arc / 2, d2);
+    const tot = r.bobines * tours * mlt * 0.0254;
+    const masseKg = tot * A * 1e-6 * 8960;
+    r.fil = {
+      dmm, A, cm, mlt, tot,
+      masse: masseKg,
+      masseLb: masseKg * 2.20462,
+      res: 1.724e-8 * (tot / 3) / (A * 1e-6) / (circ * circ),
+      awg, tours, fils, circ
+    };
+  }
+  return r;
+}
+
+/* ---------- Affichage des résultats ---------- */
+const row = (a, b) => `<div class="r"><span>${a}</span><b>${b}</b></div>`;
+
+function phases(r) {
+  return ["A", "B", "C"].map(ph => ph + " : " + r.sch.filter(g => g.ph === ph).map(g => `${g.a}${g.b > g.a ? "–" + g.b : ""} (${g.sg})`).join(" · ")).join("\n");
+}
+
+function montage(r) {
+  const g = r.pos.map((p, i) => ({
+    pitch: r.groupes[i],
+    pos: p.join("-"),
+    hauts: p.map(c => fpCourt(hautCran(c))).join(" / "),
+    fiab: FIAB[(r.fiab || [])[i]] || ""
+  }));
+  const note = r.pos.flat().some(n => n >= r.pmax - 1 && n <= r.pmax) ? `Les positions ${r.pmax - 1} et ${r.pmax} ont la même hauteur (4 po).` : "";
+  let hors = (r.alertes || []).join(" ");
+  if (r.trop > 0) {
+    hors += (hors ? " " : "") + `La plus grande bobine demande environ ${fp(r.trop)} de plus que le dernier cran : élargis la forme d’environ ${fp(r.trop)} (à ${fp(r.largeur + r.trop)}) et les positions baisseront d’autant.`;
+  }
+  const estimes = (r.fiab || []).some(f => /^(estime|essai|tri)/.test(f));
+  return { g, note: note + (estimes ? (note ? " " : "") + fiabReelle() : ""), hors };
+}
+
+function blocPlaqueHtml(s) {
+  const items = [];
+  if (s.plHp) items.push(["Puissance", esc(s.plHp)]);
+  if (s.plRpm) items.push(["Vitesse", esc(s.plRpm) + " RPM"]);
+  if (s.plVolts) items.push(["Tension", esc(s.plVolts)]);
+  if (s.plAmps) items.push(["Ampérage", esc(s.plAmps)]);
+  if (s.plFrame) items.push(["Frame / Carcasse", esc(s.plFrame)]);
+  if (s.plHz) items.push(["Fréquence", esc(s.plHz) + " Hz"]);
+  if (s.plIso) items.push(["Isolation", esc(s.plIso)]);
+  if (s.plSerie) items.push(["N° Série / Client", esc(s.plSerie)]);
+  if (!items.length) return "";
+  return `<h3>Plaque signalétique</h3>` + items.map(x => row(x[0], x[1])).join("");
+}
+
+function rendu(r, s) {
+  dernierRes = { type: "3", r, s };
+  const m = montage(r);
+  let h = `<h2><span>${esc(s.nom || "Sans nom")}</span><span class="badge">Triphasé · ${r.coches} encoches</span></h2>` +
+    blocPlaqueHtml(s) +
+    row("Encoches / Pôles", `${r.coches} encoches / ${r.poles} pôles (${Math.round(3600 / (r.poles / 2))} RPM sync @ 60 Hz)`) +
+    row("Diamètre intérieur / Longueur du fer", `${fp(r.diam)} / ${fp(r.L)}`) +
+    (s.connexion && s.connexion.trim() ? row("Type de connexion", esc(s.connexion.trim())) : "") +
+    row("Pitch saisi", esc(r.groupes.join(", "))) +
+    row("Interprétation du pitch", esc(r.lecture)) +
+    `<h2 style="margin-top:16px">Montage sur la forme (Gabarit à ${r.pmax} crans)</h2>` +
+    `<div class="ok-box"><p class="ph" style="margin:0"><b>1.</b> Règle la distance entre les deux pattes de la forme à <b>${fp(r.largeur)}</b>.</p>` +
+    m.g.map((x, i) => `<p class="ph" style="margin:6px 0 0"><b>${i + 2}.</b> Groupe ${i + 1} (pitch ${esc(x.pitch)}) : place le fil sur les positions (crans) <b style="font-size:1.1rem">${esc(x.pos)}</b> <span class="mute">(hauteurs : ${x.hauts})</span>.<br><span class="mute">${esc(x.fiab)}</span></p>`).join("") +
+    `</div>` +
+    (m.note ? `<p class="mute" style="margin-top:6px">${esc(m.note)}</p>` : "") +
+    (m.hors ? `<p class="warn">${esc(m.hors)}</p>` : "") +
+    `<h2 style="margin-top:16px">Géométrie & Enroulement</h2>` +
+    row("Distance entre les pattes de la forme", fp(r.largeur)) +
+    row("Portée axiale totale (avec têtes estimées)", fp(r.portee)) +
+    row("Pas polaire (τ)", f2(r.tau, 2) + " encoches") +
+    row("Encoches par pôle et par phase (q)", f2(r.q, 2)) +
+    row("Pas moyen de bobine", `${f2(r.spanMoy, 1)} encoches (${f2(r.ratio * 100, 0)} % du pas polaire)`) +
+    row("Facteur de bobinage (kw)", r.kw === null ? "n/d (fractionnaire)" : `${f2(r.kw, 3)} (kp ${f2(r.kp, 3)} × kd ${f2(r.kd, 3)})`) +
+    row("Bobines au total", `${r.bobines} bobines (${r.couches === 1 ? "simple couche" : "double couche"})`);
+
+  if (r.fil) {
+    h += `<h2 style="margin-top:16px">Fil de cuivre & Résistance (estimation)</h2>` +
+      row(`Fil AWG ${r.fil.awg} × ${r.fil.fils} en main`, `${f2(r.fil.dmm, 3)} mm · Section totale ${f2(r.fil.A, 3)} mm² (${r.fil.cm.toLocaleString("fr-CA")} CM)`) +
+      row("Tours par bobine / Circuits", `${r.fil.tours} tours · ${r.fil.circ} circuit(s)`) +
+      row("Longueur moyenne d’un tour (MLT)", fp(r.fil.mlt)) +
+      row("Longueur & Poids total de cuivre", `${f2(r.fil.tot, 1)} m — ${f2(r.fil.masse, 2)} kg (${f2(r.fil.masseLb, 2)} lb)`) +
+      row("Résistance par phase à 20 °C", f2(r.fil.res, 3) + " Ω");
+  }
+
+  h += `<h2 style="margin-top:16px">Distribution des phases (côté aller, encoches 1 à ${r.coches})</h2>` +
+    phases(r).split("\n").map(l => `<p class="ph"><b>Phase ${esc(l)}</b></p>`).join("") +
+    `<p class="mute">Chaque bobine part du groupe aller et revient selon son pas (${r.sp[0].join(", ")} encoche${r.span > 1 ? "s" : ""} plus loin). Le signe − indique le sens de polarité opposé.</p>` +
+    `<p class="warn">La distance entre les pattes, les crans, le poids de fil et la résistance sont des estimations d'atelier. Vérifie toujours la 1re bobine d’essai dans le stator avant de bobiner la série complète.</p>`;
+
+  $("out").innerHTML = h;
+
+  fiche = `FICHE DE REBOBINAGE TRIPHASÉ — ${s.nom || "Sans nom"}\n` +
+    (s.plSerie ? `N° Série / Client : ${s.plSerie}\n` : "") +
+    (s.plHp || s.plVolts ? `Plaque : ${[s.plHp, s.plRpm && s.plRpm + " RPM", s.plVolts, s.plAmps, s.plFrame && "Frame " + s.plFrame].filter(Boolean).join(" · ")}\n` : "") +
+    `\nEncoches : ${r.coches}   Pôles : ${r.poles}\n` +
+    (s.connexion && s.connexion.trim() ? `Type de connexion : ${s.connexion.trim()}\n` : "") +
+    `Diamètre intérieur : ${fp(r.diam)}\nLongueur stator : ${fp(r.L)}\nPitch : ${r.groupes.join(", ")} (${r.lecture})\n` +
+    `\nMONTAGE SUR LA FORME\nDistance entre les pattes de la forme : ${fp(r.largeur)}\n` +
+    m.g.map((x, i) => `Groupe ${i + 1} (pitch ${x.pitch}) : positions (crans) ${x.pos} [hauteurs ${x.hauts}]${x.fiab ? "\n   " + x.fiab : ""}`).join("\n") +
+    (m.note ? "\n" + m.note : "") + (m.hors ? "\n" + m.hors : "") +
+    `\n\nPas polaire : ${f2(r.tau, 2)}   q : ${f2(r.q, 2)}   Pas de bobine : ${r.sp[0].join("-")}\nFacteur de bobinage : ${r.kw === null ? "n/d" : f2(r.kw, 3)}\nBobines : ${r.bobines}\n` +
+    (r.fil ? `\nFil AWG ${r.fil.awg} × ${r.fil.fils} (${f2(r.fil.A, 3)} mm² / ${r.fil.cm} CM), ${r.fil.tours} tours/bobine, ${r.fil.circ} circuit(s)\nCuivre total : ${f2(r.fil.tot, 1)} m — ${f2(r.fil.masse, 2)} kg (${f2(r.fil.masseLb, 2)} lb)\nRésistance par phase (20 °C) : ${f2(r.fil.res, 3)} Ω\n` : "") +
+    `\nSchéma des phases :\n${phases(r)}\n`;
+
+  $("res").style.display = "block";
+  dessinerVisuels();
+}
+
+/* ---------- VISUALISATIONS GRAPHIQUES SVG (Forme 16 crans, Stator Circulaire, Linéaire) ---------- */
+function svgFormeGabarit(blocsForme, pmax) {
+  // blocsForme = [{ titre: "Triphasé" | "Run" | "Start", largeur, L, groupes: [{ label, pitchArr, posArr, color }] }]
+  const W = 760, H = 260 * blocsForme.length + 20;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="font-family:system-ui,sans-serif">`;
+  blocsForme.forEach((bf, bi) => {
+    const y0 = bi * 260 + 10;
+    const usedMap = {}; // cran -> [{grpIdx, coilIdx, span, color}]
+    bf.groupes.forEach((g, gi) => {
+      g.posArr.forEach((cran, ci) => {
+        if (!usedMap[cran]) usedMap[cran] = [];
+        usedMap[cran].push({ gi, ci, span: g.pitchArr[ci], color: g.color || "#d97706", label: g.label });
+      });
+    });
+
+    // Cadre
+    svg += `<rect x="8" y="${y0}" width="${W - 16}" height="245" rx="10" fill="none" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+    svg += `<text x="22" y="${y0 + 24}" font-size="14" font-weight="700" fill="currentColor">${esc(bf.titre)} — Écartement entre les 2 pattes : ${fp(bf.largeur)} (Fer : ${fpCourt(bf.L)})</text>`;
+
+    // Dessin de la patte centrale / barre porte-crans (crans 1 à pmax de gauche à droite)
+    const xStart = 46, xEnd = W - 46;
+    const stepX = (xEnd - xStart) / Math.max(1, pmax - 1);
+    const yRail = y0 + 165;
+
+    // Barre métallique de la forme
+    svg += `<rect x="${xStart - 16}" y="${yRail}" width="${xEnd - xStart + 32}" height="18" rx="4" fill="#475569"/>`;
+    svg += `<text x="${W / 2}" y="${yRail + 13}" font-size="10" font-weight="700" fill="#f8fafc" text-anchor="middle">GABARIT À CRANS (1 À ${pmax}) — HAUTEUR EN POUCES PAR CRAN</text>`;
+
+    for (let c = 1; c <= pmax; c++) {
+      const cx = xStart + (c - 1) * stepX;
+      const hPo = hautCran(c); // 0.5 to 4.0 po
+      const pinH = 18 + (hPo / 4.0) * 82; // hauteur visuelle proportionnelle
+      const u = usedMap[c];
+      const active = !!u;
+      const col = active ? u[0].color : "#94a3b8";
+
+      // Tige du cran
+      svg += `<rect x="${cx - (active ? 6 : 3.5)}" y="${yRail - pinH}" width="${active ? 12 : 7}" height="${pinH}" rx="3" fill="${col}" stroke="${active ? "#1e293b" : "none"}" stroke-width="1.5"/>`;
+
+      // Numéro du cran sous le rail
+      svg += `<circle cx="${cx}" cy="${yRail + 32}" r="${active ? 12 : 9}" fill="${active ? col : "transparent"}" stroke="${active ? col : "#64748b"}" stroke-width="1.5"/>`;
+      svg += `<text x="${cx}" y="${yRail + 36}" font-size="${active ? 12 : 10}" font-weight="700" fill="${active ? "#ffffff" : "currentColor"}" text-anchor="middle">${c}</text>`;
+
+      // Hauteur en pouces sous le numéro
+      const hTxt = c <= 15 ? fpCourt(hPo).replace(" po", '"') : '4"';
+      svg += `<text x="${cx}" y="${yRail + 56}" font-size="9.5" font-weight="${active ? "700" : "400"}" fill="${active ? col : "#64748b"}" text-anchor="middle">${hTxt}</text>`;
+
+      // Étiquette au-dessus du cran actif (Pitch associé)
+      if (active) {
+        const txtPitch = u.map(x => `Pas ${x.span}`).join("/");
+        svg += `<rect x="${cx - 22}" y="${yRail - pinH - 24}" width="44" height="19" rx="4" fill="${col}"/>`;
+        svg += `<text x="${cx}" y="${yRail - pinH - 11}" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">${esc(txtPitch)}</text>`;
+      }
+    }
+  });
+  svg += `</svg>`;
+  return svg;
+}
+
+function svgStatorCirculaire(resObj) {
+  const S = 520, cx = S / 2, cy = S / 2, rOut = 225, rSlotOut = 188, rSlotIn = 148;
+  let coches = 36, poles = 4, sch = [], arcs = [];
+  if (resObj.type === "3") {
+    const r = resObj.r;
+    coches = r.coches;
+    poles = r.poles;
+    sch = r.sch;
+    // Construire les arcs de la Phase A (et premier groupe B/C) pour montrer clairement les pas
+    const phColors = { A: "#dc2626", B: "#2563eb", C: "#16a34a" };
+    const sp0 = r.sp[0] || [r.span];
+    // Montrer les bobines du 1er pôle de chaque phase
+    ["A", "B", "C"].forEach((ph, pi) => {
+      const grp = sch.find(g => g.ph === ph);
+      if (!grp) return;
+      sp0.forEach((sp, ci) => {
+        const s1 = ((grp.a - 1 + ci) % coches) + 1;
+        const s2 = ((s1 - 1 + sp) % coches) + 1;
+        arcs.push({ s1, s2, color: phColors[ph], label: `${ph} (pas ${sp})`, radOffset: pi * 12 + ci * 5 });
+      });
+    });
+  } else {
+    // Monophasé : Run (ambre/rouge) + Start (bleu)
+    coches = resObj.coches;
+    poles = resObj.poles;
+    const pasPolaire = coches / poles;
+    if (resObj.run) {
+      const spans = resObj.run.spans;
+      for (let p = 0; p < poles; p++) {
+        const center = Math.round(p * pasPolaire) + 1;
+        spans.forEach((sp, ci) => {
+          const half = Math.floor(sp / 2);
+          const s1 = ((center - half - 1 + coches * 2) % coches) + 1;
+          const s2 = ((s1 - 1 + sp) % coches) + 1;
+          arcs.push({ s1, s2, color: "#d97706", label: p === 0 ? `Run (${sp})` : "", radOffset: ci * 6 });
+        });
+      }
+    }
+    if (resObj.start) {
+      const spans = resObj.start.spans;
+      const decal = Math.round(pasPolaire / 2);
+      for (let p = 0; p < poles; p++) {
+        const center = Math.round(p * pasPolaire + decal) + 1;
+        spans.forEach((sp, ci) => {
+          const half = Math.floor(sp / 2);
+          const s1 = ((center - half - 1 + coches * 2) % coches) + 1;
+          const s2 = ((s1 - 1 + sp) % coches) + 1;
+          arcs.push({ s1, s2, color: "#0284c7", label: p === 0 ? `Start (${sp})` : "", radOffset: 24 + ci * 6 });
+        });
+      }
+    }
+  }
+
+  // Carte de couleur par encoche
+  const slotInfo = {};
+  if (resObj.type === "3") {
+    const phColors = { A: "#dc2626", B: "#2563eb", C: "#16a34a" };
+    sch.forEach(g => {
+      for (let s = g.a; s <= g.b; s++) {
+        slotInfo[s] = { ph: g.ph, sg: g.sg, color: phColors[g.ph] };
+      }
+    });
+  }
+
+  const angOf = s => ((s - 1) / coches) * 2 * Math.PI - Math.PI / 2;
+
+  let svg = `<svg viewBox="0 0 ${S} ${S}" width="100%" style="max-width:520px;margin:0 auto;display:block;font-family:system-ui,sans-serif" xmlns="http://www.w3.org/2000/svg">`;
+  // Couronne extérieure du stator
+  svg += `<circle cx="${cx}" cy="${cy}" r="${rOut}" fill="none" stroke="#64748b" stroke-width="3"/>`;
+  svg += `<circle cx="${cx}" cy="${cy}" r="${rSlotIn}" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="3 3"/>`;
+
+  // Encoches
+  for (let s = 1; s <= coches; s++) {
+    const a = angOf(s);
+    const x1 = cx + rSlotIn * Math.cos(a), y1 = cy + rSlotIn * Math.sin(a);
+    const x2 = cx + rSlotOut * Math.cos(a), y2 = cy + rSlotOut * Math.sin(a);
+    const xt = cx + (rOut - 16) * Math.cos(a), yt = cy + (rOut - 16) * Math.sin(a);
+    const info = slotInfo[s];
+    const col = info ? info.color : "#64748b";
+    svg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${col}" stroke-width="5" stroke-linecap="round"/>`;
+    svg += `<text x="${xt.toFixed(1)}" y="${(yt + 3.5).toFixed(1)}" font-size="${coches > 36 ? 8.5 : 10}" font-weight="700" fill="${col}" text-anchor="middle">${s}</text>`;
+  }
+
+  // Arcs de bobines à l'intérieur de l'alésage
+  arcs.forEach(ar => {
+    const a1 = angOf(ar.s1), a2 = angOf(ar.s2);
+    const rArc = Math.max(42, rSlotIn - 14 - (ar.radOffset || 0));
+    const x1 = cx + rSlotIn * Math.cos(a1), y1 = cy + rSlotIn * Math.sin(a1);
+    const x2 = cx + rSlotIn * Math.cos(a2), y2 = cy + rSlotIn * Math.sin(a2);
+    const xm = cx + rArc * Math.cos((a1 + a2) / 2), ym = cy + rArc * Math.sin((a1 + a2) / 2);
+    svg += `<path d="M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${xm.toFixed(1)} ${ym.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${ar.color}" stroke-width="2.4" opacity="0.9"/>`;
+  });
+
+  // Légende centrale
+  svg += `<text x="${cx}" y="${cy - 8}" font-size="13" font-weight="700" fill="currentColor" text-anchor="middle">${coches} encoches · ${poles} pôles</text>`;
+  svg += `<text x="${cx}" y="${cy + 12}" font-size="11" fill="#64748b" text-anchor="middle">${resObj.type === "3" ? "Rouge=Ph.A · Bleu=Ph.B · Vert=Ph.C" : "Ambre=Run · Bleu=Start"}</text>`;
+  svg += `</svg>`;
+  return svg;
+}
+
+function svgStatorLineaire(resObj) {
+  const coches = resObj.type === "3" ? resObj.r.coches : resObj.coches;
+  const W = Math.max(720, coches * 22 + 60), H = 210;
+  const x0 = 30, step = (W - 60) / coches, ySlot = 125;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="font-family:system-ui,sans-serif">`;
+  svg += `<text x="20" y="22" font-size="13" font-weight="700" fill="currentColor">Schéma développé linéaire des ${coches} encoches</text>`;
+
+  const slotInfo = {};
+  if (resObj.type === "3") {
+    const phColors = { A: "#dc2626", B: "#2563eb", C: "#16a34a" };
+    resObj.r.sch.forEach(g => {
+      for (let s = g.a; s <= g.b; s++) slotInfo[s] = { ph: g.ph, sg: g.sg, color: phColors[g.ph] };
+    });
+  }
+
+  for (let s = 1; s <= coches; s++) {
+    const x = x0 + (s - 0.5) * step;
+    const inf = slotInfo[s];
+    const col = inf ? inf.color : "#64748b";
+    svg += `<rect x="${(x - 6).toFixed(1)}" y="${ySlot}" width="12" height="44" rx="3" fill="${col}"/>`;
+    svg += `<text x="${x.toFixed(1)}" y="${ySlot + 60}" font-size="10" font-weight="700" fill="currentColor" text-anchor="middle">${s}</text>`;
+    if (inf) {
+      svg += `<text x="${x.toFixed(1)}" y="${ySlot + 20}" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">${inf.ph}</text>`;
+      svg += `<text x="${x.toFixed(1)}" y="${ySlot + 35}" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">${inf.sg}</text>`;
+    }
+  }
+
+  // Dessiner les arcs du premier pôle pour illustrer le pas (pitch)
+  if (resObj.type === "3") {
+    const sp0 = resObj.r.sp[0] || [resObj.r.span];
+    const phColors = { A: "#dc2626", B: "#2563eb", C: "#16a34a" };
+    ["A", "B", "C"].forEach((ph) => {
+      const grp = resObj.r.sch.find(g => g.ph === ph);
+      if (!grp) return;
+      sp0.forEach((sp, ci) => {
+        const s1 = grp.a + ci;
+        const s2 = s1 + sp;
+        if (s2 > coches) return;
+        const x1 = x0 + (s1 - 0.5) * step, x2 = x0 + (s2 - 0.5) * step;
+        const hArc = Math.min(85, 22 + sp * 6);
+        svg += `<path d="M ${x1.toFixed(1)} ${ySlot} Q ${((x1 + x2) / 2).toFixed(1)} ${(ySlot - hArc).toFixed(1)} ${x2.toFixed(1)} ${ySlot}" fill="none" stroke="${phColors[ph]}" stroke-width="2.2"/>`;
+      });
+    });
+  } else {
+    if (resObj.run) {
+      let base = 1;
+      resObj.run.spans.forEach((sp, ci) => {
+        const s1 = base + (resObj.run.spans.length - 1 - ci);
+        const s2 = s1 + sp;
+        if (s2 <= coches) {
+          const x1 = x0 + (s1 - 0.5) * step, x2 = x0 + (s2 - 0.5) * step;
+          const hArc = 25 + sp * 5.5;
+          svg += `<path d="M ${x1.toFixed(1)} ${ySlot} Q ${((x1 + x2) / 2).toFixed(1)} ${(ySlot - hArc).toFixed(1)} ${x2.toFixed(1)} ${ySlot}" fill="none" stroke="#d97706" stroke-width="2.4"/>`;
+        }
+      });
+    }
+  }
+
+  svg += `</svg>`;
+  return svg;
+}
+
+function dessinerVisuels() {
+  if (!dernierRes) return;
+  let blocs = [], pmax = 16;
+  if (dernierRes.type === "3") {
+    const r = dernierRes.r;
+    pmax = r.pmax;
+    const palette = ["#d97706", "#2563eb", "#16a34a", "#9333ea"];
+    blocs.push({
+      titre: "Forme Triphasé",
+      largeur: r.largeur,
+      L: r.L,
+      groupes: r.pos.map((p, i) => ({
+        label: `Gr.${i + 1}`,
+        pitchArr: r.sp[i] || p,
+        posArr: p,
+        color: palette[i % palette.length]
+      }))
+    });
+  } else {
+    if (dernierRes.run) {
+      pmax = dernierRes.run.pmax;
+      blocs.push({
+        titre: "Forme RUN (Enroulement principal)",
+        largeur: dernierRes.run.largeur,
+        L: dernierRes.run.L,
+        groupes: dernierRes.run.pos.map((p, i) => ({
+          label: `Run ${i + 1}`,
+          pitchArr: dernierRes.run.grpRaw[i] || p,
+          posArr: p,
+          color: "#d97706"
+        }))
+      });
+    }
+    if (dernierRes.start) {
+      pmax = dernierRes.start.pmax;
+      blocs.push({
+        titre: "Forme START (Enroulement auxiliaire)",
+        largeur: dernierRes.start.largeur,
+        L: dernierRes.start.L,
+        groupes: dernierRes.start.pos.map((p, i) => ({
+          label: `Start ${i + 1}`,
+          pitchArr: dernierRes.start.grpRaw[i] || p,
+          posArr: p,
+          color: "#0284c7"
+        }))
+      });
+    }
+  }
+  $("svgFormeWrap").innerHTML = svgFormeGabarit(blocs, pmax);
+  $("svgCircleWrap").innerHTML = svgStatorCirculaire(dernierRes);
+  $("svgLinearWrap").innerHTML = svgStatorLineaire(dernierRes);
+}
+
+$("vizTabs").onclick = e => {
+  const b = e.target.closest("button[data-v]");
+  if (!b) return;
+  $("vizTabs").querySelectorAll("button").forEach(x => x.classList.toggle("act", x === b));
+  const v = b.dataset.v;
+  $("svgFormeWrap").style.display = v === "forme" ? "block" : "none";
+  $("svgCircleWrap").style.display = v === "circle" ? "block" : "none";
+  $("svgLinearWrap").style.display = v === "linear" ? "block" : "none";
+};
+
+/* ---------- Saisie, Travaux & Onglets ---------- */
+const MON = [
+  ["pitch", "Pitch (pas des bobines concentriques)", "text", "ex. 3-5-7-9 ou 4-6-8-10-12", 1],
+  ["awg", "Calibre du fil (AWG)", "numeric", "ex. 18"],
+  ["fils", "Fils en parallèle", "numeric", "1"],
+  ["tours", "Tours par bobine", "numeric", "ex. 40"],
+  ["circ", "Circuits parallèles", "numeric", "1"],
+  ["bpp", "Bobines par pôle (vide = auto)", "numeric", "auto"]
+];
+
+["r", "s"].forEach(w => {
+  $(w === "r" ? "fRun" : "fStart").innerHTML = MON.map(c =>
+    `<label class="f${c[4] ? " w" : ""}">${c[1]}<input id="${w}${c[0]}" type="text" inputmode="${c[2]}" placeholder="${c[3]}" autocomplete="off"></label>`
+  ).join("");
+});
+
+const saisie = () => {
+  const s = {
+    couches: $("couches").value,
+    mode: $("mode").value,
+    notation: $("notation").value
+  };
+  CH.forEach(c => s[c[0]] = $(c[0]).value);
+  ["r", "s"].forEach(w => MON.forEach(c => s[w + c[0]] = $(w + c[0]).value));
+  PLAQUE_IDS.forEach(id => s[id] = $(id).value);
+  return s;
+};
+
+const remplir = s => {
+  s = s || {};
+  CH.forEach(c => $(c[0]).value = s[c[0]] || "");
+  ["r", "s"].forEach(w => MON.forEach(c => $(w + c[0]).value = s[w + c[0]] || ""));
+  PLAQUE_IDS.forEach(id => $(id).value = s[id] || "");
+  $("couches").value = s.couches || "2";
+  $("mode").value = s.mode || "3";
+  $("notation").value = s.notation || "auto";
+  appliquerMode();
+};
+
+$("bClearForm").onclick = async () => {
+  if (!await confirmer("Effacer tous les champs du formulaire actuel ?")) return;
+  remplir({ mode: $("mode").value, couches: "2", notation: "auto" });
+  ecrire("bobinage:brouillon", saisie());
+  $("res").style.display = "none";
+  $("err").textContent = "";
+};
+
+function go() {
+  if ($("mode").value === "1") return goMono("both");
+  const s = saisie(), r = calculer(s);
+  $("err").textContent = r.err || "";
+  if (r.err) {
+    $("res").style.display = "none";
+    return false;
+  }
+  $("pitch").value = r.groupes.join(", ");
+  rendu(r, saisie());
+  $("res").scrollIntoView({ behavior: "smooth" });
+  return true;
+}
+
+function liste() {
+  const j = lire("bobinage:travaux", []);
+  $("list").innerHTML = j.length
+    ? j.map(t => {
+        const sub = t.s ? `${t.s.mode === "1" ? "Monophasé" : "Triphasé"} · ${t.s.coches || "?"} enc. · Ø ${t.s.diam || "?"} po · Fer ${t.s.longueur || "?"} po` : "";
+        return `<div class="job"><div><b>${esc(t.nom)}</b><br><span class="mute">${esc(sub)} — ${esc(t.date)}</span></div><button data-o="${t.id}">Ouvrir</button><button data-d="${t.id}" aria-label="Supprimer">✕</button></div>`;
+      }).join("")
+    : `<p class="mute">Aucun travail enregistré. Calcule un moteur, puis touche “Enregistrer le travail”.</p>`;
+}
+
+function onglet(t) {
+  document.querySelectorAll("main > section").forEach(e => e.classList.toggle("on", e.id === "t-" + t));
+  document.querySelectorAll("nav button").forEach(b => b.setAttribute("aria-selected", b.dataset.t === t));
+  if (t === "jobs") liste();
+  if (t === "docs") afficherDocs();
+  if (t === "cat") afficherCatalogue();
+  window.scrollTo(0, 0);
+}
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => onglet(b.dataset.t));
+
+$("bCalc").onclick = go;
+$("bSave").onclick = () => {
+  const s = saisie(), j = lire("bobinage:travaux", []);
+  s.nom = s.nom.trim() || "Sans nom";
+  j.unshift({ id: String(Date.now()), nom: s.nom, date: new Date().toLocaleString("fr-CA"), s });
+  toast(ecrire("bobinage:travaux", j) ? "Travail enregistré" : "Enregistrement impossible sur cet appareil : télécharge une sauvegarde");
+  verifierStockage();
+};
+
+$("list").onclick = async e => {
+  const o = e.target.dataset.o, d = e.target.dataset.d;
+  let j = lire("bobinage:travaux", []);
+  if (o) {
+    const t = j.find(x => x.id === o);
+    if (t) { remplir(t.s); onglet("calc"); go(); }
+  }
+  if (d && await confirmer("Supprimer ce travail ?")) {
+    ecrire("bobinage:travaux", j.filter(x => x.id !== d));
+    liste();
+  }
+};
+
+$("bShare").onclick = async () => {
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: "Fiche de rebobinage", text: fiche });
+      return;
+    }
+  } catch (e) {
+    if (e.name === "AbortError") return;
+  }
+  try {
+    await navigator.clipboard.writeText(fiche);
+    toast("Fiche copiée dans le presse-papiers");
+  } catch (e) {
+    montrerTexte("Copie automatique impossible : sélectionne le texte et copie-le.", fiche);
+  }
+};
+
+$("bPrint").onclick = async () => {
+  if (!fiche) { toast("Calcule d’abord une fiche"); return; }
+  const wv = /\bwv\b|; wv\)|Acode/i.test(navigator.userAgent);
+  if (!wv) {
+    try { window.print(); return; } catch (e) {}
+  }
+  const nom = "fiche-" + (($("nom").value || "moteur").trim().replace(/[^\w-]+/g, "_") || "moteur") + ".txt";
+  const ok = await boite({
+    msg: "Si l’impression directe ne s'ouvre pas, tu peux télécharger la fiche texte ou la copier.",
+    texte: fiche,
+    ok: "Télécharger .txt",
+    annuler: "Fermer"
+  });
+  if (ok && !telecharger(nom, fiche)) toast("Téléchargement impossible : copie le texte affiché.");
+};
+
+$("setf").oninput = e => {
+  const k = e.target.id.slice(2);
+  const v = e.target.value.trim();
+  if (v === "auto" || !isNaN(lirePouces(v))) {
+    reg[k] = v;
+    ecrire("bobinage:reglages", reg);
+    majApprentissage();
+  }
+};
+
+$("bReset").onclick = () => {
+  reg = Object.assign({}, DEF);
+  ecrire("bobinage:reglages", reg);
+  SE.forEach(c => $("s_" + c[0]).value = reg[c[0]]);
+  majApprentissage();
+  toast("Valeurs d'origine rétablies");
+};
+
+document.addEventListener("input", e => {
+  if (e.target.closest("#form,#mono,#advPlaque") || e.target.id === "couches" || e.target.id === "mode" || e.target.id === "notation") {
+    ecrire("bobinage:brouillon", saisie());
+  }
+});
+
+/* ---------- Monophasé : Run + Start ---------- */
+function appliquerMode() {
+  const m = $("mode").value === "1";
+  ["pitch", "notation", "awg", "fils", "tours", "circ"].forEach(id => {
+    const el = $(id);
+    if (el) el.closest("label").style.display = m ? "none" : "";
+  });
+  $("mono").style.display = m ? "block" : "none";
+  $("apQWrap").style.display = m ? "" : "none";
+  $("bRun").style.display = $("bStart").style.display = m ? "block" : "none";
+  $("bCalc").textContent = m ? "Calculer Run + Start" : "Calculer la fiche complète";
+  $("res").style.display = "none";
+}
+$("mode").onchange = appliquerMode;
+
+function calcMono(s, w) {
+  const n = k => parseInt(s[k], 10), p = k => lirePouces(s[k]);
+  const coches = n("coches"), poles = n("poles"), diam = p("diam"), L = p("longueur"), d1 = debEst(diam), d2 = debEst(diam);
+  const bad = [];
+  if (!(coches >= 6)) bad.push("encoches");
+  if (!(poles >= 2 && poles % 2 === 0)) bad.push("pôles (nombre pair)");
+  if (!(diam > 0)) bad.push("diamètre");
+  if (!(L > 0)) bad.push("longueur");
+  if (bad.length) return { err: "valeur manquante ou invalide : " + bad.join(", ") + "." };
+  const grp = analyserPitch(s[w + "pitch"], coches, true);
+  if (!grp) return { err: "pitch invalide. Exemples : 5-7-9 ou 4-6-8-10-12 (numéros entre 1 et " + coches + ")." };
+  const R = {};
+  for (const k in reg) R[k] = lirePouces(reg[k]);
+  const r = { coches, poles, diam, L, d1, d2, grpRaw: grp, groupes: grp.map(g => g.join("-")) };
+  r.off = 1;
+  r.pmax = isNaN(R.nbCrans) ? 16 : R.nbCrans;
+  const Wu = lirePouces(s.larg);
+  const _pl = planForme(grp, coches, diam, r.pmax, R, L, Wu, s.essai);
+  r.pos = _pl.pos;
+  r.extra = _pl.extra;
+  r.fiab = _pl.fiab;
+  r.trop = _pl.trop;
+  r.alertes = _pl.alertes || [];
+  r.largeur = _pl.largFiche ? Math.min(21, Math.max(1.5, _pl.largFiche)) : largeurForme(L, d1, d2, diam, R, Wu) + r.extra;
+  r.hors = r.pos.flat().filter(x => x > r.pmax);
+  r.spans = [];
+  grp.forEach(g => g.forEach(x => r.spans.push(x)));
+  r.tau = coches / poles;
+  r.ratio = Math.max(...r.spans) / r.tau;
+  r.forceBpp = n(w + "bpp") > 0;
+  r.bpp = r.forceBpp ? n(w + "bpp") : r.spans.length;
+  r.bobines = r.bpp * poles;
+  const awg = n(w + "awg"), tours = n(w + "tours"), fils = n(w + "fils") || 1, circ = n(w + "circ") || 1;
+  if (awg > 0 && tours > 0) {
+    const dmm = 0.127 * Math.pow(92, (36 - awg) / 39), A = Math.PI * dmm * dmm / 4 * fils;
+    const cm = Math.round(A * 1973.525);
+    const mlt = r.spans.reduce((a, sp) => {
+      const arc = Math.PI * diam * sp / coches;
+      return a + 2 * L + 2 * Math.hypot(arc / 2, d1) + 2 * Math.hypot(arc / 2, d2);
+    }, 0) / r.spans.length;
+    const tot = r.bobines * tours * mlt * 0.0254;
+    const masseKg = tot * A * 1e-6 * 8960;
+    r.fil = {
+      dmm, A, cm, mlt, tot,
+      masse: masseKg,
+      masseLb: masseKg * 2.20462,
+      res: 1.724e-8 * tot / (A * 1e-6) / (circ * circ),
+      awg, tours, fils, circ
+    };
+  }
+  return r;
+}
+
+function blocMono(r, titre) {
+  const m = montage(r), f = r.fil;
+  let h = `<h2 style="margin-top:16px"><span>${esc(titre)}</span><span class="badge">Pattes : ${fpCourt(r.largeur)}</span></h2>` +
+    `<div class="ok-box"><p class="ph" style="margin:0"><b>1.</b> Règle la distance entre les deux pattes de la forme à <b>${fp(r.largeur)}</b>.</p>` +
+    m.g.map((x, i) => `<p class="ph" style="margin:6px 0 0"><b>${i + 2}.</b> Groupe ${i + 1} (pitch ${esc(x.pitch)}) : place le fil sur les positions (crans) <b style="font-size:1.1rem">${esc(x.pos)}</b> <span class="mute">(hauteurs : ${x.hauts})</span>.<br><span class="mute">${esc(x.fiab)}</span></p>`).join("") +
+    `</div>` +
+    (m.note ? `<p class="mute" style="margin-top:6px">${esc(m.note)}</p>` : "") +
+    (m.hors ? `<p class="warn">${esc(m.hors)}</p>` : "") +
+    row("Pas polaire", f2(r.tau, 2) + " encoches") +
+    row("Pas des bobines (encoches)", r.spans.join(" - ")) +
+    row("Plus grande bobine", f2(r.ratio * 100, 0) + " % du pas polaire") +
+    row("Bobines par pôle" + (r.forceBpp ? " (imposé)" : " (auto)"), r.bpp) +
+    row("Bobines au total", r.bobines);
+
+  let t = `${titre.toUpperCase()}\nDistance entre les pattes de la forme : ${fp(r.largeur)}\n` +
+    m.g.map((x, i) => `Groupe ${i + 1} (pitch ${x.pitch}) : positions (crans) ${x.pos} [hauteurs ${x.hauts}]${x.fiab ? "\n   " + x.fiab : ""}`).join("\n") +
+    `\n${m.note ? m.note + "\n" : ""}${m.hors ? m.hors + "\n" : ""}Pas polaire : ${f2(r.tau, 2)}   Pas des bobines : ${r.spans.join(", ")}\nBobines : ${r.bpp} par pôle, ${r.bobines} au total\n`;
+
+  if (f) {
+    h += row(`Fil AWG ${f.awg} × ${f.fils} en main`, `${f2(f.dmm, 3)} mm · ${f2(f.A, 3)} mm² (${f.cm.toLocaleString("fr-CA")} CM)`) +
+      row("Tours par bobine / Circuits", `${f.tours} tours · ${f.circ} circuit(s)`) +
+      row("Cuivre total", `${f2(f.tot, 1)} m — ${f2(f.masse, 2)} kg (${f2(f.masseLb, 2)} lb)`) +
+      row("Résistance à 20 °C", f2(f.res, 3) + " Ω");
+    t += `Fil AWG ${f.awg} × ${f.fils} (${f2(f.A, 3)} mm²), ${f.tours} tours par bobine, ${f.circ} circuit(s)\nFil total : ${f2(f.tot, 1)} m — ${f2(f.masse, 2)} kg (${f2(f.masseLb, 2)} lb)\nRésistance : ${f2(f.res, 3)} Ω\n`;
+  }
+  return [h, t];
+}
+
+function goMono(which) {
+  const s = saisie(), err = $("err");
+  err.textContent = "";
+  const ws = which === "both" ? ["r", "s"] : [which], blocs = [], txt = [];
+  let ok = 0, resRun = null, resStart = null;
+  for (const w of ws) {
+    const titre = w === "r" ? "Run (Enroulement principal)" : "Start (Enroulement auxiliaire)";
+    if (which === "both" && !s[w + "pitch"].trim()) {
+      blocs.push(`<h2 style="margin-top:16px">${esc(titre)}</h2><p class="mute">Pas encore renseigné. Remplis-le plus tard, puis touche “${w === "r" ? "Calculer le Run seulement" : "Calculer le Start seulement"}”.</p>`);
+      continue;
+    }
+    const r = calcMono(s, w);
+    if (r.err) {
+      err.textContent = titre.split(" ")[0] + " : " + r.err;
+      $("res").style.display = "none";
+      return;
+    }
+    $(w + "pitch").value = r.groupes.join(", ");
+    if (w === "r") resRun = r; else resStart = r;
+    const b = blocMono(r, titre);
+    blocs.push(b[0]);
+    txt.push(b[1]);
+    ok++;
+    s.coches = r.coches;
+    s.poles = r.poles;
+  }
+  if (!ok) {
+    err.textContent = "Renseigne au moins le pitch du Run ou du Start.";
+    $("res").style.display = "none";
+    return;
+  }
+  const c = parseInt(s.coches, 10), po = parseInt(s.poles, 10);
+  dernierRes = { type: "1", coches: c, poles: po, run: resRun, start: resStart, s };
+
+  $("out").innerHTML = `<h2><span>${esc(s.nom || "Sans nom")}</span><span class="badge">Monophasé · ${c} encoches</span></h2>` +
+    blocPlaqueHtml(s) +
+    row("Moteur", `Monophasé (${c} encoches / ${po} pôles — ${Math.round(3600 / (po / 2))} RPM sync @ 60 Hz)`) +
+    (s.connexion && s.connexion.trim() ? row("Type de connexion", esc(s.connexion.trim())) : "") +
+    row("Diamètre intérieur / Longueur du fer", `${fp(lirePouces(s.diam))} / ${fp(lirePouces(s.longueur))}`) +
+    blocs.join("") +
+    `<p class="warn">Les distances entre les pattes, positions, bobines par pôle, fil et résistances sont des estimations. Vérifie-les avec une bobine d’essai avant de rebobiner.</p>`;
+
+  fiche = `FICHE DE REBOBINAGE MONOPHASÉ — ${s.nom || "Sans nom"}\n\nEncoches : ${c}   Pôles : ${po}\n` +
+    (s.connexion && s.connexion.trim() ? "Type de connexion : " + s.connexion.trim() + "\n" : "") +
+    `Diamètre intérieur : ${fp(lirePouces(s.diam))}\nLongueur stator : ${fp(lirePouces(s.longueur))}\n\n${txt.join("\n")}\nEstimations à vérifier sur le moteur réel.`;
+
+  $("res").style.display = "block";
+  dessinerVisuels();
+  $("res").scrollIntoView({ behavior: "smooth" });
+}
+$("bRun").onclick = () => goMono("r");
+$("bStart").onclick = () => goMono("s");
+
+/* ---------- Apprentissage automatique ---------- */
+$("bLearn").onclick = () => {
+  const v = saisie(), coches = parseInt(v.coches, 10), diam = lirePouces(v.diam), L = lirePouces(v.longueur), W = lirePouces($("apW").value), statut = $("apS").value;
+  const mono = v.mode === "1", quel = $("apQ").value, brut = mono ? v[quel + "pitch"] : v.pitch;
+  let grp = analyserPitch(brut, coches, mono || v.notation === "pas");
+  if (!(diam > 0) || !(L > 0) || !(coches > 0) || !grp) {
+    toast("Remplis d’abord les encoches, le diamètre, la longueur et le pitch" + (mono ? " du " + (quel === "r" ? "Run" : "Start") : ""));
+    return;
+  }
+  if (!mono) {
+    grp = grp.map(g => {
+      const m = v.notation === "pas" || v.notation === "debfin" ? v.notation : (g.length === 2 ? "debfin" : "pas");
+      return m === "pas" ? g.slice() : [Math.max(...g) - Math.min(...g)];
+    });
+  }
+  if (!(W > 0) || W < L * 0.5 || W > L + 12) {
+    toast("Distance entre les pattes invalide");
+    return;
+  }
+  const pg = $("apP").value.split(/[,;]+/).map(t => t.trim()).filter(Boolean).map(t => t.split(/\s*-\s*/).map(x => /^\d+$/.test(x) ? +x : NaN));
+  if (pg.length !== grp.length || pg.some((p, i) => p.length !== grp[i].length || p.some(x => !(x >= 1 && x <= 16)))) {
+    toast("Positions invalides : il en faut " + grp.map(g => g.length).join(" puis ") + (grp.length > 1 ? " (groupes séparés par une virgule)" : "") + ", ex. " + grp.map(g => g.map((_, i) => 5 + 3 * i).join("-")).join(", "));
+    return;
+  }
+  if (!statut) {
+    toast("Choisis le statut du moteur (pas encore testé, vérifié une fois ou confirmé)");
+    return;
+  }
+  const R = {};
+  for (const k in reg) R[k] = lirePouces(reg[k]);
+  const pmax = isNaN(R.nbCrans) ? 16 : R.nbCrans;
+  let n = 0;
+  grp.forEach((g, i) => {
+    const pos = pg[i];
+    if (appris.some(x => x.coches === coches && x.diam === diam && x.L === L && x.W === W && String(x.pitch) === String(g) && String(x.pos) === String(pos))) return;
+    const prevu = planForme([g], coches, diam, pmax, { ...R, sansFiche: true }, L, W, "").pos[0];
+    appris.unshift({
+      id: String(Date.now()) + "-" + i,
+      nom: ((v.nom || "").trim() || "Sans nom") + (mono ? (quel === "r" ? " (Run)" : " (Start)") : ""),
+      coches, diam, L, W, pitch: g, pos, prevu, statut,
+      date: new Date().toLocaleDateString("fr-CA")
+    });
+    n++;
+  });
+  if (!n) { toast("Ce moteur est déjà enregistré"); return; }
+  const ok = sauverAppris();
+  $("apW").value = "";
+  $("apP").value = "";
+  $("apS").value = "";
+  majApprentissage();
+  toast(ok ? `${n} groupe${n > 1 ? "s" : ""} enregistré${n > 1 ? "s" : ""}. Appuie sur Calculer pour voir le résultat.` : "Enregistrement impossible sur cet appareil");
+};
+
+$("apList").onclick = async e => {
+  const st = e.target.dataset.st;
+  if (st) {
+    const x = appris.find(a => a.id === st);
+    if (x) {
+      const o = ["nonverifie", "verifie", "confirme"];
+      x.statut = o[(o.indexOf(x.statut || "verifie") + 1) % 3];
+      sauverAppris();
+      majApprentissage();
+      toast("Statut : " + STATUT[x.statut]);
+    }
+    return;
+  }
+  const id = e.target.dataset.ap;
+  if (id && await confirmer("Retirer ce moteur de l’apprentissage ?")) {
+    appris = appris.filter(x => x.id !== id);
+    sauverAppris();
+    majApprentissage();
+  }
+};
+
+$("apClear").onclick = async () => {
+  if (appris.length && await confirmer("Effacer tous les moteurs ajoutés ? Les 45 moteurs de départ restent intacts.")) {
+    appris = [];
+    sauverAppris();
+    majApprentissage();
+  }
+};
+["bCalc", "bRun", "bStart"].forEach(id => $(id).addEventListener("click", () => setTimeout(majApprentissage, 0)));
+
+/* ---------- CATALOGUE DES 45 FICHES VÉRIFIÉES + MOTEURS APPRIS ---------- */
+function afficherCatalogue() {
+  const fSlots = $("catFilterSlots").value;
+  const fSrc = $("catFilterSrc").value;
+  const q = ($("catSearch").value || "").toLowerCase().trim();
+
+  const items = VERIF.map((m, idx) => ({
+    idx: "v" + idx,
+    nom: `Fiche #${idx + 1} (${m[0]} encoches · Ø ${fpCourt(m[1])})`,
+    coches: m[0],
+    diam: m[1],
+    pitch: m[2],
+    pos: m[3],
+    L: m[4],
+    W: m[5],
+    src: m[6]
+  })).concat(appris.map((x, idx) => ({
+    idx: "u" + idx,
+    nom: x.nom || `Moteur appris #${idx + 1}`,
+    coches: x.coches,
+    diam: x.diam,
+    pitch: x.pitch || [],
+    pos: x.pos || [],
+    L: x.L,
+    W: x.W,
+    src: "u"
+  })));
+
+  $("catCountBadge").textContent = `${items.length} fiches`;
+
+  const filt = items.filter(it => {
+    if (fSlots && String(it.coches) !== fSlots) return false;
+    if (fSrc && it.src !== fSrc) return false;
+    if (q) {
+      const hay = `${it.nom} ${it.coches} ${it.diam} ${fpCourt(it.diam)} ${it.L} ${fpCourt(it.L)} ${it.W} ${it.pitch.join("-")} ${it.pos.join("-")}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  $("catList").innerHTML = filt.length
+    ? filt.map(it => {
+        const badgeTxt = it.src === "p" ? "Photo vérifiée" : it.src === "a" ? "Ancienne app" : "Appris atelier";
+        return `<div class="job">
+          <div>
+            <b>${esc(it.nom)}</b> <span class="badge">${badgeTxt}</span><br>
+            <span class="mute">
+              <b>${it.coches}</b> encoches · Ø intérieur <b>${fp(it.diam)}</b> · Fer <b>${fp(it.L)}</b><br>
+              Pitch : <b>${it.pitch.join("-")}</b> → Positions sur la forme (crans) : <b style="color:var(--cu)">${it.pos.join("-")}</b> · Distance pattes : <b>${fp(it.W)}</b>
+            </span>
+          </div>
+          <button type="button" data-load-cat="${it.idx}">Charger en 1~</button>
+          <button type="button" data-load-cat3="${it.idx}">Charger en 3~</button>
+        </div>`;
+      }).join("")
+    : `<p class="mute">Aucune fiche ne correspond à ce filtre.</p>`;
+
+  $("catList").onclick = e => {
+    const b1 = e.target.closest("[data-load-cat]");
+    const b3 = e.target.closest("[data-load-cat3]");
+    if (!b1 && !b3) return;
+    const id = (b1 || b3).getAttribute(b1 ? "data-load-cat" : "data-load-cat3");
+    const it = items.find(x => x.idx === id);
+    if (!it) return;
+    const polesEst = it.pitch.length >= 4 ? 2 : 4;
+    if (b1) {
+      remplir({
+        mode: "1",
+        nom: it.nom,
+        coches: String(it.coches),
+        poles: String(polesEst),
+        diam: fpCourt(it.diam).replace(" po", ""),
+        longueur: fpCourt(it.L).replace(" po", ""),
+        larg: fpCourt(it.W).replace(" po", ""),
+        rpitch: it.pitch.join("-"),
+        couches: "2"
+      });
+      onglet("calc");
+      goMono("r");
+    } else {
+      remplir({
+        mode: "3",
+        notation: "pas",
+        nom: it.nom,
+        coches: String(it.coches),
+        poles: String(polesEst),
+        diam: fpCourt(it.diam).replace(" po", ""),
+        longueur: fpCourt(it.L).replace(" po", ""),
+        larg: fpCourt(it.W).replace(" po", ""),
+        pitch: it.pitch.join("-"),
+        couches: "2"
+      });
+      onglet("calc");
+      go();
+    }
+    toast("Fiche chargée dans le calculateur");
+  };
+}
+$("catFilterSlots").onchange = afficherCatalogue;
+$("catFilterSrc").onchange = afficherCatalogue;
+$("catSearch").oninput = afficherCatalogue;
+
+/* ---------- OUTILS & TABLES AWG (AWG 8 à 36) ---------- */
+const AWG_LIST = [];
+for (let g = 8; g <= 36; g++) {
+  const dIn = 0.005 * Math.pow(92, (36 - g) / 39);
+  const dMm = dIn * 25.4;
+  // Épaisseur d'émail Heavy Build approximative NEMA MW 1000
+  const insIn = dIn + (g <= 14 ? 0.0032 : g <= 24 ? 0.0024 : 0.0015);
+  const areaMm2 = Math.PI * dMm * dMm / 4;
+  const cm = dIn * 1000 * (dIn * 1000); // Circular mils = (d_mils)^2
+  const ohmPer1000Ft = 10.371 / cm * 1000;
+  const lbPer1000Ft = cm * 0.003027;
+  AWG_LIST.push({ awg: g, dIn, dMm, insIn, areaMm2, cm, ohmPer1000Ft, lbPer1000Ft });
+}
+
+(function initOutilsAwg() {
+  const opts = AWG_LIST.map(x => `<option value="${x.awg}" ${x.awg === 18 ? "selected" : ""}>AWG ${x.awg} (${x.areaMm2.toFixed(3)} mm² · ${Math.round(x.cm)} CM)</option>`).join("");
+  $("eqAwgOrig").innerHTML = opts;
+  $("rrAwg1").innerHTML = opts;
+
+  // Remplir la table complète
+  $("tblAwg").querySelector("tbody").innerHTML = AWG_LIST.map(x => `<tr>
+    <td><b>AWG ${x.awg}</b></td>
+    <td>${x.dIn.toFixed(4)}"</td>
+    <td>${x.dMm.toFixed(3)} mm</td>
+    <td>${x.insIn.toFixed(4)}"</td>
+    <td><b>${x.areaMm2.toFixed(3)} mm²</b></td>
+    <td>${Math.round(x.cm).toLocaleString("fr-CA")}</td>
+    <td>${x.ohmPer1000Ft.toFixed(3)} Ω</td>
+    <td>${x.lbPer1000Ft.toFixed(2)} lb</td>
+  </tr>`).join("");
+})();
+
+function calcEquivalenceAwg() {
+  const awg0 = +$("eqAwgOrig").value;
+  const n0 = Math.max(1, parseInt($("eqFilsOrig").value, 10) || 1);
+  const nTarget = parseInt($("eqFilsTarget").value, 10) || 0;
+  const allowMix = $("eqMix").value === "1";
+
+  const w0 = AWG_LIST.find(x => x.awg === awg0);
+  if (!w0) return;
+  const targetMm2 = w0.areaMm2 * n0;
+  const targetCm = w0.cm * n0;
+
+  const cands = [];
+  const minN = nTarget > 0 ? nTarget : 1;
+  const maxN = nTarget > 0 ? nTarget : 6;
+
+  // Combinaisons homogènes (N fils du même calibre)
+  for (let n = minN; n <= maxN; n++) {
+    for (const w of AWG_LIST) {
+      if (n === n0 && w.awg === awg0) continue;
+      const a = w.areaMm2 * n;
+      const diffPct = ((a - targetMm2) / targetMm2) * 100;
+      if (Math.abs(diffPct) <= 18) {
+        cands.push({
+          desc: `${n} × AWG ${w.awg}`,
+          nbFils: n,
+          areaMm2: a,
+          cm: w.cm * n,
+          diffPct
+        });
+      }
+    }
+  }
+
+  // Combinaisons mixtes de 2 calibres voisins (ex. 1×AWG 17 + 1×AWG 18)
+  if (allowMix) {
+    for (let i = 0; i < AWG_LIST.length - 1; i++) {
+      const wA = AWG_LIST[i], wB = AWG_LIST[i + 1];
+      for (let na = 1; na <= 4; na++) {
+        for (let nb = 1; nb <= 4; nb++) {
+          const totN = na + nb;
+          if (totN < minN || totN > maxN) continue;
+          const a = na * wA.areaMm2 + nb * wB.areaMm2;
+          const diffPct = ((a - targetMm2) / targetMm2) * 100;
+          if (Math.abs(diffPct) <= 8) {
+            cands.push({
+              desc: `${na} × AWG ${wA.awg} + ${nb} × AWG ${wB.awg}`,
+              nbFils: totN,
+              areaMm2: a,
+              cm: na * wA.cm + nb * wB.cm,
+              diffPct
+            });
+          }
+        }
+      }
+    }
+  }
+
+  cands.sort((a, b) => Math.abs(a.diffPct) - Math.abs(b.diffPct));
+  const top = cands.slice(0, 10);
+
+  $("eqOut").innerHTML = `<div class="ok-box">
+      <b>Origine : ${n0} × AWG ${awg0}</b> — Section totale : <b>${targetMm2.toFixed(3)} mm²</b> (${Math.round(targetCm).toLocaleString("fr-CA")} Circular Mils) · Ø nu unitaire : ${w0.dMm.toFixed(3)} mm (${w0.dIn.toFixed(4)}") · Capacité indicative (@ 4 A/mm²) : <b>${(targetMm2 * 4).toFixed(1)} A</b>
+    </div>
+    <table class="tbl mt-3">
+      <thead>
+        <tr>
+          <th>Combinaison de remplacement</th>
+          <th>Fils en main</th>
+          <th>Section totale (mm²)</th>
+          <th>Circular Mils</th>
+          <th>Écart de section</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${top.map(c => {
+          const sign = c.diffPct >= 0 ? "+" : "";
+          const badgeCol = Math.abs(c.diffPct) <= 3 ? "color:var(--ok)" : Math.abs(c.diffPct) <= 7 ? "color:var(--cu)" : "color:var(--mute)";
+          return `<tr>
+            <td><b>${esc(c.desc)}</b></td>
+            <td>${c.nbFils} fil${c.nbFils > 1 ? "s" : ""}</td>
+            <td>${c.areaMm2.toFixed(3)} mm²</td>
+            <td>${Math.round(c.cm).toLocaleString("fr-CA")} CM</td>
+            <td><b style="${badgeCol}">${sign}${c.diffPct.toFixed(1)} %</b></td>
+          </tr>`;
+        }).join("")}
+      </tbody>
+    </table>`;
+}
+["eqAwgOrig", "eqFilsOrig", "eqFilsTarget", "eqMix"].forEach(id => $(id).addEventListener("input", calcEquivalenceAwg));
+
+/* ---------- Outil 2 : Changement de Tension / Fréquence / Connexion ---------- */
+function calcRerate() {
+  const v1 = parseFloat($("rrV1").value) || 575;
+  const v2 = parseFloat($("rrV2").value) || 460;
+  const c1 = parseFloat($("rrC1").value) || 1;
+  const c2 = parseFloat($("rrC2").value) || 1;
+  const t1 = parseFloat($("rrT1").value) || 40;
+  const awg1 = +$("rrAwg1").value || 18;
+  const fils1 = Math.max(1, parseInt($("rrFils1").value, 10) || 1);
+  const circ1 = Math.max(1, parseInt($("rrCirc1").value, 10) || 1);
+  const circ2 = Math.max(1, parseInt($("rrCirc2").value, 10) || 1);
+  const hz1 = parseFloat($("rrHz1").value) || 60;
+  const hz2 = parseFloat($("rrHz2").value) || 60;
+
+  // Tension de phase effective par circuit
+  const vph1 = (v1 / c1) / circ1;
+  const vph2 = (v2 / c2) / circ2;
+  const ratioTours = (vph2 / vph1) * (hz1 / hz2);
+  const t2Exact = t1 * ratioTours;
+  const t2Round = Math.max(1, Math.round(t2Exact));
+
+  const w1 = AWG_LIST.find(x => x.awg === awg1) || AWG_LIST[10];
+  const area1 = w1.areaMm2 * fils1;
+  // Pour conserver le même remplissage d'encoche (cuivre total par encoche constant) : A2 * T2 = A1 * T1
+  const area2Target = area1 / ratioTours;
+
+  // Trouver les meilleurs calibres pour area2Target (1 à 4 fils en parallèle)
+  const sugg = [];
+  for (let nf = 1; nf <= 4; nf++) {
+    let best = null, bestDiff = 1e9;
+    for (const w of AWG_LIST) {
+      const a = w.areaMm2 * nf;
+      const d = Math.abs(a - area2Target);
+      if (d < bestDiff) { bestDiff = d; best = { nf, w, a, diffPct: ((a - area2Target) / area2Target) * 100 }; }
+    }
+    if (best) sugg.push(best);
+  }
+
+  $("rrOut").innerHTML = `<div class="ok-box">
+    <div class="r"><span>Facteur multiplicateur des tours</span><b>× ${ratioTours.toFixed(4)}</b></div>
+    <div class="r"><span>Nouveau nombre de tours par bobine</span><b style="font-size:1.1rem">${t2Round} tours (exact : ${t2Exact.toFixed(1)})</b></div>
+    <div class="r"><span>Section de fil d'origine (${fils1} × AWG ${awg1})</span><b>${area1.toFixed(3)} mm² (${Math.round(w1.cm * fils1)} CM)</b></div>
+    <div class="r"><span>Nouvelle section de fil requise (remplissage identique)</span><b>${area2Target.toFixed(3)} mm² (${Math.round(area2Target * 1973.5)} CM)</b></div>
+    <div class="r"><span>Suggestions de fil pour le nouveau bobinage</span><b>${sugg.map(s => `${s.nf}×AWG ${s.w.awg} (${s.diffPct >= 0 ? "+" : ""}${s.diffPct.toFixed(1)}%)`).join("  |  ")}</b></div>
+  </div>`;
+}
+$("bRerate").onclick = calcRerate;
+
+/* ---------- Outil 3 : Calculateur Électrique & Condensateurs ---------- */
+function calcElectrique() {
+  const hp = parseFloat($("elHp").value) || 5;
+  const v = parseFloat($("elV").value) || 575;
+  const poles = Math.max(2, parseInt($("elPoles").value, 10) || 4);
+  const hz = parseFloat($("elHz").value) || 60;
+  const rpm = parseFloat($("elRpm").value) || 1750;
+  const eff = (parseFloat($("elEff").value) || 85) / 100;
+  const pf = parseFloat($("elPf").value) || 0.84;
+  const ph = $("elPh").value;
+
+  const ns = (120 * hz) / poles;
+  const slip = ((ns - rpm) / ns) * 100;
+  const kw = hp * 0.7457;
+  const pElecW = (kw * 1000) / eff;
+  const fla = ph === "3" ? pElecW / (Math.sqrt(3) * v * pf) : pElecW / (v * pf);
+  const coupleNm = (kw * 9549) / Math.max(1, rpm);
+  const coupleLbFt = coupleNm * 0.73756;
+
+  // Condensateurs approximatifs pour monophasé (ou moteur triphasé en Steinmetz)
+  const capRunUf = (hp * 746 * 1e6) / (2 * Math.PI * hz * v * v * 0.85);
+  const capStartUf = capRunUf * 4.2;
+
+  $("elOut").innerHTML = `<div class="g">
+    <div>
+      ${row("Vitesse synchrone (Ns)", `${Math.round(ns)} RPM`)}
+      ${row("Glissement (Slip)", `${slip.toFixed(2)} % (${Math.round(ns - rpm)} RPM)`)}
+      ${row("Puissance mécanique", `${hp} HP (${kw.toFixed(2)} kW)`)}
+      ${row("Couple nominal", `${coupleNm.toFixed(1)} N·m (${coupleLbFt.toFixed(1)} lb·pi)`)}
+    </div>
+    <div>
+      ${row(`Courant nominal estimé @ ${v} V`, `${fla.toFixed(1)} A`)}
+      ${row("Section cuivre recommandée (@ 4 A/mm²)", `${(fla / 4).toFixed(2)} mm²`)}
+      ${row("Condensateur de marche indicatif (1~)", `≈ ${Math.round(capRunUf)} µF`)}
+      ${row("Condensateur de démarrage indicatif (1~)", `≈ ${Math.round(capStartUf * 0.85)} – ${Math.round(capStartUf * 1.15)} µF`)}
+    </div>
+  </div>`;
+}
+["elHp", "elV", "elPoles", "elHz", "elRpm", "elEff", "elPf", "elPh"].forEach(id => $(id).addEventListener("input", calcElectrique));
+
+/* ---------- Documentation (IndexedDB, sur l’appareil) ---------- */
+let idb = null, urls = [], cur = null, vurl = null;
+const dbp = new Promise((ok, ko) => {
+  try {
+    const q = indexedDB.open("bobinage-docs", 1);
+    q.onupgradeneeded = () => q.result.createObjectStore("docs", { keyPath: "id" });
+    q.onsuccess = () => { idb = q.result; ok(); };
+    q.onerror = () => ko(q.error);
+  } catch (e) { ko(e); }
+});
+dbp.catch(() => {});
+
+const tx = async (mode, fn) => {
+  await dbp;
+  return new Promise((ok, ko) => {
+    const t = idb.transaction("docs", mode), r = fn(t.objectStore("docs"));
+    t.oncomplete = () => ok(r && r.result);
+    t.onerror = t.onabort = () => ko(t.error);
+  });
+};
+
+const CATS0 = ["Plaque signalétique", "Schéma de connexion", "Fiche fabricant", "Photos avant démontage", "Photos de bobinage", "Essais et mesures"];
+let cats = lire("bobinage:categories", null);
+if (!Array.isArray(cats)) cats = CATS0.slice();
+const sauverCats = () => ecrire("bobinage:categories", cats);
+const nomJob = id => { const t = lire("bobinage:travaux", []).find(x => x.id === id); return t ? t.nom : ""; };
+
+function remplirSel() {
+  const o = cats.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join(""), sans = `<option value="">Sans catégorie</option>`;
+  const jobs = `<option value="">Aucun</option>` + lire("bobinage:travaux", []).map(t => `<option value="${t.id}">${esc(t.nom)}</option>`).join("");
+  const def = { aCat: o + sans, mCat: o + sans, fCat: `<option value="*">Toutes</option>` + o + sans, aJob: jobs, mJob: jobs };
+  for (const id in def) {
+    const e = $(id), v = e.value;
+    e.innerHTML = def[id];
+    e.value = v;
+    if (e.selectedIndex < 0) e.selectedIndex = 0;
+  }
+}
+
+function reduire(file) {
+  return new Promise(ok => {
+    const u = URL.createObjectURL(file), im = new Image();
+    im.onload = () => {
+      const k = Math.min(1, 1600 / Math.max(im.width, im.height)), c = document.createElement("canvas");
+      c.width = Math.round(im.width * k);
+      c.height = Math.round(im.height * k);
+      c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+      c.toBlob(b => { URL.revokeObjectURL(u); ok(b || file); }, "image/jpeg", 0.85);
+    };
+    im.onerror = () => { URL.revokeObjectURL(u); ok(file); };
+    im.src = u;
+  });
+}
+
+async function ajouter(files) {
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
+  const cat = $("aCat").value, ser = $("aSer").value.trim(), ref = $("aRef").value.trim(), job = $("aJob").value;
+  const base = [cat || "Document", ser || ref].filter(Boolean).join(" · "), auto = !!(ser || ref);
+  let n = 0, i = 0;
+  for (const f of files) {
+    const pdf = f.type === "application/pdf" || /\.pdf$/i.test(f.name), img = f.type.startsWith("image/");
+    if (!pdf && !img) { toast("Format non pris en charge : " + f.name); continue; }
+    if (f.size > 25 * 1024 * 1024) { toast("Fichier trop gros (25 Mo maximum)"); continue; }
+    const blob = img ? await reduire(f) : f;
+    const nom = auto ? base + (files.length > 1 ? " (" + (++i) + ")" : "") : f.name.replace(/\.[^.]+$/, "");
+    try {
+      await tx("readwrite", s => s.put({
+        id: String(Date.now()) + (n++), nom, type: pdf ? "pdf" : "img",
+        taille: blob.size, date: new Date().toLocaleString("fr-CA"),
+        blob, cat, ser, ref, job, note: ""
+      }));
+    } catch (e) { toast("Stockage plein ou indisponible"); break; }
+  }
+  if (n) toast(n + " document" + (n > 1 ? "s ajoutés" : " ajouté"));
+  afficherDocs();
+}
+
+async function afficherDocs() {
+  remplirSel();
+  const q = ($("dq").value || "").toLowerCase(), fc = $("fCat").value;
+  let d;
+  try { d = await tx("readonly", s => s.getAll()); } catch (e) {
+    $("dlist").innerHTML = `<p class="mute">Le stockage de documents n’est pas disponible dans ce navigateur.</p>`;
+    return;
+  }
+  urls.forEach(u => URL.revokeObjectURL(u));
+  urls = [];
+  d = (d || []).filter(x => (fc === "*" || (x.cat || "") === fc) && [x.nom, x.ser, x.ref, x.note, nomJob(x.job)].join(" ").toLowerCase().includes(q));
+  const ord = c => { const k = cats.indexOf(c); return k < 0 ? 999 : k; };
+  d.sort((a, b) => ord(a.cat) - ord(b.cat) || b.id.localeCompare(a.id));
+  let h = "", last = null;
+  for (const x of d) {
+    const c = x.cat || "";
+    if (c !== last) { h += `<h3>${esc(c || "Sans catégorie")}</h3>`; last = c; }
+    let th = "PDF";
+    if (x.type === "img") { const u = URL.createObjectURL(x.blob); urls.push(u); th = `<img src="${u}" alt="">`; }
+    const meta = [x.type === "pdf" ? "PDF" : "Photo", x.ser && "Série " + x.ser, x.ref && "Réf. " + x.ref, nomJob(x.job) && "Travail : " + nomJob(x.job), x.date].filter(Boolean).join(" · ");
+    h += `<div class="job d" data-id="${x.id}"><span class="th">${th}</span><div><b>${esc(x.nom)}</b><br><span class="mute">${esc(meta)}</span></div></div>`;
+  }
+  $("dlist").innerHTML = h || `<p class="mute">Aucun document. Touche “Choisir photos ou PDF” pour en ajouter.</p>`;
+  try {
+    const e = await navigator.storage.estimate();
+    $("dinfo").textContent = "Espace utilisé : " + (e.usage / 1048576).toFixed(1) + " Mo";
+  } catch (e) {}
+}
+
+async function ouvrirDoc(id) {
+  let x;
+  try { x = await tx("readonly", s => s.get(id)); } catch (e) { return; }
+  if (!x) return;
+  cur = x;
+  vurl = URL.createObjectURL(x.blob);
+  $("vt").textContent = x.nom;
+  $("mCat").value = x.cat || "";
+  $("mSer").value = x.ser || "";
+  $("mRef").value = x.ref || "";
+  $("mJob").value = x.job || "";
+  $("mNote").value = x.note || "";
+  $("vm").open = false;
+  $("vc").innerHTML = x.type === "img"
+    ? `<img src="${vurl}" alt="${esc(x.nom)}">`
+    : `<iframe src="${vurl}" title="${esc(x.nom)}"></iframe><a href="${vurl}" target="_blank" rel="noopener">Ouvrir dans un nouvel onglet</a>`;
+  $("viewer").classList.add("open");
+}
+
+function fermerDoc() {
+  $("viewer").classList.remove("open");
+  $("vc").innerHTML = "";
+  if (vurl) URL.revokeObjectURL(vurl);
+  vurl = null;
+  cur = null;
+  afficherDocs();
+}
+
+async function majCat(ancien, nouveau) {
+  try {
+    const d = await tx("readonly", s => s.getAll());
+    await tx("readwrite", s => { d.filter(x => x.cat === ancien).forEach(x => { x.cat = nouveau; s.put(x); }); });
+  } catch (e) { toast("Mise à jour des documents impossible"); }
+}
+
+function rendreCats() {
+  $("cats").innerHTML = cats.map((c, i) => `<div class="cr"><span>${esc(c)}</span><button data-r="${i}">Renommer</button><button data-x="${i}" aria-label="Supprimer">✕</button></div>`).join("") +
+    `<label class="f" style="margin-top:10px">Nouvelle catégorie<input id="nc" type="text" placeholder="ex. Bon de travail"></label><button class="b" id="ncAdd" type="button">Ajouter la catégorie</button>`;
+}
+
+$("bCats").onclick = () => {
+  const e = $("cats"), o = e.style.display === "none";
+  e.style.display = o ? "block" : "none";
+  if (o) rendreCats();
+};
+
+$("cats").onclick = async e => {
+  const t = e.target;
+  if (t.id === "ncAdd") {
+    const v = $("nc").value.trim();
+    if (!v) return;
+    if (cats.includes(v)) { toast("Cette catégorie existe déjà"); return; }
+    cats.push(v);
+    sauverCats();
+    rendreCats();
+    afficherDocs();
+    return;
+  }
+  if (t.dataset.r !== undefined) {
+    const i = +t.dataset.r, v = (await demander("Nouveau nom de la catégorie", cats[i]) || "").trim();
+    if (!v || v === cats[i]) return;
+    if (cats.includes(v)) { toast("Cette catégorie existe déjà"); return; }
+    await majCat(cats[i], v);
+    cats[i] = v;
+    sauverCats();
+    rendreCats();
+    afficherDocs();
+  }
+  if (t.dataset.x !== undefined) {
+    const i = +t.dataset.x;
+    if (!await confirmer("Supprimer la catégorie “" + cats[i] + "” ? Ses documents passeront dans “Sans catégorie”.")) return;
+    await majCat(cats[i], "");
+    cats.splice(i, 1);
+    sauverCats();
+    rendreCats();
+    afficherDocs();
+  }
+};
+
+["dfile", "dcam"].forEach(id => {
+  $(id).onchange = e => {
+    const f = Array.from(e.target.files || []);
+    e.target.value = "";
+    if (f.length) ajouter(f);
+  };
+});
+$("dq").oninput = afficherDocs;
+$("fCat").onchange = afficherDocs;
+$("dlist").onclick = e => { const r = e.target.closest("[data-id]"); if (r) ouvrirDoc(r.dataset.id); };
+$("vX").onclick = fermerDoc;
+
+$("mSave").onclick = async () => {
+  if (!cur) return;
+  Object.assign(cur, {
+    cat: $("mCat").value,
+    ser: $("mSer").value.trim(),
+    ref: $("mRef").value.trim(),
+    job: $("mJob").value,
+    note: $("mNote").value.trim()
+  });
+  try { await tx("readwrite", s => s.put(cur)); toast("Infos enregistrées"); } catch (e) { toast("Enregistrement impossible"); }
+};
+
+$("vRen").onclick = async () => {
+  if (!cur) return;
+  const nom = (await demander("Nouveau nom", cur.nom) || "").trim();
+  if (nom) {
+    cur.nom = nom;
+    try { await tx("readwrite", s => s.put(cur)); $("vt").textContent = nom; } catch (e) { toast("Renommage impossible"); }
+  }
+};
+
+$("vDel").onclick = async () => {
+  if (!cur || !await confirmer("Supprimer ce document ?")) return;
+  const id = cur.id;
+  try { await tx("readwrite", s => s.delete(id)); } catch (e) { toast("Suppression impossible"); return; }
+  fermerDoc();
+};
+
+/* ---------- Sauvegarde & Restauration ---------- */
+const texteSauvegarde = () => JSON.stringify({
+  v: 1,
+  date: new Date().toISOString(),
+  travaux: lire("bobinage:travaux", []),
+  reglages: reg,
+  categories: cats,
+  pref,
+  appris
+});
+
+$("bkFile").onclick = () => {
+  const d = new Date().toISOString().slice(0, 10);
+  if (telecharger("bobinage-sauvegarde-" + d + ".json", texteSauvegarde(), "application/json")) {
+    toast("Fichier de sauvegarde téléchargé");
+  } else {
+    montrerTexte("Téléchargement impossible ici : copie ce texte et garde-le.", texteSauvegarde());
+  }
+};
+
+$("bkOpen").onchange = e => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => { $("bk").value = String(r.result || ""); $("bkRest").click(); };
+  r.readAsText(f);
+  e.target.value = "";
+};
+
+async function verifierStockage() {
+  let t = "";
+  const k = "bobinage:test";
+  try {
+    localStorage.setItem(k, "1");
+    const ok = localStorage.getItem(k) === "1";
+    localStorage.removeItem(k);
+    t = ok ? "Stockage de l’appareil : opérationnel." : "Stockage de l’appareil : limité.";
+  } catch (e) {
+    t = "Stockage de l’appareil : bloqué. Télécharge une sauvegarde JSON avant de fermer.";
+  }
+  try {
+    if (navigator.storage && navigator.storage.persist) {
+      const p = await navigator.storage.persisted() || await navigator.storage.persist();
+      t += p ? " Protégé contre l’effacement automatique." : " Pense à faire une sauvegarde régulière.";
+    }
+  } catch (e) {}
+  t += ` Enregistrés ici : ${lire("bobinage:travaux", []).length} travail(aux), ${appris.length} moteur(s) appris.`;
+  if ($("stoInfo")) $("stoInfo").textContent = t;
+}
+
+$("bkCopy").onclick = async () => {
+  const t = texteSauvegarde();
+  try { await navigator.clipboard.writeText(t); toast("Sauvegarde copiée"); } catch (e) {
+    $("bk").value = t;
+    toast("Copie automatique impossible : copie le texte affiché");
+  }
+};
+
+$("bkRest").onclick = async () => {
+  let o;
+  try { o = JSON.parse($("bk").value); } catch (e) { toast("Texte de sauvegarde invalide"); return; }
+  if (!o || o.v !== 1 || !Array.isArray(o.travaux)) { toast("Texte de sauvegarde invalide"); return; }
+  if (!await confirmer("Remplacer les travaux, réglages, catégories et moteurs enregistrés de cet appareil ?")) return;
+  ecrire("bobinage:travaux", o.travaux);
+  if (o.reglages && typeof o.reglages === "object") {
+    reg = Object.assign({}, DEF, o.reglages);
+    ecrire("bobinage:reglages", reg);
+    SE.forEach(c => $("s_" + c[0]).value = reg[c[0]]);
+  }
+  if (Array.isArray(o.appris)) {
+    appris = o.appris.filter(x => x && isFinite(x.diam) && isFinite(x.L) && isFinite(x.W));
+    sauverAppris();
+    majApprentissage();
+  }
+  if (Array.isArray(o.categories)) { cats = o.categories.map(String); sauverCats(); }
+  if (o.pref && typeof o.pref === "object") {
+    pref = Object.assign({ step: 8, max: 24, fav: [] }, o.pref);
+    sauverPref();
+    $("pkStep").value = pref.step;
+    $("pkMax").value = pref.max;
+  }
+  remplirSel();
+  verifierStockage();
+  toast("Sauvegarde restaurée avec succès");
+};
+remplirSel();
+
+/* ---------- Roues de mesure (Diamètre, Longueur du fer, ET Distance des pattes !) ---------- */
+let pref = Object.assign({ step: 8, max: 24, fav: [] }, lire("bobinage:pref", {}));
+const sauverPref = () => ecrire("bobinage:pref", pref);
+let pkEl = null, pkLock = 0, pkT = 0;
+
+const fracs = () => {
+  const a = [];
+  for (let k = 0; k < pref.step; k++) {
+    let n = k, d = pref.step;
+    while (n && n % 2 === 0) { n /= 2; d /= 2; }
+    a.push({ k, l: n ? n + "/" + d : "0" });
+  }
+  return a;
+};
+
+function valeurRoues() {
+  const i = Math.min(Math.round($("pkI").scrollTop / 44), pref.max);
+  const k = Math.min(Math.round($("pkF").scrollTop / 44), pref.step - 1);
+  const fr = fracs()[k];
+  return (i ? String(i) : "") + (fr.k ? (i ? " " : "") + fr.l : "") || "0";
+}
+
+function placerRoues(v) {
+  pkLock = Date.now() + 300;
+  const tot = Math.round((v >= 0 ? v : 0) * pref.step);
+  let i = Math.floor(tot / pref.step), k = tot % pref.step;
+  if (i > pref.max) { i = pref.max; k = 0; }
+  $("pkI").scrollTop = i * 44;
+  $("pkF").scrollTop = k * 44;
+}
+
+function chips() {
+  $("pkc").innerHTML = pref.fav.map((v, i) => `<span class="chip"><button type="button" data-v="${esc(v)}">${esc(v)}</button><button type="button" data-x="${i}" aria-label="Retirer ce favori">✕</button></span>`).join("") || `<span class="mute">Aucun favori. Règle une valeur, puis touche “Favori”.</span>`;
+}
+
+function ouvrirRoues(el, titre) {
+  pkEl = el;
+  $("pkt").textContent = titre;
+  $("pkI").innerHTML = Array.from({ length: pref.max + 1 }, (_, n) => `<div>${n}</div>`).join("");
+  $("pkF").innerHTML = fracs().map(f => `<div>${f.l}</div>`).join("");
+  $("pkv").value = el.value.trim() || "0";
+  $("pk").classList.add("open");
+  const v = lirePouces(el.value);
+  placerRoues(isNaN(v) ? 0 : v);
+  chips();
+}
+
+const fermerRoues = () => { $("pk").classList.remove("open"); pkEl = null; };
+const surDefil = () => {
+  if (Date.now() < pkLock) return;
+  clearTimeout(pkT);
+  pkT = setTimeout(() => { $("pkv").value = valeurRoues(); }, 90);
+};
+$("pkI").onscroll = surDefil;
+$("pkF").onscroll = surDefil;
+$("pkv").oninput = () => { const v = lirePouces($("pkv").value); if (!isNaN(v)) placerRoues(v); };
+
+$("pkc").onclick = e => {
+  const t = e.target;
+  if (t.dataset.v !== undefined) { $("pkv").value = t.dataset.v; placerRoues(lirePouces(t.dataset.v)); }
+  if (t.dataset.x !== undefined) { pref.fav.splice(+t.dataset.x, 1); sauverPref(); chips(); }
+};
+
+$("pkFav").onclick = () => {
+  const v = $("pkv").value.trim();
+  if (!v || isNaN(lirePouces(v))) { toast("Valeur invalide"); return; }
+  if (!pref.fav.includes(v)) {
+    pref.fav.push(v);
+    pref.fav.sort((a, b) => lirePouces(a) - lirePouces(b));
+    sauverPref();
+  }
+  chips();
+};
+
+$("pkOk").onclick = () => {
+  const t = $("pkv").value.trim(), val = t && !isNaN(lirePouces(t)) ? t : valeurRoues();
+  pkEl.value = val;
+  pkEl.dispatchEvent(new Event("input", { bubbles: true }));
+  fermerRoues();
+};
+$("pkNo").onclick = fermerRoues;
+document.querySelector(".pkb").onclick = fermerRoues;
+$("pkStep").value = pref.step;
+$("pkMax").value = pref.max;
+$("pkStep").onchange = () => { pref.step = +$("pkStep").value; sauverPref(); };
+$("pkMax").oninput = () => { const m = parseInt($("pkMax").value, 10); if (m >= 1 && m <= 120) { pref.max = m; sauverPref(); } };
+
+["diam", "longueur", "larg", "apW"].forEach(id => {
+  const inp = $(id);
+  if (!inp) return;
+  const w = document.createElement("div"), b = document.createElement("button");
+  w.className = "pk";
+  b.type = "button";
+  b.textContent = "⇅";
+  b.setAttribute("aria-label", "Choisir une mesure avec les roues");
+  inp.parentNode.insertBefore(w, inp);
+  w.append(inp, b);
+  b.onclick = () => ouvrirRoues(inp, inp.closest("label").firstChild.textContent.trim());
+});
+
+/* ---------- Initialisation au démarrage ---------- */
+$("connexion").setAttribute("list", "dlConn");
+remplir(lire("bobinage:brouillon", {}));
+majApprentissage();
+verifierStockage();
+calcEquivalenceAwg();
+calcRerate();
+calcElectrique();
+onglet("calc");
+</script>
+</body>
+</html>
