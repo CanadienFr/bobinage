@@ -320,6 +320,46 @@ details.det>div{padding-bottom:12px}
 #vc iframe{width:100%;height:100%;border:0;background:#fff}
 
 #atelier.open~#toast{bottom:auto;top:calc(70px + env(safe-area-inset-top))}
+
+/* ---------- Données d'origine / essais ---------- */
+details.sec>summary{gap:8px}
+details.sec>summary .st{display:flex;align-items:center;gap:9px;flex:none}
+details.sec>summary .st .ic{color:var(--cu)}
+.sumtag{flex:1;text-align:right;font-size:.76rem;font-weight:750;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.sumtag.ok{color:var(--ok)} .sumtag.est{color:var(--est)} .sumtag.bad{color:var(--bad)}
+.dgrid{display:grid;gap:8px;margin-bottom:12px}
+.g1{grid-template-columns:1fr}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:370px){.g4{grid-template-columns:1fr 1fr}}
+.df{display:flex;flex-direction:column;gap:4px;font-size:.68rem;font-weight:800;color:var(--mute);text-transform:uppercase;letter-spacing:.04em;min-width:0}
+.df>span{display:flex;align-items:center;justify-content:space-between;gap:4px;white-space:nowrap;min-height:20px}
+.df input{width:100%;min-width:0;padding:11px 6px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);font:800 1.05rem var(--num);color:var(--ink);text-align:center;outline:none;text-transform:none;letter-spacing:0}
+.df input:focus{border-color:var(--cu)}
+.df input::placeholder{color:var(--mute);opacity:.45;font-weight:600}
+.mic{padding:2px 8px;border-radius:7px;background:var(--cu-soft);color:var(--cu);font-weight:900;font-size:.74rem;letter-spacing:0}
+.wrow{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:800;margin:2px 0 6px}
+.wrow i{width:8px;height:8px;border-radius:50%}
+.verdict{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-radius:13px;font-size:.84rem;font-weight:700;margin:-4px 0 12px;line-height:1.35}
+.verdict i{width:9px;height:9px;border-radius:50%;background:currentColor;flex:none;margin-top:5px}
+.verdict.ok{background:var(--ok-soft);color:var(--ok)} .verdict.est{background:var(--est-soft);color:var(--est)} .verdict.bad{background:var(--bad-soft);color:var(--bad)} .verdict.info{background:var(--bg2);color:var(--mute)}
+.chipsel{display:flex;gap:6px}
+.chipsel button{flex:1;padding:11px 4px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);font:800 .9rem var(--num)}
+.chipsel button.on{background:var(--cu-soft);border-color:var(--cu);color:var(--cu)}
+.banner{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:18px;background:var(--est-soft);border:1px solid color-mix(in srgb,var(--est) 30%,transparent);margin-bottom:14px;animation:fade .25s}
+.banner .bi{width:38px;height:38px;border-radius:12px;background:var(--est);color:#fff;display:grid;place-items:center;flex:none}
+.banner .bt{flex:1;font-size:.84rem;line-height:1.35}
+.banner .bt b{display:block;color:var(--ink);font-size:.92rem}
+.banner .bb{display:flex;flex-direction:column;gap:6px;flex:none}
+.banner .bb button{padding:8px 11px;border-radius:11px;font-weight:800;font-size:.8rem}
+.banner .bb .go{background:var(--est);color:#fff}
+.banner .bb .later{color:var(--mute)}
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.row4 .btn{flex-direction:column;gap:4px;padding:12px 4px;font-size:.76rem}
+.shopf{display:grid;gap:8px}
+.shopf input{width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);font-weight:650;outline:none}
+.shopf input:focus{border-color:var(--cu)}
+.logorow{display:flex;gap:12px;align-items:center;margin-top:4px}
+.logobox{width:64px;height:64px;border-radius:14px;border:1.5px dashed var(--line2);display:grid;place-items:center;overflow:hidden;background:#fff;flex:none;color:var(--mute);font-size:.7rem;font-weight:800}
+.logobox img{max-width:100%;max-height:100%}
 #toast{position:fixed;left:50%;bottom:calc(98px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;z-index:90;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:16px;font-weight:700;font-size:.9rem;box-shadow:0 10px 30px rgba(0,0,0,.3);transition:all .25s;max-width:calc(100% - 40px);text-align:center}
 #toast.on{opacity:1;transform:translateX(-50%)}
 .vh{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
@@ -339,6 +379,7 @@ textarea.bk{width:100%;min-height:120px;border-radius:14px;border:1.5px solid va
 <main>
 <!-- ============ CALCUL ============ -->
 <section id="t-calc" class="on">
+  <div id="bkBanner"></div>
   <div class="seg" id="segMode">
     <button type="button" data-mode="3">Triphasé</button>
     <button type="button" data-mode="1">Monophasé</button>
@@ -354,10 +395,11 @@ textarea.bk{width:100%;min-height:120px;border-radius:14px;border:1.5px solid va
     </div>
     <div id="match"></div>
     <div id="pitchZone"></div>
-    <input id="connexion" class="line-in" type="text" placeholder="Connexion (facultatif) : étoile, triangle…" list="dlConn" autocomplete="off">
   </div>
 
+  <div id="secOrig"></div>
   <div id="res"></div>
+  <div id="secEss"></div>
 </section>
 
 <!-- ============ TRAVAUX ============ -->
@@ -389,6 +431,11 @@ textarea.bk{width:100%;min-height:120px;border-radius:14px;border:1.5px solid va
     <div class="seg sm" id="segTheme" style="margin:8px 0 0">
       <button type="button" data-th="">Auto</button><button type="button" data-th="light">Clair</button><button type="button" data-th="dark">Sombre</button>
     </div>
+  </div>
+
+  <div class="card tool">
+    <h3><svg class="ic"><use href="#i-pdf"/></svg>Ma shop <span class="mute" style="font:600 .8rem system-ui">· sur la fiche client</span></h3>
+    <div id="shopForm"></div>
   </div>
 
   <div class="card tool">
@@ -459,6 +506,7 @@ textarea.bk{width:100%;min-height:120px;border-radius:14px;border:1.5px solid va
 
 <div id="toast" role="status"></div>
 <input id="fPhoto" class="vh" type="file" accept="image/*,application/pdf" multiple>
+<input id="fLogo" class="vh" type="file" accept="image/*">
 <input id="fRestore" class="vh" type="file" accept=".json,.txt,application/json,text/plain">
 
 <datalist id="dlConn">
@@ -485,6 +533,9 @@ textarea.bk{width:100%;min-height:120px;border-radius:14px;border:1.5px solid va
   <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
   <symbol id="i-wire" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
 </svg>
 
@@ -822,7 +873,9 @@ function fracHTML(v, inch = true) {
 const mesTxt = v => { const x = lirePouces(v); return isNaN(x) ? "" : fpFrac(x) + "″"; };
 
 /* ---------- État ---------- */
-const VIDE = { mode: "3", nom: "", connexion: "", coches: "", poles: "", diam: "", longueur: "", pitch: "", notation: "auto", rpitch: "", spitch: "", larg: "", essai: "", couches: "2" };
+const VIDE = { mode: "3", nom: "", connexion: "", coches: "", poles: "", diam: "", longueur: "", pitch: "", notation: "auto", rpitch: "", spitch: "", larg: "", essai: "", couches: "2",
+  hp: "", volts: "", amps: "", rpm: "", tours: "", awg: "", fils: "", circ: "", rtours: "", rawg: "", rfils: "", stours: "", sawg: "", sfils: "",
+  eR1: "", eR2: "", eR3: "", eRr: "", eRs: "", eM: "", eMV: "", eI1: "", eI2: "", eI3: "", eNote: "" };
 const norm = o => { const r = Object.assign({}, VIDE, o || {}); for (const k in VIDE) r[k] = r[k] == null ? VIDE[k] : String(r[k]); return r; };
 let f = norm(lire("bobinage:brouillon", {}));
 let curJob = lire("bobinage:courant", "") || "";
@@ -830,7 +883,8 @@ let resultat = null;
 const saisie = () => Object.assign({}, f);
 const brouillon = () => { ecrire("bobinage:brouillon", f); ecrire("bobinage:courant", curJob); };
 let _raf = 0;
-function change() { brouillon(); renderForm(); cancelAnimationFrame(_raf); _raf = requestAnimationFrame(compute); }
+let _secF = null, _secMode = "";
+function change() { brouillon(); if (f !== _secF || f.mode !== _secMode) renderSections(); renderForm(); cancelAnimationFrame(_raf); _raf = requestAnimationFrame(compute); }
 
 /* ---------- Formulaire ---------- */
 const PILLS = { coches: ["24", "32", "36", "48"], poles: ["2", "4", "6", "8"] };
@@ -842,7 +896,7 @@ function initPills() {
 }
 function renderForm() {
   document.querySelectorAll("#segMode button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === f.mode));
-  ["nom", "connexion"].forEach(k => { if (document.activeElement !== $(k)) $(k).value = f[k]; });
+  ["nom"].forEach(k => { if (document.activeElement !== $(k)) $(k).value = f[k]; });
   ["coches", "poles"].forEach(k => {
     const inL = PILLS[k].includes(f[k]);
     document.querySelectorAll(`.pill[data-k="${k}"]`).forEach(b => b.classList.toggle("on", b.dataset.v === f[k]));
@@ -974,10 +1028,11 @@ function renderActions() {
   return (ess ? `<div class="calchip"><span>🎯 Calibré : bobine de pas ${ess[1]} = cran ${ess[2]}</span><button type="button" id="bUncal">retirer</button></div>` : "") +
   `<div class="actions" style="margin-top:14px">
     <button type="button" class="btn primary" id="bAtelier">${ico("play", "fill:currentColor;stroke:none")}Mode atelier — bobine par bobine</button>
-    <div class="row3">
+    <div class="row4">
       <button type="button" class="btn" id="bSave">${ico("save")}${curJob && jobs().some(j => j.id === curJob) ? "Mettre à jour" : "Enregistrer"}</button>
       <button type="button" class="btn" id="bPhoto">${ico("cam")}Photo</button>
       <button type="button" class="btn" id="bShare">${ico("share")}Partager</button>
+      <button type="button" class="btn" data-pdf>${ico("pdf")}Fiche PDF</button>
     </div>
     <div class="thumbs" id="photos"></div>
     <button type="button" class="btn ghost" id="bLearn">${ico("check")}J'ai bobiné ce moteur : noter les vrais crans</button>
@@ -991,10 +1046,11 @@ function renderDetails(res) {
     h += row("Pitch lu comme", esc(r.lecture)) + row("Pas polaire", f2(r.tau, 2) + " encoches") + row("Encoches / pôle / phase", f2(r.q, 2)) +
       row("Pas de bobine", `${r.span} (${f2(r.ratio * 100, 0)} %)`) + row("Facteur de bobinage", r.kw === null ? "n/d" : f2(r.kw, 3)) +
       row("Bobines au total", r.bobines) + row("Portée axiale", fp(r.portee)) +
+      (r.fil ? row("Fil à prévoir (estimé)", `${f2(r.fil.tot, 0)} m · ${f2(r.fil.masse * 2.20462, 1)} lb`) + row("Résistance par phase (estimée)", f2(r.fil.res, 3) + " Ω") : "") +
       `<div class="lbl" style="margin-top:12px">Schéma des phases (côté aller)</div>` + phases(r).split("\n").map(l => `<div class="ph">${esc(l)}</div>`).join("") +
       `<p class="mute">Chaque bobine revient ${r.span} encoches plus loin. Le signe − = sens inversé.</p>`;
   } else {
-    res.wins.forEach(X => { h += row(X.titre + " · pas des bobines", X.r.spans.join(", ")) + row(X.titre + " · bobines", `${X.r.bobines} (${X.r.bpp} par pôle)`); });
+    res.wins.forEach(X => { h += row(X.titre + " · pas des bobines", X.r.spans.join(", ")) + row(X.titre + " · bobines", `${X.r.bobines} (${X.r.bpp} par pôle)`) + (X.r.fil ? row(X.titre + " · fil à prévoir (estimé)", `${f2(X.r.fil.tot, 0)} m · ${f2(X.r.fil.masse * 2.20462, 1)} lb`) : ""); });
     h += row("Pas polaire", f2(r.tau, 2) + " encoches");
   }
   return h + `</div></details>`;
@@ -1011,6 +1067,8 @@ function ficheTexte(res) {
       m.g.map((x, i) => `Groupe ${i + 1} (pitch ${x.pitch}) : crans ${x.pos}${x.fiab ? "\n   " + x.fiab : ""}`).join("\n") + "\n" + (m.hors ? m.hors + "\n" : "");
   });
   if (res.wins[0].w === "t") t += `\nSchéma :\n${phases(res.wins[0].r)}\n`;
+  const od = texteOrigine(s); if (od) t += `\nDONNÉES D'ORIGINE\n${od}\n`;
+  const es = texteEssais(s); if (es) t += `\nESSAIS\n${es}\n`;
   return t + `\nEstimations à vérifier sur le moteur réel.`;
 }
 
@@ -1129,14 +1187,19 @@ document.addEventListener("click", e => {
   if (t.closest("#bUncal")) { f.essai = ""; change(); return; }
   if (t.closest("#bAtelier")) { ouvrirAtelier(); return; }
   if (t.closest("#bSave")) { enregistrer(); return; }
-  if (t.closest("#bPhoto")) { enregistrer(true); $("fPhoto").click(); return; }
+  if (t.closest("[data-pdf]")) { fichePDF(); return; }
+  if (t.closest("[data-mic]")) { ouvrirMic(t.closest("[data-mic]").dataset.mic); return; }
+  if (t.closest("[data-mv]")) { f.eMV = f.eMV === t.closest("[data-mv]").dataset.mv ? "" : t.closest("[data-mv]").dataset.mv; brouillon(); document.querySelectorAll("[data-mv]").forEach(b => b.classList.toggle("on", b.dataset.mv === f.eMV)); majVerdicts(); return; }
+  if (t.closest("#bPhoto,[data-photo]")) { enregistrer(true); $("fPhoto").click(); return; }
   if (t.closest("#bShare")) { partager(); return; }
   if (t.closest("#bLearn")) { ouvrirApprendre(); return; }
   const th = t.closest("#photos [data-doc]"); if (th) { ouvrirDoc(th.dataset.doc); return; }
 });
 document.addEventListener("input", e => {
   const t = e.target;
-  if (t.id === "nom" || t.id === "connexion") { f[t.id] = t.value; brouillon(); return; }
+  if (t.id === "nom") { f.nom = t.value; brouillon(); return; }
+  if (t.dataset.f) { const k = t.dataset.f; f[k] = t.value; brouillon(); majVerdicts(); if (/^[rs]?(tours|awg|fils|circ)$/.test(k)) { cancelAnimationFrame(_raf); _raf = requestAnimationFrame(compute); } return; }
+  if (t.dataset.shop) { const s = lire("bobinage:shop", {}); s[t.dataset.shop] = t.value; ecrire("bobinage:shop", s); return; }
   if (t.classList.contains("pill-in")) { f[t.dataset.k] = t.value.replace(/\D/g, ""); brouillon(); renderForm(); cancelAnimationFrame(_raf); _raf = requestAnimationFrame(compute); }
 });
 $("bNew").onclick = async () => {
@@ -1378,15 +1441,16 @@ $("segTheme").onclick = e => { const b = e.target.closest("[data-th]"); if (!b) 
 });
 $("bReset").onclick = () => { reg = Object.assign({}, DEF); ecrire("bobinage:reglages", reg); ["excForme", "nbCrans"].forEach(k => $("s_" + k).value = reg[k]); compute(); toast("Valeurs d'origine rétablies"); };
 
-const texteSauvegarde = () => JSON.stringify({ v: 1, date: new Date().toISOString(), travaux: jobs(), reglages: reg, categories: lire("bobinage:categories", null) || undefined, pref: lire("bobinage:pref", undefined), appris });
+const texteSauvegarde = () => JSON.stringify({ v: 1, date: new Date().toISOString(), travaux: jobs(), reglages: reg, categories: lire("bobinage:categories", null) || undefined, pref: lire("bobinage:pref", undefined), appris, shop: lire("bobinage:shop", undefined) });
+const marquerSauv = () => { ecrire("bobinage:dernSauv", Date.now()); majRappel(); };
 function telecharger(nom, contenu) {
   try { const u = URL.createObjectURL(new Blob([contenu], { type: "application/json" })), a = document.createElement("a"); a.href = u; a.download = nom; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(u); a.remove(); }, 1500); return true; } catch (e) { return false; }
 }
 $("bkFile").onclick = () => {
   const t = texteSauvegarde(), wv = /\bwv\b|; wv\)|Acode/i.test(navigator.userAgent);
-  if (!wv && telecharger("bobinage-sauvegarde-" + new Date().toISOString().slice(0, 10) + ".json", t)) { toast("Sauvegarde téléchargée"); return; }
+  if (!wv && telecharger("bobinage-sauvegarde-" + new Date().toISOString().slice(0, 10) + ".json", t)) { marquerSauv(); toast("Sauvegarde téléchargée"); return; }
   sheet(`<p class="sh-t">Copie ce texte</p><p class="sh-s">Garde-le dans une note ou un courriel.</p><textarea class="bk" readonly>${esc(t)}</textarea><button type="button" class="btn cu" style="width:100%" id="bkC">Copier</button>`,
-    c => { c.querySelector("#bkC").onclick = async () => { try { await navigator.clipboard.writeText(t); toast("Copié"); fermerSheet(); } catch (e) { c.querySelector("textarea").select(); } }; });
+    c => { c.querySelector("#bkC").onclick = async () => { try { await navigator.clipboard.writeText(t); marquerSauv(); toast("Copié"); fermerSheet(); } catch (e) { c.querySelector("textarea").select(); } }; });
 };
 $("bkRest").onclick = () => {
   sheet(`<p class="sh-t">Restaurer une sauvegarde</p><p class="sh-s">Choisis le fichier, ou colle le texte.</p><button type="button" class="btn" style="width:100%;margin-bottom:10px" id="rF">Choisir le fichier</button><textarea class="bk" id="rT" placeholder="…ou colle la sauvegarde ici"></textarea><button type="button" class="btn cu" style="width:100%" id="rOk">Restaurer</button>`,
@@ -1402,6 +1466,8 @@ async function restaurer(txt) {
   if (Array.isArray(o.appris)) { appris = o.appris.filter(x => x && isFinite(x.diam) && isFinite(x.L) && isFinite(x.W)); majAppris(); }
   if (Array.isArray(o.categories)) ecrire("bobinage:categories", o.categories.map(String));
   if (o.pref && typeof o.pref === "object") ecrire("bobinage:pref", o.pref);
+  if (o.shop && typeof o.shop === "object") { ecrire("bobinage:shop", o.shop); renderShop(); }
+  marquerSauv();
   toast("Sauvegarde restaurée"); infoStockage(); compute();
 }
 function infoStockage() {
@@ -1422,9 +1488,397 @@ function onglet(t) {
 document.querySelectorAll(".tabbar button").forEach(b => b.onclick = () => onglet(b.dataset.t));
 document.addEventListener("keydown", e => { if (e.key === "Escape") { if ($("sheet").classList.contains("open")) fermerSheet(); else if ($("viewer").classList.contains("open")) fermerDoc(); else if ($("atelier").classList.contains("open")) fermerAtelier(); } });
 
+
+/* ================================================================
+   DONNÉES D'ORIGINE · ESSAIS · RAPPEL DE SAUVEGARDE · FICHE PDF
+   ================================================================ */
+let openOrig = null, openEss = null;
+const remplie = keys => keys.some(k => String(f[k] || "").trim());
+const K_ORIG = ["hp", "volts", "amps", "rpm", "connexion", "tours", "awg", "fils", "circ", "rtours", "rawg", "rfils", "stours", "sawg", "sfils"];
+const K_ESS = ["eR1", "eR2", "eR3", "eRr", "eRs", "eM", "eI1", "eI2", "eI3", "eNote"];
+const fld = (k, lab, im = "decimal", ph = "") => `<label class="df"><span>${lab}</span><input data-f="${k}" type="text" inputmode="${im}" placeholder="${ph}" value="${esc(f[k])}" autocomplete="off"></label>`;
+const fldAwg = (k, ph) => `<label class="df"><span>Fil AWG<button type="button" class="mic" data-mic="${k}" aria-label="Mesurer au micromètre">Ø</button></span><input data-f="${k}" type="text" inputmode="numeric" placeholder="${ph}" value="${esc(f[k])}" autocomplete="off"></label>`;
+
+function renderSections() {
+  _secF = f; _secMode = f.mode;
+  const mono = f.mode === "1";
+  const oO = openOrig === null ? remplie(K_ORIG) : openOrig, oE = openEss === null ? remplie(K_ESS) : openEss;
+  const bob = mono
+    ? `<div class="wrow"><i style="background:var(--cu)"></i>Run</div><div class="dgrid g3">${fld("rtours", "Tours", "numeric", "40")}${fldAwg("rawg", "18")}${fld("rfils", "Fils //", "numeric", "1")}</div>
+       <div class="wrow"><i style="background:var(--bl)"></i>Start</div><div class="dgrid g3">${fld("stours", "Tours", "numeric", "30")}${fldAwg("sawg", "21")}${fld("sfils", "Fils //", "numeric", "1")}</div>`
+    : `<div class="dgrid g4">${fld("tours", "Tours", "numeric", "40")}${fldAwg("awg", "18")}${fld("fils", "Fils //", "numeric", "1")}${fld("circ", "Circuits", "numeric", "1")}</div>`;
+  $("secOrig").innerHTML = `<details class="det sec" id="dOrig"${oO ? " open" : ""}><summary><span class="st">${ico("clip")}Données d'origine</span><span class="sumtag" id="sumOrig"></span></summary><div>
+    <p class="mute" style="margin:0 0 12px">Au démontage, note tout avant de jeter le vieux fil. Ça bâtit ta banque à toi.</p>
+    <div class="lbl">Plaque</div>
+    <div class="dgrid g4">${fld("hp", "HP", "decimal", "1")}${fld("volts", "Volts", "text", "575")}${fld("amps", "Ampères", "decimal", "")}${fld("rpm", "RPM", "numeric", "1750")}</div>
+    <input data-f="connexion" class="line-in" style="margin:0 0 12px" type="text" placeholder="Connexion : étoile, triangle, 2 tensions…" list="dlConn" value="${esc(f.connexion)}" autocomplete="off">
+    <div class="lbl">Bobinage d'origine</div>
+    ${bob}
+    <button type="button" class="btn" data-photo style="width:100%">${ico("cam")}Photo de la plaque</button>
+  </div></details>`;
+  const R = mono
+    ? `<div class="lbl">Résistance (Ω)</div><div class="dgrid g2">${fld("eRr", "Run")}${fld("eRs", "Start")}</div>`
+    : `<div class="lbl">Résistance entre phases (Ω)</div><div class="dgrid g3">${fld("eR1", "U–V")}${fld("eR2", "V–W")}${fld("eR3", "W–U")}</div><div id="vR"></div>`;
+  const I = mono
+    ? `<div class="dgrid g1">${fld("eI1", "Ampères")}</div>`
+    : `<div class="dgrid g3">${fld("eI1", "L1")}${fld("eI2", "L2")}${fld("eI3", "L3")}</div>`;
+  $("secEss").innerHTML = `<details class="det sec" id="dEss"${oE ? " open" : ""}><summary><span class="st">${ico("bolt")}Essais après bobinage</span><span class="sumtag" id="sumEss"></span></summary><div>
+    ${R}
+    <div class="lbl">Isolement (megger)</div>
+    <div class="dgrid g2">${fld("eM", "MΩ", "decimal", "ex. 2000")}<label class="df"><span>Tension d'essai</span><div class="chipsel">${["500", "1000"].map(v => `<button type="button" data-mv="${v}" class="${f.eMV === v ? "on" : ""}">${v} V</button>`).join("")}</div></label></div>
+    <div id="vM"></div>
+    <div class="lbl">Courant à vide (A)</div>
+    ${I}<div id="vI"></div>
+    <input data-f="eNote" class="line-in" style="margin:0 0 12px" type="text" placeholder="Remarques (facultatif)" value="${esc(f.eNote)}" autocomplete="off">
+    <button type="button" class="btn cu" data-pdf style="width:100%">${ico("pdf")}Fiche client PDF</button>
+  </div></details>`;
+  $("dOrig").addEventListener("toggle", e => openOrig = e.target.open);
+  $("dEss").addEventListener("toggle", e => openEss = e.target.open);
+  majVerdicts();
+}
+
+/* ---------- Verdicts des essais ---------- */
+function lireMes(v) {
+  const t = String(v || "").trim().toLowerCase().replace(",", ".");
+  if (!t) return null;
+  if (/∞|inf|ol|^>/.test(t)) { const n = parseFloat(t.replace(/[^\d.]/g, "")); return { v: isNaN(n) ? Infinity : n, plus: true }; }
+  const n = parseFloat(t); return isNaN(n) ? null : { v: n };
+}
+const ecartPct = a => { const m = a.reduce((x, y) => x + y, 0) / a.length; return { m, d: Math.max(...a.map(x => Math.abs(x - m))) / m * 100 }; };
+function evalEssais(s) {
+  const o = {}, mono = s.mode === "1";
+  if (!mono) {
+    const R = [s.eR1, s.eR2, s.eR3].map(lireMes);
+    if (R.every(x => x && x.v > 0 && isFinite(x.v))) {
+      const { d } = ecartPct(R.map(x => x.v)); o.Rd = d;
+      o.R = d <= 1 ? ["ok", `Équilibré : écart de ${f2(d, 1)} % avec la moyenne.`] : d <= 3 ? ["est", `Écart de ${f2(d, 1)} % : vérifie les connexions et le nombre de tours.`] : ["bad", `Écart de ${f2(d, 1)} % : déséquilibre. Vérifie tours, connexions ou spires en court-circuit.`];
+    }
+  }
+  const M = lireMes(s.eM);
+  if (M) o.M = M.v < 5 ? ["bad", `Sous le minimum IEEE 43 (5 MΩ). Ne pas mettre en service.`] : M.v < 50 ? ["est", `Au-dessus du minimum (5 MΩ), mais bas pour un bobinage neuf : vérifie l'humidité et le vernis.`] : ["ok", `Isolement excellent.`];
+  const Iv = (mono ? [s.eI1] : [s.eI1, s.eI2, s.eI3]).map(lireMes);
+  if (Iv.every(x => x && x.v > 0 && isFinite(x.v))) {
+    const { m, d } = ecartPct(Iv.map(x => x.v)), A = parseFloat(String(s.amps).replace(",", "."));
+    const pct = A > 0 ? ` · ${Math.round(m / A * 100)} % du courant de plaque` : "";
+    if (!mono) { o.Id = d; o.I = d <= 5 ? ["ok", `Courants équilibrés (écart ${f2(d, 1)} %)${pct}.`] : d <= 10 ? ["est", `Écart de ${f2(d, 1)} % entre les phases${pct}. Acceptable, à surveiller.`] : ["bad", `Écart de ${f2(d, 1)} % entre les phases${pct} : à vérifier.`]; }
+    else if (pct) o.I = ["info", `Courant à vide${pct}.`];
+  }
+  return o;
+}
+const vHTML = v => v ? `<div class="verdict ${v[0]}"><i></i><span>${esc(v[1])}</span></div>` : "";
+function majVerdicts() {
+  const o = evalEssais(f);
+  if ($("vR")) $("vR").innerHTML = vHTML(o.R);
+  if ($("vM")) $("vM").innerHTML = vHTML(o.M);
+  if ($("vI")) $("vI").innerHTML = vHTML(o.I);
+  const cls = [o.R, o.M, o.I].filter(x => x && x[0] !== "info").map(x => x[0]);
+  const se = $("sumEss");
+  if (se) {
+    se.className = "sumtag " + (cls.includes("bad") ? "bad" : cls.includes("est") ? "est" : cls.length ? "ok" : "");
+    se.textContent = cls.includes("bad") ? "⚠ à corriger" : cls.includes("est") ? "à vérifier" : cls.length ? "✔ conforme" : "";
+  }
+  const so = $("sumOrig");
+  if (so) {
+    const mono = f.mode === "1", p = [];
+    if (f.hp) p.push(f.hp + " HP"); if (f.volts) p.push(f.volts + " V");
+    const t = mono ? f.rtours : f.tours, a = mono ? f.rawg : f.awg;
+    if (t) p.push(t + " tours"); if (a) p.push("AWG " + a);
+    so.textContent = p.join(" · ");
+  }
+}
+
+/* ---------- Micromètre → AWG (dans un champ) ---------- */
+function awgDe(dIn) {
+  let g0 = 18, bd = 999, d0 = 0;
+  for (let g = 8; g <= 40; g++) { const d = 0.005 * Math.pow(92, (36 - g) / 39); if (Math.abs(d - dIn) < bd) { bd = Math.abs(d - dIn); g0 = g; d0 = d; } }
+  return { g: g0, d: d0 };
+}
+function ouvrirMic(key) {
+  let u = "in";
+  sheet(`<p class="sh-t">Mesure du fil au micromètre</p><p class="sh-s">Mesure le fil nu (sans l'émail si possible).</p>
+    <div class="awg"><input id="mcV" type="text" inputmode="decimal" placeholder="0.0403" autocomplete="off"><div class="seg sm" id="mcU" style="margin:0"><button type="button" data-u="in" aria-pressed="true">po</button><button type="button" data-u="mm">mm</button></div></div>
+    <div class="disp vide" id="mcR" style="margin:14px 0">—</div>
+    <button type="button" class="btn cu" id="mcOk" style="width:100%" disabled>Utiliser</button>`, c => {
+    let g = null;
+    const maj = () => {
+      const v = parseFloat(String(c.querySelector("#mcV").value).replace(",", "."));
+      if (!(v > 0)) { g = null; c.querySelector("#mcR").className = "disp vide"; c.querySelector("#mcR").textContent = "—"; c.querySelector("#mcOk").disabled = true; return; }
+      let dIn = u === "mm" ? v / 25.4 : v; if (u === "in" && dIn > 1.5) dIn /= 1000;
+      const r = awgDe(dIn); g = r.g;
+      c.querySelector("#mcR").className = "disp"; c.querySelector("#mcR").innerHTML = `AWG ${g}`;
+      c.querySelector("#mcOk").disabled = false; c.querySelector("#mcOk").textContent = `Utiliser AWG ${g}`;
+    };
+    c.querySelector("#mcV").oninput = maj;
+    c.querySelector("#mcU").onclick = e => { const b = e.target.closest("[data-u]"); if (!b) return; u = b.dataset.u; c.querySelectorAll("#mcU button").forEach(x => x.setAttribute("aria-pressed", x === b)); maj(); };
+    c.querySelector("#mcOk").onclick = () => { if (g === null) return; f[key] = String(g); fermerSheet(); renderSections(); brouillon(); compute(); };
+    setTimeout(() => c.querySelector("#mcV").focus(), 250);
+  });
+}
+
+/* ---------- Textes (partage) ---------- */
+function texteOrigine(s) {
+  const L = [], pl = [s.hp && s.hp + " HP", s.volts && s.volts + " V", s.amps && s.amps + " A", s.rpm && s.rpm + " RPM"].filter(Boolean);
+  if (pl.length) L.push("Plaque : " + pl.join(", "));
+  const b = (t, a, fl, c) => [t && t + " tours/bobine", a && "AWG " + a + (fl > 1 ? " × " + fl + " fils" : ""), c > 1 && c + " circuits"].filter(Boolean).join(", ");
+  if (s.mode === "1") { const r = b(s.rtours, s.rawg, +s.rfils), t = b(s.stours, s.sawg, +s.sfils); if (r) L.push("Run : " + r); if (t) L.push("Start : " + t); }
+  else { const r = b(s.tours, s.awg, +s.fils, +s.circ); if (r) L.push("Bobinage : " + r); }
+  return L.join("\n");
+}
+function texteEssais(s) {
+  const o = evalEssais(s), L = [], V = { ok: "conforme", est: "à vérifier", bad: "NON CONFORME", info: "" };
+  if (s.mode === "1") { if (s.eRr || s.eRs) L.push(`Résistance : run ${s.eRr || "—"} Ω, start ${s.eRs || "—"} Ω`); }
+  else if (s.eR1 || s.eR2 || s.eR3) L.push(`Résistance U-V / V-W / W-U : ${s.eR1 || "—"} / ${s.eR2 || "—"} / ${s.eR3 || "—"} Ω${o.R ? " → " + V[o.R[0]] : ""}`);
+  if (s.eM) L.push(`Isolement : ${s.eM} MΩ${s.eMV ? " à " + s.eMV + " V" : ""}${o.M ? " → " + V[o.M[0]] : ""}`);
+  const I = [s.eI1, s.eI2, s.eI3].filter(Boolean);
+  if (I.length) L.push(`Courant à vide : ${I.join(" / ")} A${o.I && V[o.I[0]] ? " → " + V[o.I[0]] : ""}`);
+  if (s.eNote && s.eNote.trim()) L.push("Remarques : " + s.eNote.trim());
+  return L.join("\n");
+}
+
+/* ---------- Rappel de sauvegarde ---------- */
+function majRappel() {
+  const box = $("bkBanner"); if (!box) return;
+  const a = jobs().length + appris.length, last = lire("bobinage:dernSauv", 0), plusTard = lire("bobinage:rappelPlusTard", 0), now = Date.now();
+  const jours = last ? Math.floor((now - last) / 864e5) : null;
+  if (!a || now < plusTard || (last && jours < 30)) { box.innerHTML = ""; return; }
+  box.innerHTML = `<div class="banner"><span class="bi">${ico("save")}</span><div class="bt"><b>Pense à sauvegarder</b>${last ? `Dernière sauvegarde il y a ${jours} jours.` : "Tes travaux sont seulement sur ce téléphone."}</div><div class="bb"><button type="button" class="go" id="rbGo">Sauvegarder</button><button type="button" class="later" id="rbLater">Plus tard</button></div></div>`;
+  $("rbGo").onclick = () => $("bkFile").click();
+  $("rbLater").onclick = () => { ecrire("bobinage:rappelPlusTard", now + 7 * 864e5); majRappel(); };
+}
+
+/* ---------- Ma shop ---------- */
+function renderShop() {
+  const s = lire("bobinage:shop", {}) || {};
+  $("shopForm").innerHTML = `<div class="shopf">
+    <input data-shop="nom" type="text" placeholder="Nom de la shop" value="${esc(s.nom)}" autocomplete="organization">
+    <input data-shop="tel" type="tel" placeholder="Téléphone" value="${esc(s.tel)}" autocomplete="tel">
+    <input data-shop="adresse" type="text" placeholder="Adresse" value="${esc(s.adresse)}" autocomplete="street-address">
+    <input data-shop="mention" type="text" placeholder="Mention au bas (ex. Garantie 1 an pièces et main-d'œuvre)" value="${esc(s.mention)}">
+    <div class="logorow"><span class="logobox">${s.logo ? `<img src="${s.logo.d}" alt="">` : "LOGO"}</span><div style="display:flex;flex-direction:column;gap:6px;flex:1"><button type="button" class="btn" id="lgPick">${s.logo ? "Changer le logo" : "Ajouter ton logo"}</button>${s.logo ? `<button type="button" class="link" id="lgDel" style="align-self:flex-start">retirer le logo</button>` : ""}</div></div>
+  </div>`;
+  $("lgPick").onclick = () => $("fLogo").click();
+  if ($("lgDel")) $("lgDel").onclick = () => { const x = lire("bobinage:shop", {}); delete x.logo; ecrire("bobinage:shop", x); renderShop(); };
+}
+$("fLogo").onchange = e => {
+  const fl = e.target.files && e.target.files[0]; e.target.value = ""; if (!fl) return;
+  const u = URL.createObjectURL(fl), im = new Image();
+  im.onload = () => {
+    const k = Math.min(1, 360 / Math.max(im.width, im.height)), c = document.createElement("canvas");
+    c.width = Math.max(1, Math.round(im.width * k)); c.height = Math.max(1, Math.round(im.height * k));
+    const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(im, 0, 0, c.width, c.height);
+    URL.revokeObjectURL(u);
+    const x = lire("bobinage:shop", {}) || {}; x.logo = { d: c.toDataURL("image/jpeg", 0.88), w: c.width, h: c.height };
+    if (!ecrire("bobinage:shop", x)) toast("Logo trop lourd pour cet appareil"); renderShop();
+  };
+  im.onerror = () => { URL.revokeObjectURL(u); toast("Image illisible"); };
+  im.src = u;
+};
+
+/* ---------- Générateur PDF (aucune librairie, marche hors ligne) ---------- */
+const HW = {
+  r: "278 278 355 556 556 889 667 191 333 333 389 584 278 333 278 278 556 556 556 556 556 556 556 556 556 556 278 278 584 584 584 556 1015 667 667 722 722 667 611 778 722 278 500 667 556 833 722 778 667 778 722 667 611 722 667 944 667 667 611 278 278 278 469 556 333 556 556 500 556 556 278 556 556 222 222 500 222 833 556 556 556 556 333 500 278 556 500 722 500 500 500 334 260 334 584".split(" ").map(Number),
+  b: "278 333 474 556 556 889 722 238 333 333 389 584 278 333 278 278 556 556 556 556 556 556 556 556 556 556 333 333 584 584 584 611 975 722 722 722 722 667 611 778 722 278 556 722 611 833 722 778 667 778 722 667 611 722 667 944 667 667 611 333 278 333 584 556 333 556 611 556 611 556 333 611 611 278 278 556 278 889 611 611 611 611 389 556 333 611 556 778 556 556 500 389 280 389 584".split(" ").map(Number)
+};
+const WIN = { "€": 0x80, "‚": 0x82, "…": 0x85, "‘": 0x91, "’": 0x92, "“": 0x93, "”": 0x94, "•": 0x95, "–": 0x96, "—": 0x97, "™": 0x99, "œ": 0x9c, "Œ": 0x8c };
+function sanPDF(s) {
+  return String(s ?? "").replace(/MΩ/g, "Mohms").replace(/Ω/g, "ohms").replace(/[″"]/g, '"').replace(/[′]/g, "'").replace(/[−]/g, "-").replace(/Δ/g, "D").replace(/[≈]/g, "~").replace(/→/g, "->").replace(/[✔🎯⚠]/g, "").replace(/ | /g, " ");
+}
+function largeurTxt(s, size, b) {
+  let w = 0; const T = b ? HW.b : HW.r;
+  for (const ch of s) { const base = ch.normalize("NFD")[0], c = base.charCodeAt(0); w += (c >= 32 && c <= 126) ? T[c - 32] : 556; }
+  return w * size / 1000;
+}
+function chainePDF(s) {
+  let o = "";
+  for (const ch of s) {
+    const c = ch.codePointAt(0);
+    let b = c < 128 ? c : (c >= 160 && c <= 255) ? c : WIN[ch];
+    if (b === undefined) { const base = ch.normalize("NFD")[0].charCodeAt(0); b = base < 256 ? base : 63; }
+    if (b === 40 || b === 41 || b === 92) o += "\\" + String.fromCharCode(b);
+    else if (b < 32 || b > 126) o += "\\" + b.toString(8).padStart(3, "0");
+    else o += String.fromCharCode(b);
+  }
+  return o;
+}
+function creerPage() {
+  const H = 792, ops = [], C = v => v.map(x => (x / 255).toFixed(3)).join(" ");
+  const P = {
+    ops,
+    txt(x, y, s, size, o = {}) {
+      s = sanPDF(s); const w = largeurTxt(s, size, o.b);
+      if (o.al === "r") x -= w; else if (o.al === "c") x -= w / 2;
+      ops.push(`BT /${o.b ? "F2" : "F1"} ${size} Tf ${C(o.c || [29, 24, 18])} rg ${x.toFixed(2)} ${(H - y).toFixed(2)} Td (${chainePDF(s)}) Tj ET`);
+      return w;
+    },
+    wrap(s, size, max, b) {
+      const mots = sanPDF(s).split(/\s+/), L = []; let cur = "";
+      mots.forEach(m => { const t = cur ? cur + " " + m : m; if (largeurTxt(t, size, b) > max && cur) { L.push(cur); cur = m; } else cur = t; });
+      if (cur) L.push(cur); return L;
+    },
+    rr(x, y, w, h, r, fill, stroke) {
+      const k = 0.5523 * r, X = x, Y = H - y - h;
+      ops.push(`${fill ? C(fill) + " rg" : ""} ${stroke ? C(stroke) + " RG 0.8 w" : ""} ${X + r} ${Y} m ${X + w - r} ${Y} l ${X + w - r + k} ${Y} ${X + w} ${Y + r - k} ${X + w} ${Y + r} c ${X + w} ${Y + h - r} l ${X + w} ${Y + h - r + k} ${X + w - r + k} ${Y + h} ${X + w - r} ${Y + h} c ${X + r} ${Y + h} l ${X + r - k} ${Y + h} ${X} ${Y + h - r + k} ${X} ${Y + h - r} c ${X} ${Y + r} l ${X} ${Y + r - k} ${X + r - k} ${Y} ${X + r} ${Y} c h ${fill && stroke ? "B" : fill ? "f" : "S"}`);
+    },
+    ln(x1, y1, x2, y2, c, w = 0.8) { ops.push(`${C(c)} RG ${w} w ${x1} ${H - y1} m ${x2} ${H - y2} l S`); },
+    dot(x, y, r, c) { this.rr(x - r, y - r, 2 * r, 2 * r, r, c); },
+    img(x, y, w, h) { ops.push(`q ${w.toFixed(2)} 0 0 ${h.toFixed(2)} ${x.toFixed(2)} ${(H - y - h).toFixed(2)} cm /Im1 Do Q`); }
+  };
+  return P;
+}
+function assemblerPDF(contenu, jpeg) {
+  const te = new TextEncoder(), parts = [], offs = [];
+  let n = 0; const push = x => { const b = typeof x === "string" ? te.encode(x) : x; parts.push(b); n += b.length; };
+  push("%PDF-1.4\n%\xE2\xE3\xCF\xD3\n");
+  const objs = [
+    "<< /Type /Catalog /Pages 2 0 R >>",
+    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+    `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >>${jpeg ? " /XObject << /Im1 7 0 R >>" : ""} >> /Contents 4 0 R >>`,
+    null,
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>",
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>"
+  ];
+  const cb = te.encode(contenu);
+  objs.forEach((o, i) => {
+    offs.push(n); push(`${i + 1} 0 obj\n`);
+    if (o === null) { push(`<< /Length ${cb.length} >>\nstream\n`); push(cb); push("\nendstream"); } else push(o);
+    push("\nendobj\n");
+  });
+  if (jpeg) {
+    offs.push(n); push(`7 0 obj\n<< /Type /XObject /Subtype /Image /Width ${jpeg.w} /Height ${jpeg.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.bytes.length} >>\nstream\n`);
+    push(jpeg.bytes); push("\nendstream\nendobj\n");
+  }
+  const xref = n, cnt = offs.length + 1;
+  push(`xref\n0 ${cnt}\n0000000000 65535 f \n` + offs.map(o => String(o).padStart(10, "0") + " 00000 n \n").join("") + `trailer\n<< /Size ${cnt} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`);
+  const out = new Uint8Array(n); let p = 0; parts.forEach(b => { out.set(b, p); p += b.length; });
+  return out;
+}
+
+function construireFiche(s, shop) {
+  const P = creerPage(), CU = [196, 98, 27], INK = [29, 24, 18], MUTE = [128, 118, 107], BG = [248, 244, 238], LINE = [230, 221, 209];
+  const VC = { ok: [15, 125, 102], est: [168, 98, 15], bad: [179, 38, 30] }, VT = { ok: "Conforme", est: "À vérifier", bad: "Non conforme" };
+  const M = 40, W = 612 - 2 * M, mono = s.mode === "1";
+  let jpeg = null;
+  P.rr(0, 0, 612, 7, 0, CU);
+  let x = M;
+  if (shop.logo && shop.logo.d) {
+    const bin = atob(shop.logo.d.split(",")[1]), bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    jpeg = { bytes, w: shop.logo.w, h: shop.logo.h };
+    const k = Math.min(120 / shop.logo.w, 58 / shop.logo.h), w = shop.logo.w * k, h = shop.logo.h * k;
+    P.img(M, 28 + (58 - h) / 2, w, h); x = M + w + 14;
+  }
+  P.txt(x, 48, shop.nom || "Atelier de bobinage", 17, { b: true });
+  const info = [shop.tel, shop.adresse].filter(Boolean);
+  info.forEach((l, i) => P.txt(x, 63 + i * 12, l, 9, { c: MUTE }));
+  P.txt(612 - M, 46, "FICHE DE REBOBINAGE", 12.5, { b: true, c: CU, al: "r" });
+  P.txt(612 - M, 61, "N° " + (curJob ? curJob.slice(-6) : "—"), 9, { c: MUTE, al: "r" });
+  P.txt(612 - M, 73, new Date().toLocaleDateString("fr-CA", { year: "numeric", month: "long", day: "numeric" }), 9, { c: MUTE, al: "r" });
+  P.ln(M, 98, 612 - M, 98, LINE, 1);
+
+  P.txt(M, 128, s.nom.trim() || "Moteur", 18, { b: true });
+  P.txt(M, 145, [mono ? "Monophasé" : "Triphasé", s.coches && s.coches + " encoches", s.poles && s.poles + " pôles", s.connexion.trim()].filter(Boolean).join("  ·  "), 10, { c: MUTE });
+
+  const boite = (bx, by, bw, titre, rows, cols = 1) => {
+    rows = rows.filter(r => r[1] !== "" && r[1] != null);
+    if (!rows.length) rows = [["Non inscrit", ""]];
+    const parCol = Math.ceil(rows.length / cols), h = 30 + parCol * 17 + 6, cw = (bw - 28 - (cols - 1) * 24) / cols;
+    P.rr(bx, by, bw, h, 9, BG);
+    P.txt(bx + 14, by + 19, titre.toUpperCase(), 8, { b: true, c: CU });
+    rows.forEach((r, i) => {
+      const c = Math.floor(i / parCol), ry = by + 38 + (i % parCol) * 17, cx = bx + 14 + c * (cw + 24);
+      P.txt(cx, ry, r[0], 9.5, { c: MUTE });
+      P.txt(cx + cw, ry, String(r[1]), 10, { b: true, al: "r" });
+      if (i % parCol < parCol - 1 && i < rows.length - 1) P.ln(cx, ry + 6, cx + cw, ry + 6, LINE, 0.5);
+    });
+    return h;
+  };
+  const mes = v => { const x = lirePouces(v); return isNaN(x) ? "" : fpFrac(x) + '"'; };
+  const filTxt = (a, fl) => a ? `AWG ${a}${+fl > 1 ? " × " + fl : ""}` : "";
+  let y = 166, hw = (W - 12) / 2;
+  const h1 = boite(M, y, hw, "Plaque du moteur", [["Puissance", s.hp && s.hp + " HP"], ["Tension", s.volts && s.volts + " V"], ["Courant", s.amps && s.amps + " A"], ["Vitesse", s.rpm && s.rpm + " RPM"]]);
+  const h2 = boite(M + hw + 12, y, hw, "Stator", [["Encoches", s.coches], ["Pôles", s.poles], ["Diamètre intérieur", mes(s.diam)], ["Longueur du fer", mes(s.longueur)]]);
+  y += Math.max(h1, h2) + 12;
+  if (mono) {
+    const a = boite(M, y, hw, "Bobinage · run", [["Pitch", s.rpitch], ["Tours par bobine", s.rtours], ["Fil", filTxt(s.rawg, s.rfils)]]);
+    const b = boite(M + hw + 12, y, hw, "Bobinage · start", [["Pitch", s.spitch], ["Tours par bobine", s.stours], ["Fil", filTxt(s.sawg, s.sfils)]]);
+    y += Math.max(a, b) + 12;
+  } else {
+    y += boite(M, y, W, "Bobinage", [["Pitch", s.pitch], ["Tours par bobine", s.tours], ["Fil", filTxt(s.awg, s.fils)], ["Circuits parallèles", +s.circ > 1 ? s.circ : ""]], 2) + 12;
+  }
+  // Essais
+  const o = evalEssais(s), E = [];
+  if (mono) { if (s.eRr || s.eRs) E.push(["Résistance run / start", `${s.eRr || "—"} / ${s.eRs || "—"} ohms`, null]); }
+  else if (s.eR1 || s.eR2 || s.eR3) E.push(["Résistance U-V / V-W / W-U", `${s.eR1 || "—"} / ${s.eR2 || "—"} / ${s.eR3 || "—"} ohms`, o.R ? [o.R[0], `${VT[o.R[0]]} (écart ${f2(o.Rd, 1)} %)`] : null]);
+  if (s.eM) E.push(["Isolement (megger)", `${s.eM} Mohms${s.eMV ? " à " + s.eMV + " V" : ""}`, o.M ? [o.M[0], VT[o.M[0]] + (o.M[0] === "bad" ? " (min. 5 Mohms)" : "")] : null]);
+  const I = (mono ? [s.eI1] : [s.eI1, s.eI2, s.eI3]).filter(Boolean);
+  if (I.length) E.push(["Courant à vide", I.join(" / ") + " A", o.I && o.I[0] !== "info" ? [o.I[0], `${VT[o.I[0]]} (écart ${f2(o.Id, 1)} %)`] : null]);
+  const he = 30 + Math.max(1, E.length) * 20 + 6;
+  P.rr(M, y, W, he, 9, BG);
+  P.txt(M + 14, y + 19, "ESSAIS APRÈS BOBINAGE", 8, { b: true, c: CU });
+  if (!E.length) P.txt(M + 14, y + 40, "Essais non inscrits", 9.5, { c: MUTE });
+  E.forEach((e, i) => {
+    const ry = y + 40 + i * 20;
+    P.txt(M + 14, ry, e[0], 9.5, { c: MUTE });
+    P.txt(M + 190, ry, e[1], 10, { b: true });
+    if (e[2]) { const tw = largeurTxt(sanPDF(e[2][1]), 9.5, true), xr = M + W - 14; P.txt(xr, ry, e[2][1], 9.5, { b: true, c: VC[e[2][0]], al: "r" }); P.dot(xr - tw - 8, ry - 3.4, 3.6, VC[e[2][0]]); }
+    if (i < E.length - 1) P.ln(M + 14, ry + 7, M + W - 14, ry + 7, LINE, 0.5);
+  });
+  y += he + 12;
+  if (s.eNote && s.eNote.trim()) {
+    const L = P.wrap(s.eNote.trim(), 10, W - 28).slice(0, 6), h = 30 + L.length * 14 + 4;
+    P.rr(M, y, W, h, 9, BG);
+    P.txt(M + 14, y + 19, "REMARQUES", 8, { b: true, c: CU });
+    L.forEach((l, i) => P.txt(M + 14, y + 38 + i * 14, l, 10));
+    y += h + 12;
+  }
+  // Signature + mention
+  const ys = Math.max(y + 30, 700);
+  P.txt(M, ys, "Vérifié par", 9, { c: MUTE }); P.ln(M + 58, ys + 2, M + 250, ys + 2, [190, 180, 168]);
+  P.txt(M + 282, ys, "Date", 9, { c: MUTE }); P.ln(M + 308, ys + 2, M + W, ys + 2, [190, 180, 168]);
+  if (shop.mention) P.wrap(shop.mention, 8.5, W).slice(0, 2).forEach((l, i) => P.txt(306, ys + 30 + i * 11, l, 8.5, { c: MUTE, al: "c" }));
+  return assemblerPDF(P.ops.join("\n"), jpeg);
+}
+
+async function livrerPDF(bytes, nom) {
+  const blob = new Blob([bytes], { type: "application/pdf" });
+  const tactile = window.matchMedia && matchMedia("(pointer:coarse)").matches;
+  if (tactile) {
+    try { const file = new File([blob], nom, { type: "application/pdf" }); if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: nom }); return; } }
+    catch (e) { if (e.name === "AbortError") return; }
+  }
+  const u = URL.createObjectURL(blob), a = document.createElement("a");
+  a.href = u; a.download = nom; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(u); a.remove(); }, 5000);
+  toast("Fiche PDF prête");
+}
+function fichePDF() {
+  const shop = lire("bobinage:shop", {}) || {};
+  if (!shop.nom) {
+    sheet(`<p class="sh-t">Ta shop sur la fiche</p><p class="sh-s">Une seule fois. Tu pourras changer ça dans Outils.</p>
+      <div class="shopf"><input id="spN" type="text" placeholder="Nom de la shop" autocomplete="organization"><input id="spT" type="tel" placeholder="Téléphone" autocomplete="tel"></div>
+      <div class="row2" style="margin-top:14px"><button type="button" class="btn" id="spX">Plus tard</button><button type="button" class="btn cu" id="spOk">Continuer</button></div>`, c => {
+      c.querySelector("#spX").onclick = () => { fermerSheet(); genererPDF({}); };
+      c.querySelector("#spOk").onclick = () => { const x = lire("bobinage:shop", {}) || {}; x.nom = c.querySelector("#spN").value.trim(); x.tel = c.querySelector("#spT").value.trim(); ecrire("bobinage:shop", x); renderShop(); fermerSheet(); genererPDF(x); };
+      setTimeout(() => c.querySelector("#spN").focus(), 250);
+    });
+    return;
+  }
+  genererPDF(shop);
+}
+function genererPDF(shop) {
+  enregistrer(true);
+  try {
+    const bytes = construireFiche(saisie(), shop);
+    const nom = "fiche-" + ((f.nom || "moteur").trim().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^\w-]+/g, "_").slice(0, 40) || "moteur") + ".pdf";
+    livrerPDF(bytes, nom);
+  } catch (e) { toast("Impossible de créer le PDF"); console.error(e); }
+}
 /* ---------- Démarrage ---------- */
 appliquerTheme(lire("bobinage:theme", ""));
 initPills();
+renderSections();
+renderShop();
+majRappel();
 renderForm();
 compute();
 calcMic();
